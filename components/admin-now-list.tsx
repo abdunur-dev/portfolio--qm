@@ -227,10 +227,10 @@ function NowForm({
               if (filePreview) return
               setError("Couldn't load that URL — the host may be blocking it. Try uploading the file instead.")
             }}
-            className="h-32 w-full rounded-lg border border-border/60 object-cover"
+            className="aspect-[3/2] w-full rounded-lg border border-border/60 object-cover"
           />
         ) : (
-          <div className="flex h-32 items-center justify-center rounded-lg border border-dashed border-border/60 text-xs text-muted-foreground">
+          <div className="flex aspect-[3/2] w-full items-center justify-center rounded-lg border border-dashed border-border/60 text-xs text-muted-foreground">
             No image yet
           </div>
         )}

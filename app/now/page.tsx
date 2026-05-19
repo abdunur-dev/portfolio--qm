@@ -117,7 +117,7 @@ export default async function NowPage() {
                     <img
                       src={s.cover_url}
                       alt={`${s.label} image`}
-                      className="mb-5 aspect-[16/9] w-full rounded-xl border border-border/60 object-cover"
+                      className="mb-5 aspect-[3/2] w-full rounded-xl border border-border/60 object-cover"
                     />
                   )}
                   <ul className="space-y-3">
