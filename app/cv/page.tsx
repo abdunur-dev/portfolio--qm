@@ -16,20 +16,17 @@ type Entry = {
   title: string
   org?: string
   desc?: string
-  href?: string
 }
 
 const experience: Entry[] = [
   {
     range: "2024 — present",
     title: "Frontend Lead, TibebChain",
-    href: "https://tibebchain.com",
     desc: "Leading the frontend for an NFT publishing platform built for African creators. Smart-contract integration on Base & Scroll, design system, marketplace UX, and creator onboarding flows.",
   },
   {
     range: "2024 — present",
     title: "Organiser & Speaker, v0 IRL Addis Ababa",
-    href: "https://v0.app",
     desc: "Hosting v0 IRL community events in Ethiopia — gathering local devs, designers, and founders for talks, hackathons, and hands-on workshops on shipping with v0, AI-assisted product building, and modern Next.js. Partnering with Vercel and v0 to bring the global community to Addis.",
   },
   {
@@ -48,19 +45,16 @@ const projects: Entry[] = [
   {
     range: "2024 — present",
     title: "TibebChain",
-    href: "https://tibebchain.com",
     desc: "An NFT publishing platform giving African creators a self-serve way to mint, distribute, and monetize their work on-chain.",
   },
   {
     range: "2024",
     title: "VibeVerse",
-    href: "/all",
     desc: "A 3D NFT marketplace exploring spatial commerce — browsing collections inside an interactive, scrollable 3D world.",
   },
   {
     range: "2024",
     title: "GuardHer AI",
-    href: "/all",
     desc: "An AI safety tool that filters harmful content — focused on protecting women and vulnerable users in online spaces.",
   },
 ]
@@ -70,7 +64,6 @@ const events: Entry[] = [
     range: "2024 — present",
     title: "v0 IRL Addis Ababa",
     org: "Host & Organiser",
-    href: "https://v0.app",
     desc: "A community event series partnered with Vercel and v0 to gather Ethiopian developers, designers, and founders. Curated speaker lineups, hackathons, and workshops to grow the local AI and Web3 builder scene.",
   },
 ]
@@ -138,7 +131,6 @@ function Section({
 }
 
 function EntryRow({ e }: { e: Entry }) {
-  const TitleEl = e.href ? "a" : "span"
   return (
     <div className="grid gap-1 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:py-2">
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-foreground/70">
@@ -146,24 +138,7 @@ function EntryRow({ e }: { e: Entry }) {
       </p>
       <div>
         <p className="font-serif text-lg leading-snug text-foreground sm:text-xl">
-          <TitleEl
-            {...(e.href
-              ? {
-                  href: e.href,
-                  target: e.href.startsWith("http") ? "_blank" : undefined,
-                  rel: e.href.startsWith("http") ? "noreferrer" : undefined,
-                  className:
-                    "group inline-flex items-baseline gap-1.5 underline decoration-foreground/30 decoration-1 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary",
-                }
-              : {})}
-          >
-            {e.title}
-            {e.href && (
-              <span className="font-mono text-[11px] text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
-                ↗
-              </span>
-            )}
-          </TitleEl>
+          {e.title}
           {e.org && (
             <span className="text-foreground/60">
               {" "}
