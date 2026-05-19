@@ -26,7 +26,14 @@ export function SiteNav() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-3 z-40 w-full px-3 sm:top-4 sm:px-4">
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:border focus:border-primary/60 focus:bg-background focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:text-foreground focus:shadow-lg focus:outline-none"
+      >
+        Skip to content
+      </a>
+      <header className="sticky top-3 z-40 w-full px-3 sm:top-4 sm:px-4">
       <div className="mx-auto flex w-full max-w-4xl items-center justify-between gap-3 rounded-full border border-border/50 bg-background/55 px-4 py-2 shadow-[0_1px_0_0_color-mix(in_oklch,var(--foreground)_6%,transparent)_inset,0_8px_24px_-12px_color-mix(in_oklch,var(--foreground)_18%,transparent)] backdrop-blur-xl supports-[backdrop-filter]:bg-background/40 sm:px-5 sm:py-2.5">
         <NavWordmark />
 
@@ -90,5 +97,6 @@ export function SiteNav() {
         </div>
       </div>
     </header>
+    </>
   )
 }

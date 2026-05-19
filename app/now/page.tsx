@@ -87,7 +87,7 @@ export default async function NowPage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-4xl px-5 pb-24 sm:px-6 sm:pb-32">
+        <main id="main" className="mx-auto w-full max-w-4xl px-5 pb-24 sm:px-6 sm:pb-32">
           <section className="pt-4 pb-10 sm:pb-12">
             <AnimatedHeading text="now." className="text-5xl sm:text-6xl md:text-7xl" accentLast />
             <FadeUp delay={0.35}>
@@ -108,8 +108,8 @@ export default async function NowPage() {
           <div className="space-y-12">
             {sections.map((s, i) => (
               <FadeUp key={`${s.label}-${i}`} delay={0.1 + i * 0.06}>
-                <section className="relative border-t border-border/60 pt-6">
-                  <h2 className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground sm:absolute sm:-left-24 sm:top-6 sm:mb-0">
+                <section className="relative border-t border-border/60 pt-6 md:pl-32 lg:pl-0">
+                  <h2 className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground md:absolute md:left-0 md:top-6 md:mb-0 md:w-24 lg:-left-28">
                     {s.label}
                   </h2>
                   {s.cover_url && (

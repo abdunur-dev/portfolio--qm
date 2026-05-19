@@ -210,15 +210,18 @@ export default function CvPage() {
           <SiteNav />
         </div>
 
-        <main className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 print:max-w-full print:px-0 print:pt-0 print:pb-0">
+        <main
+          id="main"
+          className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 print:max-w-full print:px-0 print:pt-0 print:pb-0"
+        >
           {/* Header */}
           <FadeUp>
-            <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-12 print:grid-cols-[1fr_auto] print:gap-6">
+            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12 print:grid-cols-[1fr_auto] print:gap-6">
               <div>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-[10px]">
                   curriculum vitae
                 </p>
-                <h1 className="mt-3 font-serif text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl print:mt-1 print:text-3xl">
+                <h1 className="mt-3 font-serif text-4xl leading-[0.95] tracking-tight text-foreground sm:text-5xl md:text-6xl print:mt-1 print:text-3xl">
                   Abdurhaman Nur<span className="text-primary">.</span>
                 </h1>
                 <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-foreground/75 print:mt-1 print:max-w-none print:text-[10.5px] print:leading-snug">
@@ -230,20 +233,20 @@ export default function CvPage() {
               </div>
 
               {/* Right column: links only */}
-              <div className="flex flex-col gap-4 sm:min-w-[220px] sm:items-end print:min-w-[180px] print:items-end print:gap-2">
-                <ul className="flex flex-col gap-1.5 sm:items-end print:items-end print:gap-0.5">
+              <div className="flex flex-col gap-4 md:min-w-[220px] md:items-end print:min-w-[180px] print:items-end print:gap-2">
+                <ul className="flex flex-col gap-1.5 md:items-end print:items-end print:gap-0.5">
                   {socialLinks.map((l) => (
                     <li key={l.label}>
                       <a
                         href={l.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="group inline-flex items-baseline gap-2 font-mono text-xs text-foreground/85 transition-colors hover:text-primary print:text-[10px]"
+                        className="group inline-flex items-baseline gap-2 font-mono text-xs text-foreground/85 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background print:text-[10px]"
                       >
                         <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground print:text-[8.5px] print:text-foreground/70">
                           {l.label}
                         </span>
-                        <span className="underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
+                        <span className="break-all underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
                           {l.href
                             .replace(/^mailto:/, "")
                             .replace(/^https?:\/\//, "")
