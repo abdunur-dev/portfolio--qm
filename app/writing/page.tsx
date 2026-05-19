@@ -4,14 +4,51 @@ import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
-import { posts } from "@/lib/posts-data"
+import { posts as staticPosts } from "@/lib/posts-data"
+import { createClient } from "@/lib/supabase/server"
+import type { Post as DbPost } from "@/lib/types"
 
-const grouped = posts.reduce<Record<number, typeof posts>>((acc, p) => {
-  ;(acc[p.year] ||= []).push(p)
-  return acc
-}, {})
+export const dynamic = "force-dynamic"
 
-export default function WritingPage() {
+type ListPost = {
+  title: string
+  slug: string
+  date: string
+  year: number
+  excerpt: string
+  reading: string
+  href?: string | null
+}
+
+export default async function WritingPage() {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("published", true)
+    .order("year", { ascending: false })
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: false })
+
+  const dbPosts = (data ?? []) as DbPost[]
+
+  const posts: ListPost[] =
+    dbPosts.length > 0
+      ? dbPosts.map((p) => ({
+          title: p.title,
+          slug: p.slug,
+          date: p.date_label,
+          year: p.year,
+          excerpt: p.excerpt,
+          reading: p.reading,
+          href: p.href,
+        }))
+      : staticPosts
+
+  const grouped = posts.reduce<Record<number, ListPost[]>>((acc, p) => {
+    ;(acc[p.year] ||= []).push(p)
+    return acc
+  }, {})
   const years = Object.keys(grouped).map(Number).sort((a, b) => b - a)
 
   return (
@@ -33,6 +70,14 @@ export default function WritingPage() {
               </p>
             </FadeUp>
           </section>
+
+          {posts.length === 0 && (
+            <FadeUp>
+              <p className="font-mono text-sm text-muted-foreground">
+                Nothing published yet — come back soon.
+              </p>
+            </FadeUp>
+          )}
 
           {years.map((year, yi) => (
             <section key={year} className="relative mb-16">
@@ -61,13 +106,15 @@ export default function WritingPage() {
                             {post.date}
                           </span>
                         </div>
-                        <p className="mt-2 max-w-2xl pl-4 text-pretty text-sm leading-relaxed text-foreground/70">
-                          {post.excerpt}
-                        </p>
+                        {post.excerpt && (
+                          <p className="mt-2 max-w-2xl pl-4 text-pretty text-sm leading-relaxed text-foreground/70">
+                            {post.excerpt}
+                          </p>
+                        )}
                         <div className="mt-3 flex items-center gap-3 pl-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                          <span>{post.reading}</span>
-                          <span aria-hidden>·</span>
-                          <span className="sm:hidden">{post.date}</span>
+                          {post.reading && <span>{post.reading}</span>}
+                          {post.reading && post.date && <span aria-hidden>·</span>}
+                          {post.date && <span className="sm:hidden">{post.date}</span>}
                           <span className="ml-auto inline-flex items-center gap-1 text-foreground/60 transition-all group-hover:translate-x-1 group-hover:text-primary">
                             read <span aria-hidden>→</span>
                           </span>
@@ -79,14 +126,6 @@ export default function WritingPage() {
               </ul>
             </section>
           ))}
-
-          <FadeUp delay={0.2}>
-            <p className="mt-12 font-mono text-xs text-muted-foreground">
-              more soon. an RSS feed lives at{" "}
-              <span className="text-foreground/70">/feed.xml</span> when these
-              are real.
-            </p>
-          </FadeUp>
         </main>
         <SiteFooter />
       </div>

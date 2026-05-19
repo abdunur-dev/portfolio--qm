@@ -4,8 +4,12 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
+import { createClient } from "@/lib/supabase/server"
+import type { NowSection as DbNowSection } from "@/lib/types"
 
-const sections = [
+export const dynamic = "force-dynamic"
+
+const STATIC_SECTIONS: { label: string; items: string[] }[] = [
   {
     label: "building",
     items: [
@@ -47,8 +51,31 @@ const sections = [
   },
 ]
 
-export default function NowPage() {
-  const updated = "May 2026"
+export default async function NowPage() {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("now_sections")
+    .select("*")
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: true })
+
+  const dbSections = (data ?? []) as DbNowSection[]
+
+  const sections =
+    dbSections.length > 0
+      ? dbSections.map((s) => ({ label: s.label, items: s.items, updated: s.updated_at }))
+      : STATIC_SECTIONS.map((s) => ({ ...s, updated: undefined }))
+
+  const latestUpdate = dbSections.length
+    ? dbSections.reduce<string | undefined>(
+        (acc, s) => (!acc || s.updated_at > acc ? s.updated_at : acc),
+        undefined,
+      )
+    : undefined
+
+  const updatedLabel = latestUpdate
+    ? new Date(latestUpdate).toLocaleString("en-US", { month: "short", year: "numeric" })
+    : "May 2026"
 
   return (
     <div className="relative min-h-screen">
@@ -68,14 +95,14 @@ export default function NowPage() {
             </FadeUp>
             <FadeUp delay={0.5}>
               <p className="mt-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                last updated · {updated}
+                last updated · {updatedLabel}
               </p>
             </FadeUp>
           </section>
 
           <div className="space-y-12">
             {sections.map((s, i) => (
-              <FadeUp key={s.label} delay={0.1 + i * 0.06}>
+              <FadeUp key={`${s.label}-${i}`} delay={0.1 + i * 0.06}>
                 <section className="relative border-t border-border/60 pt-6">
                   <h2 className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground sm:absolute sm:-left-24 sm:top-6 sm:mb-0">
                     {s.label}

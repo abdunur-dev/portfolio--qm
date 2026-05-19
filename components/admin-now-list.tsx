@@ -1,0 +1,236 @@
+"use client"
+
+import { useState, useTransition } from "react"
+import { motion, AnimatePresence } from "motion/react"
+import { Plus, Pencil, Sparkles } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  createNowSection,
+  updateNowSection,
+  deleteNowSection,
+  seedNowSections,
+} from "@/app/admin/content-actions"
+import type { NowSection } from "@/lib/types"
+
+export function AdminNowList({ sections }: { sections: NowSection[] }) {
+  const [creating, setCreating] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [seeding, startSeed] = useTransition()
+  const [seedError, setSeedError] = useState<string | null>(null)
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          {sections.length} {sections.length === 1 ? "section" : "sections"} on /now
+        </p>
+        <Button
+          onClick={() => {
+            setEditingId(null)
+            setCreating((v) => !v)
+          }}
+          variant={creating ? "secondary" : "default"}
+        >
+          <Plus className={`mr-1 h-4 w-4 transition-transform ${creating ? "rotate-45" : ""}`} />
+          {creating ? "Close" : "New section"}
+        </Button>
+      </div>
+
+      <AnimatePresence initial={false}>
+        {creating && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <div className="rounded-2xl border border-border/60 bg-card/60 p-6 backdrop-blur-sm">
+              <h3 className="mb-4 font-serif text-2xl">New section</h3>
+              <NowForm mode="create" onDone={() => setCreating(false)} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <ul className="divide-y divide-border/60 rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
+        {sections.length === 0 && (
+          <li className="px-6 py-12 text-center">
+            <p className="text-sm text-muted-foreground">
+              No sections yet. Click <span className="text-foreground">New section</span>, or import the defaults.
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-4"
+              disabled={seeding}
+              onClick={() => {
+                setSeedError(null)
+                startSeed(async () => {
+                  const res = await seedNowSections()
+                  if (res?.error) setSeedError(res.error)
+                })
+              }}
+            >
+              <Sparkles className="mr-1.5 h-3.5 w-3.5" />
+              {seeding ? "Importing…" : "Import default sections"}
+            </Button>
+            {seedError && <p className="mt-3 text-xs text-destructive">{seedError}</p>}
+          </li>
+        )}
+
+        {sections.map((s) => {
+          const isEditing = editingId === s.id
+          return (
+            <li key={s.id} className="px-6 py-5">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">
+                    {s.label}
+                  </h3>
+                  <ul className="mt-2 space-y-1 text-sm text-foreground/75">
+                    {s.items.slice(0, 3).map((it, i) => (
+                      <li key={i} className="line-clamp-1">· {it}</li>
+                    ))}
+                    {s.items.length > 3 && (
+                      <li className="text-xs text-muted-foreground">+ {s.items.length - 3} more</li>
+                    )}
+                  </ul>
+                </div>
+                <div className="flex shrink-0 items-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setCreating(false)
+                      setEditingId(isEditing ? null : s.id)
+                    }}
+                  >
+                    <Pencil className="mr-1 h-3.5 w-3.5" />
+                    {isEditing ? "Close" : "Edit"}
+                  </Button>
+                  <DeleteNowButton id={s.id} />
+                </div>
+              </div>
+
+              <AnimatePresence initial={false}>
+                {isEditing && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-4 rounded-xl border border-border/60 bg-background/40 p-5">
+                      <NowForm mode="edit" initial={s} onDone={() => setEditingId(null)} />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
+function NowForm({
+  initial,
+  mode,
+  onDone,
+}: {
+  initial?: NowSection
+  mode: "create" | "edit"
+  onDone?: () => void
+}) {
+  const [pending, startTransition] = useTransition()
+  const [error, setError] = useState<string | null>(null)
+
+  function handleSubmit(formData: FormData) {
+    setError(null)
+    startTransition(async () => {
+      const res =
+        mode === "create"
+          ? await createNowSection(formData)
+          : await updateNowSection(initial!.id, formData)
+      if (res?.error) {
+        setError(res.error)
+        return
+      }
+      onDone?.()
+    })
+  }
+
+  return (
+    <form action={handleSubmit} className="grid gap-5">
+      <div className="grid gap-4 sm:grid-cols-[1fr_8rem]">
+        <div className="grid gap-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Label</Label>
+          <Input
+            name="label"
+            defaultValue={initial?.label ?? ""}
+            required
+            placeholder="building, learning, reading…"
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Order</Label>
+          <Input name="position" type="number" defaultValue={initial?.position ?? 0} />
+        </div>
+      </div>
+
+      <div className="grid gap-2">
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+          Items (one per line)
+        </Label>
+        <Textarea
+          name="items"
+          rows={6}
+          defaultValue={initial?.items?.join("\n") ?? ""}
+          placeholder={`Polishing TibebChain…\nSketching a tiny invoicing tool…`}
+          className="resize-none"
+        />
+      </div>
+
+      {error && <p className="text-sm text-destructive">{error}</p>}
+
+      <div className="flex items-center justify-end gap-2 border-t border-border/60 pt-4">
+        {onDone && (
+          <Button type="button" variant="ghost" onClick={onDone} disabled={pending}>
+            Cancel
+          </Button>
+        )}
+        <Button type="submit" disabled={pending}>
+          {pending ? "Saving…" : mode === "create" ? "Add section" : "Save changes"}
+        </Button>
+      </div>
+    </form>
+  )
+}
+
+function DeleteNowButton({ id }: { id: string }) {
+  const [pending, startTransition] = useTransition()
+  return (
+    <Button
+      type="button"
+      variant="ghost"
+      size="sm"
+      disabled={pending}
+      onClick={() => {
+        if (!confirm("Delete this section? This cannot be undone.")) return
+        startTransition(async () => {
+          await deleteNowSection(id)
+        })
+      }}
+      className="text-muted-foreground hover:text-destructive"
+    >
+      {pending ? "Deleting…" : "Delete"}
+    </Button>
+  )
+}
