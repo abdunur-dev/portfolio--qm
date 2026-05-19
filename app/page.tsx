@@ -16,7 +16,24 @@ export default function HomePage() {
         <SiteNav />
         <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-6 sm:py-16">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
+            {/* Image first on mobile, second on desktop */}
+            <FadeUp delay={0.3} className="order-first lg:order-last">
+              <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
+                <div className="relative aspect-[9/11] w-full">
+                  <Image
+                    src="/images/burhan-portrait.jpg"
+                    alt="Burhan presenting at the v0 IRL event in Addis Ababa"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 360px, 100vw"
+                    className="object-cover grayscale"
+                  />
+                </div>
+              </figure>
+            </FadeUp>
+
+            {/* Text content second on mobile, first on desktop */}
+            <div className="order-last lg:order-first">
               <AnimatedHeading
                 text="Hi, I'm Burhan_"
                 className="text-5xl sm:text-6xl md:text-7xl"
@@ -38,7 +55,7 @@ export default function HomePage() {
                 <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
                   find me elsewhere
                 </p>
-                <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-2">
                   {socialLinks.map((l) => (
                     <li key={l.label}>
                       <a
@@ -59,21 +76,6 @@ export default function HomePage() {
                 </ul>
               </FadeUp>
             </div>
-
-            <FadeUp delay={0.3}>
-              <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
-                <div className="relative aspect-[9/11] w-full">
-                  <Image
-                    src="/images/burhan-portrait.jpg"
-                    alt="Burhan presenting at the v0 IRL event in Addis Ababa"
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 360px, 100vw"
-                    className="object-cover grayscale"
-                  />
-                </div>
-              </figure>
-            </FadeUp>
           </div>
 
           <FadeUp delay={0.6}>
