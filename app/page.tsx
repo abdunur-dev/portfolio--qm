@@ -14,70 +14,66 @@ export default function HomePage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-6 sm:py-16">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
-              <AnimatedHeading
-                text="Hi, I'm Burhan_"
-                className="text-5xl sm:text-6xl md:text-7xl"
-              />
+        <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-6 sm:py-12">
+          <AnimatedHeading
+            text="Hi, I'm Burhan_"
+            className="text-5xl sm:text-6xl md:text-7xl"
+          />
 
-              <FadeUp delay={0.4}>
-                <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/75">
-                  <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
-                  welcome to my little corner of the internet — pull up a chair,
-                  the coffee&apos;s on me. I tinker with{" "}
-                  <span className="font-serif italic">decentralised apps</span>,
-                  ship modern web experiences, and occasionally write about the
-                  quiet places where design, code, and faith overlap
-                  <FloatingSparkle className="ml-2 inline-block" />
-                </p>
-              </FadeUp>
+          <FadeUp delay={0.4}>
+            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/75">
+              <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
+              welcome to my little corner of the internet — pull up a chair,
+              the coffee&apos;s on me. I tinker with{" "}
+              <span className="font-serif italic">decentralised apps</span>,
+              ship modern web experiences, and occasionally write about the
+              quiet places where design, code, and faith overlap
+              <FloatingSparkle className="ml-2 inline-block" />
+            </p>
+          </FadeUp>
 
-              <FadeUp delay={0.5}>
-                <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                  find me elsewhere
-                </p>
-                <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-2">
-                  {socialLinks.map((l) => (
-                    <li key={l.label}>
-                      <a
-                        href={l.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
-                      >
-                        <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
-                          {l.label}
-                        </span>
-                        <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
-                          ↗
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </FadeUp>
-            </div>
+          <FadeUp delay={0.5}>
+            <figure className="mt-10 overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/burhan-portrait.jpg"
+                  alt="Burhan presenting at the v0 IRL event in Addis Ababa"
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 720px, 100vw"
+                  className="object-cover grayscale"
+                />
+              </div>
+            </figure>
+          </FadeUp>
 
-            <FadeUp delay={0.3}>
-              <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
-                <div className="relative aspect-[9/11] w-full">
-                  <Image
-                    src="/images/burhan-portrait.jpg"
-                    alt="Burhan presenting at the v0 IRL event in Addis Ababa"
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 360px, 100vw"
-                    className="object-cover grayscale"
-                  />
-                </div>
-              </figure>
-            </FadeUp>
-          </div>
+          <FadeUp delay={0.55}>
+            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              find me elsewhere
+            </p>
+            <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {socialLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
+                  >
+                    <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
+                      {l.label}
+                    </span>
+                    <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
+                      ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </FadeUp>
 
           <FadeUp delay={0.6}>
-            <div className="mt-16 grid gap-3 sm:grid-cols-2">
+            <div className="mt-10 grid gap-3 sm:grid-cols-2">
               <Link
                 href="/all"
                 className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70"

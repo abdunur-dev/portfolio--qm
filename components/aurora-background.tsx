@@ -1,14 +1,46 @@
 "use client"
 
-import { motion } from "motion/react"
+import { useEffect } from "react"
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react"
 
 /**
  * Ambient animated background:
  *  - subtle pixel/dot grid layer
  *  - drifting blurred orbs
+ *  - cursor-following spotlight orb
  *  - faint SVG noise grain
  */
 export function AuroraBackground() {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const sx = useSpring(mouseX, { stiffness: 60, damping: 20, mass: 0.6 })
+  const sy = useSpring(mouseY, { stiffness: 60, damping: 20, mass: 0.6 })
+  const cx = useTransform(sx, (v) => v - 256)
+  const cy = useTransform(sy, (v) => v - 256)
+
+  useEffect(() => {
+    // Initialize on mount so SSR/CSR start identical (both 0).
+    mouseX.set(window.innerWidth / 2)
+    mouseY.set(window.innerHeight / 2)
+
+    const handleMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+    const handleTouch = (e: TouchEvent) => {
+      const t = e.touches[0]
+      if (!t) return
+      mouseX.set(t.clientX)
+      mouseY.set(t.clientY)
+    }
+    window.addEventListener("mousemove", handleMove)
+    window.addEventListener("touchmove", handleTouch, { passive: true })
+    return () => {
+      window.removeEventListener("mousemove", handleMove)
+      window.removeEventListener("touchmove", handleTouch)
+    }
+  }, [mouseX, mouseY])
+
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <div className="absolute inset-0 bg-background" />
@@ -56,6 +88,16 @@ export function AuroraBackground() {
           />
         ))}
       </div>
+
+      <motion.div
+        className="absolute h-[32rem] w-[32rem] rounded-full opacity-50 blur-3xl mix-blend-screen"
+        style={{
+          x: cx,
+          y: cy,
+          background:
+            "radial-gradient(circle, color-mix(in oklch, var(--foreground) 22%, transparent) 0%, transparent 60%)",
+        }}
+      />
 
       <motion.div
         className="absolute -top-40 -left-40 h-[36rem] w-[36rem] rounded-full opacity-40 blur-3xl"
