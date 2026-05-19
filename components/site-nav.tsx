@@ -10,8 +10,8 @@ export function SiteNav() {
   ]
 
   return (
-    <header className="mx-auto w-full max-w-3xl px-6 pt-10">
-      <div className="flex items-center justify-between pb-5">
+    <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/70 backdrop-blur-md supports-[backdrop-filter]:bg-background/55">
+      <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-4">
         <Link href="/" className="group flex items-baseline gap-2">
           <span className="font-serif text-3xl leading-none tracking-tight text-foreground">
             Burhan_
@@ -39,7 +39,6 @@ export function SiteNav() {
           <ThemeToggle />
         </div>
       </div>
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
     </header>
   )
 }
