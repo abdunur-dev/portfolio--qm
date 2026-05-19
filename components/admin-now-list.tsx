@@ -158,6 +158,8 @@ function NowForm({
 }) {
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+  const [urlPreview, setUrlPreview] = useState<string>(initial?.cover_url ?? "")
+  const [filePreview, setFilePreview] = useState<string | null>(null)
 
   function handleSubmit(formData: FormData) {
     setError(null)
@@ -173,6 +175,8 @@ function NowForm({
       onDone?.()
     })
   }
+
+  const previewSrc = filePreview || urlPreview || initial?.cover_url || null
 
   return (
     <form action={handleSubmit} encType="multipart/form-data" className="grid gap-5">
@@ -210,33 +214,61 @@ function NowForm({
           <Label className="text-xs uppercase tracking-wider text-muted-foreground">
             Section image (optional)
           </Label>
-          {initial?.cover_url && (
-            <span className="font-mono text-[10px] text-muted-foreground">current attached</span>
+          {previewSrc && (
+            <span className="font-mono text-[10px] text-muted-foreground">preview</span>
           )}
         </div>
-        {initial?.cover_url && (
+        {previewSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={initial.cover_url}
+            src={previewSrc || "/placeholder.svg"}
             alt=""
+            onError={() => {
+              if (filePreview) return
+              setError("Couldn't load that URL — the host may be blocking it. Try uploading the file instead.")
+            }}
             className="h-32 w-full rounded-lg border border-border/60 object-cover"
           />
+        ) : (
+          <div className="flex h-32 items-center justify-center rounded-lg border border-dashed border-border/60 text-xs text-muted-foreground">
+            No image yet
+          </div>
         )}
         <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
           <Input
             name="cover_url"
             defaultValue={initial?.cover_url ?? ""}
             placeholder="Or paste an image URL"
+            onChange={(e) => {
+              setError(null)
+              setFilePreview(null)
+              setUrlPreview(e.currentTarget.value.trim())
+            }}
           />
           <Input
             name="cover_file"
             type="file"
             accept="image/*"
+            onChange={(e) => {
+              setError(null)
+              const f = e.currentTarget.files?.[0]
+              if (!f) {
+                setFilePreview(null)
+                return
+              }
+              if (f.size > 5 * 1024 * 1024) {
+                setError("Image must be under 5MB")
+                e.currentTarget.value = ""
+                setFilePreview(null)
+                return
+              }
+              setFilePreview(URL.createObjectURL(f))
+            }}
             className="cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-xs file:text-secondary-foreground"
           />
         </div>
         <p className="font-mono text-[10px] text-muted-foreground">
-          Upload an image (max 5MB) or paste a URL. Upload wins if both are filled.
+          Upload an image (max 5MB) or paste a public URL. Upload wins if both are filled.
         </p>
       </div>
 
