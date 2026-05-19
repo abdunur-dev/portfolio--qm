@@ -57,6 +57,7 @@ export type NowSection = {
   user_id: string
   label: string
   items: string[]
+  cover_url: string | null
   position: number
   created_at: string
   updated_at: string
