@@ -211,28 +211,9 @@ export default function CvPage() {
         </div>
 
         <main className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 print:max-w-full print:px-0 print:pt-0 print:pb-0">
-          {/* PRINT-ONLY contact bar at top — links only */}
-          <div className="hidden print:block">
-            <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-foreground/60 pb-2 font-mono text-[10px] text-foreground">
-              {socialLinks.map((l) => (
-                <li key={l.label} className="flex items-center gap-1.5">
-                  <span className="uppercase tracking-[0.15em] text-foreground/60">
-                    {l.label}
-                  </span>
-                  <span>
-                    {l.href
-                      .replace(/^mailto:/, "")
-                      .replace(/^https?:\/\//, "")
-                      .replace(/\/$/, "")}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Header */}
           <FadeUp>
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between print:mt-3 print:gap-2">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between print:gap-2">
               <div>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-[10px]">
                   curriculum vitae
@@ -240,7 +221,7 @@ export default function CvPage() {
                 <h1 className="mt-3 font-serif text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl print:mt-1 print:text-3xl">
                   Abdurhaman Nur<span className="text-primary">.</span>
                 </h1>
-                <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-foreground/75 print:mt-1 print:text-[10.5px] print:leading-snug">
+                <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-foreground/75 print:mt-1 print:max-w-none print:text-[10.5px] print:leading-snug">
                   Web3 &amp; full-stack developer based in Addis Ababa, also
                   known as Burhan online. I build dApps, design systems, and
                   modern web experiences — and occasionally write about the
@@ -250,6 +231,34 @@ export default function CvPage() {
 
               <PrintCvButton />
             </div>
+          </FadeUp>
+
+          {/* Links */}
+          <FadeUp delay={0.05}>
+            <Section label="Links">
+              <ul className="flex flex-col gap-1.5 print:gap-0.5">
+                {socialLinks.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group inline-flex items-baseline gap-3 font-mono text-sm text-foreground/85 transition-colors hover:text-primary print:text-[10.5px]"
+                    >
+                      <span className="w-20 shrink-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:w-16 print:text-[9px] print:text-foreground/70">
+                        {l.label}
+                      </span>
+                      <span className="underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
+                        {l.href
+                          .replace(/^mailto:/, "")
+                          .replace(/^https?:\/\//, "")
+                          .replace(/\/$/, "")}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Section>
           </FadeUp>
 
           {/* Experience */}
@@ -274,22 +283,11 @@ export default function CvPage() {
             </Section>
           </FadeUp>
 
-          {/* Events */}
+          {/* Events / Communities */}
           <FadeUp delay={0.05}>
             <Section label="Events">
               <div className="divide-y divide-foreground/20 print:divide-foreground/40">
                 {events.map((e) => (
-                  <EntryRow key={e.title + e.range} e={e} />
-                ))}
-              </div>
-            </Section>
-          </FadeUp>
-
-          {/* Certifications */}
-          <FadeUp delay={0.05}>
-            <Section label="Certifications">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                {certifications.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
               </div>
@@ -339,34 +337,15 @@ export default function CvPage() {
             </Section>
           </FadeUp>
 
-          {/* Elsewhere — on screen only (links live at the top in print) */}
+          {/* Certifications */}
           <FadeUp delay={0.05}>
-            <div className="print:hidden">
-              <Section label="Elsewhere">
-                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {socialLinks.map((l) => (
-                    <li key={l.label}>
-                      <a
-                        href={l.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
-                      >
-                        <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
-                          {l.label}
-                        </span>
-                        <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
-                          {l.href
-                            .replace(/^mailto:/, "")
-                            .replace(/^https?:\/\//, "")
-                            .replace(/\/$/, "")}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </Section>
-            </div>
+            <Section label="Certifications">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
+                {certifications.map((e) => (
+                  <EntryRow key={e.title + e.range} e={e} />
+                ))}
+              </div>
+            </Section>
           </FadeUp>
         </main>
 
