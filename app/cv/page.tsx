@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
 import { PrintCvButton } from "@/components/print-cv-button"
+import { socialLinks } from "@/lib/social-links"
 
 export const metadata: Metadata = {
   title: "CV · Abdurhaman Nur",
@@ -31,7 +32,7 @@ const experience: Entry[] = [
   },
   {
     range: "2022 — 2024",
-    title: "Full-Stack & Smart Contract Developer, Freelance / Indie",
+    title: "Full-Stack & Smart Contract Developer, Freelance",
     desc: "Shipped dApps on Base and Scroll with TypeScript and Solidity. Built design systems and frontends for early-stage startups across Web3, productivity, and AI.",
   },
   {
@@ -278,6 +279,31 @@ export default function CvPage() {
                   </div>
                 </div>
               </div>
+            </Section>
+          </FadeUp>
+
+          {/* Elsewhere — social links */}
+          <FadeUp delay={0.05}>
+            <Section label="Elsewhere">
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 print:grid-cols-2 print:gap-1">
+                {socialLinks.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70 print:rounded-none print:border-0 print:border-b print:border-foreground/20 print:bg-transparent print:px-0 print:py-1.5 print:backdrop-blur-none"
+                    >
+                      <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
+                        {l.label}
+                      </span>
+                      <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary print:text-foreground/70">
+                        {l.href.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </Section>
           </FadeUp>
         </main>
