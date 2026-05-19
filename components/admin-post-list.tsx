@@ -24,19 +24,26 @@ export function AdminPostList({ posts }: { posts: Post[] }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">
-          {posts.length} {posts.length === 1 ? "post" : "posts"}
-        </p>
+      <div className="flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            Writing
+          </p>
+          <p className="text-sm text-foreground">
+            {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </p>
+        </div>
         <Button
           onClick={() => {
             setEditingId(null)
             setCreating((v) => !v)
           }}
           variant={creating ? "secondary" : "default"}
+          size="lg"
+          className="shadow-sm"
         >
-          <Plus className={`mr-1 h-4 w-4 transition-transform ${creating ? "rotate-45" : ""}`} />
-          {creating ? "Close" : "New post"}
+          <Plus className={`mr-1.5 h-4 w-4 transition-transform ${creating ? "rotate-45" : ""}`} />
+          {creating ? "Close" : "Add new post"}
         </Button>
       </div>
 

@@ -23,19 +23,26 @@ export function AdminNowList({ sections }: { sections: NowSection[] }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">
-          {sections.length} {sections.length === 1 ? "section" : "sections"} on /now
-        </p>
+      <div className="flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            Now page
+          </p>
+          <p className="text-sm text-foreground">
+            {sections.length} {sections.length === 1 ? "section" : "sections"}
+          </p>
+        </div>
         <Button
           onClick={() => {
             setEditingId(null)
             setCreating((v) => !v)
           }}
           variant={creating ? "secondary" : "default"}
+          size="lg"
+          className="shadow-sm"
         >
-          <Plus className={`mr-1 h-4 w-4 transition-transform ${creating ? "rotate-45" : ""}`} />
-          {creating ? "Close" : "New section"}
+          <Plus className={`mr-1.5 h-4 w-4 transition-transform ${creating ? "rotate-45" : ""}`} />
+          {creating ? "Close" : "Add new section"}
         </Button>
       </div>
 
