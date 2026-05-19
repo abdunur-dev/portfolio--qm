@@ -6,13 +6,13 @@ import { motion } from "motion/react"
 const segments = [
   { text: "Bur", tone: "solid" as const },
   { text: "han", tone: "muted" as const },
-  { text: "_", tone: "accent" as const },
+  { text: "_", tone: "soft" as const },
 ]
 
-const toneClass: Record<"solid" | "muted" | "accent", string> = {
+const toneClass: Record<"solid" | "muted" | "soft", string> = {
   solid: "text-foreground",
   muted: "text-foreground/55",
-  accent: "text-primary",
+  soft: "text-foreground/40",
 }
 
 export function NavWordmark() {
@@ -39,12 +39,12 @@ export function NavWordmark() {
             <motion.span
               className="inline-block"
               animate={
-                seg.tone === "accent"
-                  ? { opacity: [1, 0.55, 1] }
+                seg.tone === "soft"
+                  ? { opacity: [0.4, 0.85, 0.4] }
                   : undefined
               }
               transition={
-                seg.tone === "accent"
+                seg.tone === "soft"
                   ? { duration: 2.4, repeat: Infinity, ease: "easeInOut" }
                   : undefined
               }
