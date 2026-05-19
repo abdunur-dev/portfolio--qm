@@ -206,7 +206,7 @@ export default function CvPage() {
         <AuroraBackground />
       </div>
       <div className="relative z-10">
-        <div className="print:hidden">
+        <div className="contents print:hidden">
           <SiteNav />
         </div>
 
@@ -344,7 +344,7 @@ export default function CvPage() {
           </div>
         </main>
 
-        <div className="print:hidden">
+        <div className="contents print:hidden">
           <SiteFooter />
         </div>
       </div>
