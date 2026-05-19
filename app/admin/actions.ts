@@ -1,10 +1,10 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import type { ProjectKind, ProjectStatus } from "@/lib/types"
 import { projectsByYear } from "@/lib/projects-data"
+import { requireAdmin } from "@/lib/auth/require-admin"
 
 const COVER_BUCKET = "project-covers"
 
@@ -16,21 +16,22 @@ function parseStack(raw: FormDataEntryValue | null): string[] {
     .filter(Boolean)
 }
 
-async function uploadCoverIfPresent(formData: FormData): Promise<string | null | undefined> {
+async function uploadCoverIfPresent(
+  formData: FormData,
+  userId: string,
+): Promise<string | null | undefined> {
   const file = formData.get("cover_file")
   if (!(file instanceof File) || file.size === 0) return undefined
   if (file.size > 5 * 1024 * 1024) {
     throw new Error("Cover image must be under 5MB")
   }
+  if (!file.type.startsWith("image/")) {
+    throw new Error("Cover must be an image")
+  }
 
   const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) throw new Error("Not authenticated")
-
-  const ext = (file.name.split(".").pop() || "jpg").toLowerCase()
-  const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
+  const safeExt = ["jpg", "jpeg", "png", "webp", "avif", "gif"].includes(ext) ? ext : "jpg"
+  const path = `${userId}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${safeExt}`
 
   const { error: uploadError } = await supabase.storage
     .from(COVER_BUCKET)
@@ -72,18 +73,15 @@ function readForm(formData: FormData) {
 }
 
 export async function createProject(formData: FormData) {
+  const user = await requireAdmin()
   const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) redirect("/auth/login")
 
   const payload = readForm(formData)
   if (!payload.title) return { error: "Title is required" }
 
   let uploadedUrl: string | null | undefined
   try {
-    uploadedUrl = await uploadCoverIfPresent(formData)
+    uploadedUrl = await uploadCoverIfPresent(formData, user.id)
   } catch (e) {
     return { error: (e as Error).message }
   }
@@ -98,22 +96,23 @@ export async function createProject(formData: FormData) {
 }
 
 export async function updateProject(id: string, formData: FormData) {
+  const user = await requireAdmin()
   const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) redirect("/auth/login")
 
   const payload = readForm(formData)
   let uploadedUrl: string | null | undefined
   try {
-    uploadedUrl = await uploadCoverIfPresent(formData)
+    uploadedUrl = await uploadCoverIfPresent(formData, user.id)
   } catch (e) {
     return { error: (e as Error).message }
   }
   if (typeof uploadedUrl === "string") payload.cover_url = uploadedUrl
 
-  const { error } = await supabase.from("projects").update(payload).eq("id", id).eq("user_id", user.id)
+  const { error } = await supabase
+    .from("projects")
+    .update(payload)
+    .eq("id", id)
+    .eq("user_id", user.id)
   if (error) return { error: error.message }
 
   revalidatePath("/admin")
@@ -122,11 +121,8 @@ export async function updateProject(id: string, formData: FormData) {
 }
 
 export async function deleteProject(id: string) {
+  const user = await requireAdmin()
   const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) redirect("/auth/login")
 
   const { error } = await supabase.from("projects").delete().eq("id", id).eq("user_id", user.id)
   if (error) return { error: error.message }
@@ -154,11 +150,8 @@ function toSlug(title: string) {
 }
 
 export async function seedProjects() {
+  const user = await requireAdmin()
   const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) redirect("/auth/login")
 
   const { count, error: countError } = await supabase
     .from("projects")

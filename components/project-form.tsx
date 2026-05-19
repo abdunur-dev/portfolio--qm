@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useRef, useState, useTransition } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { Upload, X } from "lucide-react"
+import { Upload, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -27,6 +27,7 @@ type Props = {
 export function ProjectForm({ initial, onDone, mode }: Props) {
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+  const [showAdvanced, setShowAdvanced] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState<string | null>(initial?.cover_url ?? null)
@@ -77,103 +78,65 @@ export function ProjectForm({ initial, onDone, mode }: Props) {
   }
 
   return (
-    <form ref={formRef} action={handleSubmit} className="grid gap-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Title" name="title" defaultValue={initial?.title} required />
-        <Field label="Slug" name="slug" defaultValue={initial?.slug} placeholder="auto from title" />
-      </div>
+    <form ref={formRef} action={handleSubmit} className="grid gap-8">
+      {/* The basics */}
+      <Section title="The basics" subtitle="What is this thing?">
+        <Field label="Title" name="title" defaultValue={initial?.title} required placeholder="e.g. TibebChain" />
 
-      <div className="grid gap-2">
-        <Label htmlFor="description" className="text-xs uppercase tracking-wider text-muted-foreground">
-          Description
-        </Label>
-        <Textarea
-          id="description"
-          name="description"
-          rows={3}
-          defaultValue={initial?.description ?? ""}
-          className="resize-none"
-        />
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-3">
         <div className="grid gap-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Kind</Label>
-          <Select name="kind" defaultValue={initial?.kind ?? "side"}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
-            <SelectContent>
-              {PROJECT_KINDS.map((k) => (
-                <SelectItem key={k} value={k}>{k}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Label htmlFor="description" className="text-xs uppercase tracking-wider text-muted-foreground">
+            Short description
+          </Label>
+          <Textarea
+            id="description"
+            name="description"
+            rows={3}
+            defaultValue={initial?.description ?? ""}
+            placeholder="One or two sentences about what it is and why it matters."
+            className="resize-none"
+          />
         </div>
-        <div className="grid gap-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Status</Label>
-          <Select name="status" defaultValue={initial?.status ?? "live"}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
-            <SelectContent>
-              {PROJECT_STATUSES.map((s) => (
-                <SelectItem key={s} value={s}>{s}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          <SelectField label="Kind" name="kind" options={PROJECT_KINDS} defaultValue={initial?.kind ?? "side"} />
+          <SelectField label="Status" name="status" options={PROJECT_STATUSES} defaultValue={initial?.status ?? "live"} />
+          <Field
+            label="Year"
+            name="year"
+            type="number"
+            defaultValue={initial?.year ?? new Date().getFullYear()}
+            required
+          />
         </div>
-        <Field
-          label="Year"
-          name="year"
-          type="number"
-          defaultValue={initial?.year ?? new Date().getFullYear()}
-          required
-        />
-      </div>
+      </Section>
 
-      <Field
-        label="Stack (comma separated)"
-        name="stack"
-        defaultValue={initial?.stack?.join(", ") ?? ""}
-        placeholder="Next.js, Supabase, Tailwind"
-      />
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Live URL" name="live_url" type="url" defaultValue={initial?.live_url ?? ""} />
-        <Field label="Repo URL" name="repo_url" type="url" defaultValue={initial?.repo_url ?? ""} />
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Cover image URL" name="cover_url" type="url" defaultValue={initial?.cover_url ?? ""} placeholder="https://… (or upload below)" />
-        <Field label="Position" name="position" type="number" defaultValue={initial?.position ?? 0} />
-      </div>
-
-      <div className="grid gap-2">
-        <Label className="text-xs uppercase tracking-wider text-muted-foreground">
-          Or upload cover image
-        </Label>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+      {/* Cover image */}
+      <Section title="Cover image" subtitle="Optional. Upload a file or paste a URL.">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
           {preview ? (
-            <div className="relative h-28 w-40 shrink-0 overflow-hidden rounded-lg border border-border/60 bg-muted/30">
+            <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden rounded-lg border border-border/60 bg-muted/30 sm:w-48">
               <Image
                 src={preview || "/placeholder.svg"}
                 alt="Cover preview"
                 fill
-                sizes="160px"
+                sizes="192px"
                 className="object-cover"
                 unoptimized
               />
             </div>
           ) : (
-            <div className="flex h-28 w-40 shrink-0 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20 text-xs text-muted-foreground">
+            <div className="flex aspect-[16/10] w-full shrink-0 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20 text-xs text-muted-foreground sm:w-48">
               No cover yet
             </div>
           )}
-          <div className="flex flex-1 flex-col gap-2">
+          <div className="flex flex-1 flex-col gap-3">
             <input
               ref={fileInputRef}
               type="file"
               name="cover_file"
               accept="image/png,image/jpeg,image/webp,image/avif,image/gif"
               onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
-              className="block w-full cursor-pointer rounded-md border border-border/60 bg-card/40 px-3 py-2 text-sm file:mr-3 file:rounded file:border-0 file:bg-primary/10 file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-primary hover:bg-card/70"
+              className="block w-full cursor-pointer rounded-md border border-border/60 bg-card/40 px-3 py-2 text-sm file:mr-3 file:rounded file:border-0 file:bg-foreground file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-background hover:bg-card/70"
             />
             <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
               <span className="truncate">
@@ -198,8 +161,83 @@ export function ProjectForm({ initial, onDone, mode }: Props) {
                 </button>
               )}
             </div>
+            <Field
+              label="Or paste an image URL"
+              name="cover_url"
+              type="url"
+              defaultValue={initial?.cover_url ?? ""}
+              placeholder="https://…"
+            />
           </div>
         </div>
+      </Section>
+
+      {/* Links */}
+      <Section title="Links" subtitle="Where can people see it?">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field
+            label="Live URL"
+            name="live_url"
+            type="url"
+            defaultValue={initial?.live_url ?? ""}
+            placeholder="https://…"
+          />
+          <Field
+            label="Repo URL"
+            name="repo_url"
+            type="url"
+            defaultValue={initial?.repo_url ?? ""}
+            placeholder="https://github.com/…"
+          />
+        </div>
+      </Section>
+
+      {/* Advanced */}
+      <div>
+        <button
+          type="button"
+          onClick={() => setShowAdvanced((s) => !s)}
+          className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ChevronDown
+            className={`h-3.5 w-3.5 transition-transform ${showAdvanced ? "rotate-0" : "-rotate-90"}`}
+          />
+          Advanced
+        </button>
+        <AnimatePresence initial={false}>
+          {showAdvanced && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="grid gap-4 pt-4 sm:grid-cols-2">
+                <Field
+                  label="Slug"
+                  name="slug"
+                  defaultValue={initial?.slug}
+                  placeholder="auto from title"
+                />
+                <Field
+                  label="Order (lower = first)"
+                  name="position"
+                  type="number"
+                  defaultValue={initial?.position ?? 0}
+                />
+                <div className="sm:col-span-2">
+                  <Field
+                    label="Stack (comma separated)"
+                    name="stack"
+                    defaultValue={initial?.stack?.join(", ") ?? ""}
+                    placeholder="Next.js, Supabase, Tailwind"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <AnimatePresence>
@@ -215,7 +253,7 @@ export function ProjectForm({ initial, onDone, mode }: Props) {
         )}
       </AnimatePresence>
 
-      <div className="flex items-center justify-end gap-2 pt-2">
+      <div className="flex items-center justify-end gap-2 border-t border-border/60 pt-4">
         {onDone && (
           <Button type="button" variant="ghost" onClick={onDone} disabled={pending}>
             Cancel
@@ -226,6 +264,28 @@ export function ProjectForm({ initial, onDone, mode }: Props) {
         </Button>
       </div>
     </form>
+  )
+}
+
+function Section({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string
+  subtitle?: string
+  children: React.ReactNode
+}) {
+  return (
+    <section className="grid gap-4">
+      <div className="flex items-baseline justify-between gap-3">
+        <h3 className="font-serif text-lg leading-none text-foreground">{title}</h3>
+        {subtitle && (
+          <p className="text-xs text-muted-foreground">{subtitle}</p>
+        )}
+      </div>
+      <div className="grid gap-4">{children}</div>
+    </section>
   )
 }
 
@@ -257,6 +317,36 @@ function Field({
         placeholder={placeholder}
         required={required}
       />
+    </div>
+  )
+}
+
+function SelectField({
+  label,
+  name,
+  options,
+  defaultValue,
+}: {
+  label: string
+  name: string
+  options: readonly string[]
+  defaultValue: string
+}) {
+  return (
+    <div className="grid gap-2">
+      <Label className="text-xs uppercase tracking-wider text-muted-foreground">{label}</Label>
+      <Select name={name} defaultValue={defaultValue}>
+        <SelectTrigger>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((o) => (
+            <SelectItem key={o} value={o}>
+              {o}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/server"
 import { AuroraBackground } from "@/components/aurora-background"
@@ -7,16 +6,13 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import type { Project } from "@/lib/types"
 import { LogoutButton } from "@/components/logout-button"
+import { requireAdmin } from "@/lib/auth/require-admin"
 
 export const dynamic = "force-dynamic"
 
 export default async function AdminPage() {
+  const user = await requireAdmin()
   const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) redirect("/auth/login")
 
   const { data, error } = await supabase
     .from("projects")
