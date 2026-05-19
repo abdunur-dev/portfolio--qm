@@ -18,7 +18,7 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-hidden">
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />

@@ -13,22 +13,22 @@ export function AuroraBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
     >
       {/* Base wash */}
       <div className="absolute inset-0 bg-background" />
 
       {/* Pixel / dot grid */}
       <div
-        className="absolute inset-0 opacity-[0.35] dark:opacity-[0.22]"
+        className="absolute inset-0 opacity-60 dark:opacity-40"
         style={{
           backgroundImage:
-            "radial-gradient(circle, var(--border) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
+            "radial-gradient(circle, color-mix(in oklch, var(--foreground) 28%, transparent) 1.2px, transparent 1.2px)",
+          backgroundSize: "24px 24px",
           maskImage:
-            "radial-gradient(ellipse at center, black 55%, transparent 95%)",
+            "radial-gradient(ellipse at center, black 50%, transparent 92%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse at center, black 55%, transparent 95%)",
+            "radial-gradient(ellipse at center, black 50%, transparent 92%)",
         }}
       />
 

@@ -50,7 +50,7 @@ export default function NowPage() {
   const updated = "May 2026"
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-hidden">
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
