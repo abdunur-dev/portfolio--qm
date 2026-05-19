@@ -55,7 +55,7 @@ export default async function AllProjectsPage() {
       <div className="relative z-10">
         <SiteNav />
 
-        <main className="mx-auto w-full max-w-3xl px-5 pb-20 sm:px-6 sm:pb-24">
+        <main className="mx-auto w-full max-w-2xl px-5 pb-20 sm:px-6 sm:pb-24">
         {/* Heading */}
         <section className="mt-6 mb-16">
           <AnimatedHeading

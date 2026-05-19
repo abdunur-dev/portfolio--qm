@@ -96,7 +96,7 @@ export default async function WritingPost({
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-6 sm:px-6 sm:pb-32 sm:pt-10">
+        <main className="mx-auto w-full max-w-2xl px-5 pb-24 pt-6 sm:px-6 sm:pb-32 sm:pt-10">
           <FadeUp>
             <Link
               href="/writing"

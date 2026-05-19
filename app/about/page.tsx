@@ -19,7 +19,7 @@ export default function AboutPage() {
       <div className="relative z-10">
         <SiteNav />
 
-        <main className="mx-auto w-full max-w-3xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12">
+        <main className="mx-auto w-full max-w-2xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12">
           {/* Image first, About text underneath — Maya-style */}
           <FadeUp>
             <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
