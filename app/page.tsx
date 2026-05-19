@@ -64,7 +64,7 @@ export default function HomePage() {
                       <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
                         {l.label}
                       </span>
-                      <span className="truncate font-mono text-[10px] text-muted-foreground">
+                      <span className="hidden truncate font-mono text-[10px] text-muted-foreground sm:block">
                         {l.handle}
                       </span>
                     </span>
