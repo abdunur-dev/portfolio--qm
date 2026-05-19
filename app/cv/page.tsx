@@ -229,7 +229,7 @@ export default function CvPage() {
                 </p>
               </div>
 
-              {/* Right column: links + print button */}
+              {/* Right column: links only */}
               <div className="flex flex-col gap-4 sm:min-w-[220px] sm:items-end print:min-w-[180px] print:items-end print:gap-2">
                 <ul className="flex flex-col gap-1.5 sm:items-end print:items-end print:gap-0.5">
                   {socialLinks.map((l) => (
@@ -253,7 +253,6 @@ export default function CvPage() {
                     </li>
                   ))}
                 </ul>
-                <PrintCvButton />
               </div>
             </div>
           </FadeUp>
@@ -302,33 +301,27 @@ export default function CvPage() {
             </Section>
           </FadeUp>
 
-          {/* Workflow */}
+          {/* Workflow — side-by-side rows like Experience entries */}
           <FadeUp delay={0.05}>
             <Section label="Workflow">
-              <div className="grid gap-8 sm:grid-cols-3 print:gap-4">
-                <div className="print-avoid-break">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
+                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
                     Skills
                   </p>
-                  <div className="mt-3 print:mt-1.5">
-                    <Chips items={skills} />
-                  </div>
+                  <Chips items={skills} />
                 </div>
-                <div className="print-avoid-break">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
                     Tools
                   </p>
-                  <div className="mt-3 print:mt-1.5">
-                    <Chips items={tools} />
-                  </div>
+                  <Chips items={tools} />
                 </div>
-                <div className="print-avoid-break">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
                     Technology
                   </p>
-                  <div className="mt-3 print:mt-1.5">
-                    <Chips items={technology} />
-                  </div>
+                  <Chips items={technology} />
                 </div>
               </div>
             </Section>
@@ -344,6 +337,11 @@ export default function CvPage() {
               </div>
             </Section>
           </FadeUp>
+
+          {/* Print button — sits at the bottom like a footer action */}
+          <div className="mt-12 flex justify-end border-t border-foreground/20 pt-6 print:hidden">
+            <PrintCvButton />
+          </div>
         </main>
 
         <div className="print:hidden">
