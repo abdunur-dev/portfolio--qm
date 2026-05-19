@@ -15,8 +15,10 @@ export default function HomePage() {
       <div className="relative z-10">
         <SiteNav />
         <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-6 sm:py-16">
+          {/* Mobile: vertical stack (default) */}
+          {/* Desktop: side-by-side with lg:grid-cols-2 */}
           <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
-            {/* Left column: heading, bio, social links */}
+            {/* Text content */}
             <div>
               <AnimatedHeading
                 text="Hi, I'm Burhan_"
@@ -61,16 +63,16 @@ export default function HomePage() {
               </FadeUp>
             </div>
 
-            {/* Right column: image (below on mobile, side by side on desktop) */}
+            {/* Image - full width on mobile, side-by-side on desktop */}
             <FadeUp delay={0.2}>
-              <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm lg:sticky lg:top-8">
-                <div className="relative aspect-[9/11] w-full max-w-sm mx-auto lg:max-w-none">
+              <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
+                <div className="relative aspect-[9/11] w-full">
                   <Image
                     src="/images/burhan-portrait.jpg"
                     alt="Burhan presenting at the v0 IRL event in Addis Ababa"
                     fill
                     priority
-                    sizes="(min-width: 1024px) 360px, (min-width: 640px) 450px, 100vw"
+                    sizes="(min-width: 1024px) 360px, 100vw"
                     className="object-cover grayscale"
                   />
                 </div>
