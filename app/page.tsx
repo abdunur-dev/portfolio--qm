@@ -15,17 +15,14 @@ export default function HomePage() {
       <div className="relative z-10">
         <SiteNav />
         <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-6 sm:py-16">
-          {/* Mobile: vertical stack (default) */}
-          {/* Desktop: side-by-side with lg:grid-cols-2 */}
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
-            {/* Text content */}
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
               <AnimatedHeading
                 text="Hi, I'm Burhan_"
                 className="text-5xl sm:text-6xl md:text-7xl"
               />
 
-              <FadeUp delay={0.3}>
+              <FadeUp delay={0.4}>
                 <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/75">
                   <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
                   welcome to my little corner of the internet — pull up a chair,
@@ -37,11 +34,11 @@ export default function HomePage() {
                 </p>
               </FadeUp>
 
-              <FadeUp delay={0.4}>
+              <FadeUp delay={0.5}>
                 <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
                   find me elsewhere
                 </p>
-                <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-2">
+                <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-2">
                   {socialLinks.map((l) => (
                     <li key={l.label}>
                       <a
@@ -63,8 +60,7 @@ export default function HomePage() {
               </FadeUp>
             </div>
 
-            {/* Image - full width on mobile, side-by-side on desktop */}
-            <FadeUp delay={0.2}>
+            <FadeUp delay={0.3}>
               <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
                 <div className="relative aspect-[9/11] w-full">
                   <Image
