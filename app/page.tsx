@@ -60,13 +60,8 @@ export default function HomePage() {
                     rel="noreferrer"
                     className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
                   >
-                    <span className="flex min-w-0 flex-col">
-                      <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
-                        {l.label}
-                      </span>
-                      <span className="hidden truncate font-mono text-[10px] text-muted-foreground sm:block">
-                        {l.handle}
-                      </span>
+                    <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
+                      {l.label}
                     </span>
                     <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
                       ↗
