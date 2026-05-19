@@ -124,11 +124,11 @@ export default async function NowPage() {
                     {s.items.map((item, j) => (
                       <li
                         key={j}
-                        className="flex gap-3 font-serif text-lg leading-snug text-foreground/90 sm:text-2xl"
+                        className="flex gap-3 text-base leading-relaxed text-foreground/85"
                       >
                         <span
                           aria-hidden
-                          className="mt-3 inline-block h-[6px] w-[6px] shrink-0 rounded-full bg-primary"
+                          className="mt-2.5 inline-block h-[6px] w-[6px] shrink-0 rounded-full bg-primary"
                         />
                         <span className="text-pretty">{item}</span>
                       </li>
