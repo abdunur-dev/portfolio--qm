@@ -32,19 +32,13 @@ export default function HomePage() {
               <div className="relative aspect-[4/3] w-full">
                 <Image
                   src="/images/burhan-portrait.jpg"
-                  alt="Burhan presenting at the v0 IRL event in Addis Ababa, with a 'Prompt to Production' slide on screen"
+                  alt="Burhan presenting at the v0 IRL event in Addis Ababa"
                   fill
                   priority
                   sizes="(min-width: 768px) 720px, 100vw"
                   className="object-cover grayscale"
                 />
               </div>
-              <figcaption className="flex items-center justify-between gap-4 border-t border-border/60 px-5 py-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                <span>v0 IRL · Addis Ababa</span>
-                <span className="font-serif text-sm italic text-foreground/70">
-                  prompt to production
-                </span>
-              </figcaption>
             </figure>
           </FadeUp>
 
