@@ -301,32 +301,6 @@ export default function CvPage() {
             </Section>
           </FadeUp>
 
-          {/* Workflow — side-by-side rows like Experience entries */}
-          <FadeUp delay={0.05}>
-            <Section label="Workflow">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
-                    Skills
-                  </p>
-                  <Chips items={skills} />
-                </div>
-                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
-                    Tools
-                  </p>
-                  <Chips items={tools} />
-                </div>
-                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
-                    Technology
-                  </p>
-                  <Chips items={technology} />
-                </div>
-              </div>
-            </Section>
-          </FadeUp>
-
           {/* Certifications */}
           <FadeUp delay={0.05}>
             <Section label="Certifications">
@@ -334,6 +308,32 @@ export default function CvPage() {
                 {certifications.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
+              </div>
+            </Section>
+          </FadeUp>
+
+          {/* Workflow — side-by-side rows like Experience entries */}
+          <FadeUp delay={0.05}>
+            <Section label="Workflow">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
+                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
+                    Skills
+                  </p>
+                  <Chips items={skills} />
+                </div>
+                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
+                    Tools
+                  </p>
+                  <Chips items={tools} />
+                </div>
+                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
+                    Technology
+                  </p>
+                  <Chips items={technology} />
+                </div>
               </div>
             </Section>
           </FadeUp>

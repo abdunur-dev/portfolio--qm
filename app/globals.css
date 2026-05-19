@@ -130,7 +130,7 @@
 @media print {
   @page {
     size: A4;
-    margin: 14mm 14mm 16mm 14mm;
+    margin: 8mm 10mm 8mm 10mm;
   }
 
   html,
@@ -139,6 +139,34 @@
     color: #111111 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    font-size: 9.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Tighten section spacing so the whole CV fits on one A4 page */
+  .cv-print section {
+    padding-top: 6px !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+  }
+  .cv-print section > div {
+    margin-top: 4px !important;
+  }
+  .cv-print h1 {
+    font-size: 22pt !important;
+    line-height: 1 !important;
+    margin-top: 2px !important;
+  }
+  /* Trim row vertical padding aggressively */
+  .cv-print [class*="print:py-"] {
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+  }
+  /* Drop the bottom action area entirely in print */
+  .cv-print main > div:last-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
   }
 
   /* Avoid awkward breaks inside CV rows / sections */
