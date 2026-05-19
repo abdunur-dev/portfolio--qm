@@ -5,6 +5,7 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
+import { socialLinks } from "@/lib/social-links"
 
 export default function HomePage() {
   return (
@@ -12,10 +13,10 @@ export default function HomePage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-3xl px-6 py-12">
+        <main className="mx-auto w-full max-w-3xl px-5 py-10 sm:px-6 sm:py-12">
           <AnimatedHeading
             text="hi, I'm Burhan_"
-            className="text-6xl sm:text-7xl"
+            className="text-5xl sm:text-6xl md:text-7xl"
           />
 
           <FadeUp delay={0.4}>
@@ -49,25 +50,20 @@ export default function HomePage() {
             <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
               find me elsewhere
             </p>
-            <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {[
-                { label: "GitHub", handle: "@burhan", href: "https://github.com" },
-                { label: "Twitter", handle: "@burhan_", href: "https://x.com" },
-                { label: "LinkedIn", handle: "in/burhan", href: "https://linkedin.com" },
-                { label: "Email", handle: "say hi", href: "mailto:hi@burhan.dev" },
-              ].map((l) => (
+            <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {socialLinks.map((l) => (
                 <li key={l.label}>
                   <a
                     href={l.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex h-full items-center justify-between rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
+                    className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
                   >
-                    <span className="flex flex-col">
+                    <span className="flex min-w-0 flex-col">
                       <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
                         {l.label}
                       </span>
-                      <span className="font-mono text-[10px] text-muted-foreground">
+                      <span className="truncate font-mono text-[10px] text-muted-foreground">
                         {l.handle}
                       </span>
                     </span>

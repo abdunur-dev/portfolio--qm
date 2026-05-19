@@ -3,6 +3,7 @@ import Image from "next/image"
 import { SiteNav } from "@/components/site-nav"
 import { FadeUp } from "@/components/fade-up"
 import { AuroraBackground } from "@/components/aurora-background"
+import { socialLinks } from "@/lib/social-links"
 
 export const metadata: Metadata = {
   title: "About · Burhan_",
@@ -17,7 +18,7 @@ export default function AboutPage() {
       <div className="relative z-10">
         <SiteNav />
 
-        <main className="mx-auto w-full max-w-3xl px-6 pb-24 pt-12">
+        <main className="mx-auto w-full max-w-3xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12">
           {/* Image first, About text underneath — Maya-style */}
           <FadeUp>
             <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
@@ -38,7 +39,7 @@ export default function AboutPage() {
             <p className="mt-12 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
               about
             </p>
-            <h1 className="mt-3 font-serif text-6xl leading-[0.95] tracking-tight text-foreground sm:text-7xl">
+            <h1 className="mt-3 font-serif text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl md:text-7xl">
               Burhan<span className="text-primary">.</span>
             </h1>
             <span className="mt-5 inline-block rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
@@ -169,12 +170,7 @@ export default function AboutPage() {
               Let&apos;s connect
             </p>
             <ul className="mt-5 flex flex-wrap gap-2">
-              {[
-                { label: "GitHub", href: "https://github.com" },
-                { label: "Twitter", href: "https://x.com" },
-                { label: "LinkedIn", href: "https://linkedin.com" },
-                { label: "Email", href: "mailto:hi@burhan.dev" },
-              ].map((l) => (
+              {socialLinks.map((l) => (
                 <li key={l.label}>
                   <a
                     href={l.href}

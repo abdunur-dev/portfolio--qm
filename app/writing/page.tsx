@@ -66,11 +66,11 @@ export default function WritingPage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-3xl px-6 pb-32">
-          <section className="pt-4 pb-14">
+        <main className="mx-auto w-full max-w-3xl px-5 pb-24 sm:px-6 sm:pb-32">
+          <section className="pt-4 pb-12 sm:pb-14">
             <AnimatedHeading
               text="writing."
-              className="text-6xl sm:text-7xl"
+              className="text-5xl sm:text-6xl md:text-7xl"
               accentLast
             />
             <FadeUp delay={0.35}>
@@ -101,7 +101,7 @@ export default function WritingPage() {
                           className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 bg-primary transition-all duration-300 group-hover:h-full"
                         />
                         <div className="flex items-baseline justify-between gap-6 pl-4">
-                          <h3 className="font-serif text-2xl leading-tight text-foreground transition-colors group-hover:text-primary sm:text-3xl">
+                          <h3 className="font-serif text-xl leading-tight text-foreground transition-colors group-hover:text-primary sm:text-3xl">
                             {post.title}
                           </h3>
                           <span className="hidden shrink-0 font-mono text-xs text-muted-foreground sm:inline">

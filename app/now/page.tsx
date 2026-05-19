@@ -54,9 +54,9 @@ export default function NowPage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-3xl px-6 pb-32">
-          <section className="pt-4 pb-12">
-            <AnimatedHeading text="now." className="text-6xl sm:text-7xl" accentLast />
+        <main className="mx-auto w-full max-w-3xl px-5 pb-24 sm:px-6 sm:pb-32">
+          <section className="pt-4 pb-10 sm:pb-12">
+            <AnimatedHeading text="now." className="text-5xl sm:text-6xl md:text-7xl" accentLast />
             <FadeUp delay={0.35}>
               <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
                 A snapshot of what has my attention this season — inspired by
@@ -83,7 +83,7 @@ export default function NowPage() {
                     {s.items.map((item, j) => (
                       <li
                         key={j}
-                        className="flex gap-3 font-serif text-xl leading-snug text-foreground/90 sm:text-2xl"
+                        className="flex gap-3 font-serif text-lg leading-snug text-foreground/90 sm:text-2xl"
                       >
                         <span
                           aria-hidden

@@ -33,7 +33,7 @@ export function AnimatedHeading({
   return (
     <h1
       className={`font-serif leading-none tracking-tight ${
-        className || "text-6xl sm:text-7xl"
+        className || "text-5xl sm:text-6xl md:text-7xl"
       }`}
     >
       {resolved.map((seg, i) => (
