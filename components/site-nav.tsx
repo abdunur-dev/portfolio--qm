@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Menu } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { NavWordmark } from "@/components/nav-wordmark"
 import {
   Sheet,
   SheetContent,
@@ -27,14 +28,7 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/70 backdrop-blur-md supports-[backdrop-filter]:bg-background/55">
       <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3 px-5 py-3.5 sm:px-6 sm:py-4">
-        <Link href="/" className="group flex items-baseline gap-2">
-          <span className="font-serif text-2xl leading-none tracking-tight text-foreground sm:text-3xl">
-            Burhan_
-          </span>
-          <span className="hidden font-mono text-xs text-muted-foreground sm:inline">
-            Bur · han
-          </span>
-        </Link>
+        <NavWordmark />
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-3 md:flex">
