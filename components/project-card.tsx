@@ -50,7 +50,7 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
           </span>
         </div>
 
-        <p className="max-w-2xl text-pretty text-[15px] leading-relaxed text-foreground/75">
+        <p className="max-w-4xl text-pretty text-[15px] leading-relaxed text-foreground/75">
           {project.description}
         </p>
 

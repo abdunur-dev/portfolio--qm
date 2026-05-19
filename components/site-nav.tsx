@@ -27,7 +27,7 @@ export function SiteNav() {
 
   return (
     <header className="sticky top-3 z-40 w-full px-3 sm:top-4 sm:px-4">
-      <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-3 rounded-full border border-border/50 bg-background/55 px-4 py-2 shadow-[0_1px_0_0_color-mix(in_oklch,var(--foreground)_6%,transparent)_inset,0_8px_24px_-12px_color-mix(in_oklch,var(--foreground)_18%,transparent)] backdrop-blur-xl supports-[backdrop-filter]:bg-background/40 sm:px-5 sm:py-2.5">
+      <div className="mx-auto flex w-full max-w-4xl items-center justify-between gap-3 rounded-full border border-border/50 bg-background/55 px-4 py-2 shadow-[0_1px_0_0_color-mix(in_oklch,var(--foreground)_6%,transparent)_inset,0_8px_24px_-12px_color-mix(in_oklch,var(--foreground)_18%,transparent)] backdrop-blur-xl supports-[backdrop-filter]:bg-background/40 sm:px-5 sm:py-2.5">
         <NavWordmark />
 
         {/* Desktop nav */}

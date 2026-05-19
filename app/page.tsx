@@ -14,7 +14,7 @@ export default function HomePage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-2xl px-5 py-10 sm:px-6 sm:py-12">
+        <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-6 sm:py-12">
           <AnimatedHeading
             text="Hi, I'm Burhan_"
             className="text-5xl sm:text-6xl md:text-7xl"

@@ -1,7 +1,7 @@
 export function SiteFooter() {
   const year = new Date().getFullYear()
   return (
-    <footer className="mx-auto w-full max-w-2xl px-5 pb-10 sm:px-6">
+    <footer className="mx-auto w-full max-w-4xl px-5 pb-10 sm:px-6">
       <div className="flex flex-col items-start justify-between gap-3 border-t border-border/60 pt-6 sm:flex-row sm:items-center">
         <p className="font-mono text-xs text-muted-foreground">
           © {year} Burhan<span className="text-primary">.</span>

@@ -87,7 +87,7 @@ export default async function NowPage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-2xl px-5 pb-24 sm:px-6 sm:pb-32">
+        <main className="mx-auto w-full max-w-4xl px-5 pb-24 sm:px-6 sm:pb-32">
           <section className="pt-4 pb-10 sm:pb-12">
             <AnimatedHeading text="now." className="text-5xl sm:text-6xl md:text-7xl" accentLast />
             <FadeUp delay={0.35}>
