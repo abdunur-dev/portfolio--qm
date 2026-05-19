@@ -149,18 +149,18 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="border-t-2 border-foreground/30 py-10 sm:py-12 print:border-t print:border-foreground/60 print:py-4">
+    <section className="border-t-2 border-foreground/30 py-14 sm:py-20 print:border-t print:border-foreground/60 print:py-4">
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-foreground">
         {label}
       </p>
-      <div className="mt-6 print:mt-2">{children}</div>
+      <div className="mt-8 sm:mt-10 print:mt-2">{children}</div>
     </section>
   )
 }
 
 function EntryRow({ e }: { e: Entry }) {
   return (
-    <div className="print-avoid-break grid gap-1 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
+    <div className="print-avoid-break grid gap-2 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
         {e.range}
       </p>
@@ -316,19 +316,19 @@ export default function CvPage() {
           <FadeUp delay={0.05}>
             <Section label="Workflow">
               <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
+                <div className="print-avoid-break grid gap-3 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
                     Skills
                   </p>
                   <Chips items={skills} />
                 </div>
-                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
+                <div className="print-avoid-break grid gap-3 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
                     Tools
                   </p>
                   <Chips items={tools} />
                 </div>
-                <div className="print-avoid-break grid gap-2 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
+                <div className="print-avoid-break grid gap-3 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
                     Technology
                   </p>
@@ -339,7 +339,7 @@ export default function CvPage() {
           </FadeUp>
 
           {/* Print button — sits at the bottom like a footer action */}
-          <div className="mt-12 flex justify-end border-t border-foreground/20 pt-6 print:hidden">
+          <div className="mt-16 flex justify-end border-t-2 border-foreground/30 pt-8 sm:mt-20 print:hidden">
             <PrintCvButton />
           </div>
         </main>
