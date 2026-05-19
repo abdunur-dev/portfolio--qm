@@ -20,9 +20,12 @@ export default function HomePage() {
 
           <FadeUp delay={0.4}>
             <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/75">
-              web3 & full-stack developer crafting decentralised applications
-              and modern web experiences. occasionally writing about the
-              intersection of design, code, and faith
+              <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
+              welcome to my little corner of the internet — pull up a chair,
+              the coffee&apos;s on me. I tinker with{" "}
+              <span className="font-serif italic">decentralised apps</span>,
+              ship modern web experiences, and occasionally write about the
+              quiet places where design, code, and faith overlap
               <FloatingSparkle className="ml-2 inline-block" />
             </p>
           </FadeUp>
