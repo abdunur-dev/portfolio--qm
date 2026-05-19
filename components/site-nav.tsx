@@ -4,6 +4,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 export function SiteNav() {
   const links = [
     { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
     { href: "/writing", label: "Writing" },
     { href: "/all", label: "Projects" },
     { href: "/now", label: "Now" },
