@@ -39,7 +39,7 @@ export default function AboutPage() {
               about
             </p>
             <h1 className="mt-3 font-serif text-6xl leading-[0.95] tracking-tight text-foreground sm:text-7xl">
-              Burhan Abdu<span className="text-primary">.</span>
+              Burhan<span className="text-primary">.</span>
             </h1>
             <span className="mt-5 inline-block rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
               Web3 / Full-Stack Developer
