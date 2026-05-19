@@ -99,29 +99,6 @@ export function AuroraBackground() {
         }}
       />
 
-      <motion.div
-        className="absolute -top-40 -left-40 h-[36rem] w-[36rem] rounded-full opacity-40 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 65%)" }}
-        animate={{ x: [0, 80, -40, 0], y: [0, 60, 20, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute -bottom-40 -right-32 h-[40rem] w-[40rem] rounded-full opacity-30 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 65%)" }}
-        animate={{ x: [0, -60, 40, 0], y: [0, -40, 20, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute left-1/3 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full opacity-20 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 65%)" }}
-        animate={{
-          x: [0, 40, -30, 0],
-          y: [0, -50, 30, 0],
-          scale: [1, 1.1, 0.95, 1],
-        }}
-        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-      />
-
       <svg className="absolute inset-0 h-full w-full opacity-[0.035] mix-blend-multiply">
         <filter id="noise">
           <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
