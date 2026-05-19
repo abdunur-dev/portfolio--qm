@@ -30,6 +30,7 @@ async function uploadCoverIfPresent(
   }
 
   const supabase = await createClient()
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase()
   const safeExt = ["jpg", "jpeg", "png", "webp", "avif", "gif"].includes(ext) ? ext : "jpg"
   const path = `${userId}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${safeExt}`
 
