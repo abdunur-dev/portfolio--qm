@@ -8,7 +8,7 @@ import { FloatingSparkle } from "@/components/floating-sparkle"
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen">
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />

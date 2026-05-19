@@ -62,7 +62,7 @@ export default function WritingPage() {
   const years = Object.keys(grouped).map(Number).sort((a, b) => b - a)
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen">
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />

@@ -8,7 +8,7 @@ import { AuroraBackground } from "@/components/aurora-background"
 
 export default function AllProjectsPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen">
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
