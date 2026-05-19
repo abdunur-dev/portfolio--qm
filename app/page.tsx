@@ -43,50 +43,32 @@ export default function HomePage() {
           </FadeUp>
 
           <FadeUp delay={0.55}>
-            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border/60 bg-border/60 sm:grid-cols-4">
-              {[
-                { k: "based in", v: "Addis Ababa" },
-                { k: "stack", v: "TS · Solidity" },
-                { k: "shipping", v: "Web3 + AI" },
-                { k: "status", v: "open to collab" },
-              ].map((s) => (
-                <div
-                  key={s.k}
-                  className="bg-card/60 px-4 py-3 backdrop-blur-sm"
-                >
-                  <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                    {s.k}
-                  </dt>
-                  <dd className="mt-1 font-serif text-sm text-foreground">
-                    {s.v}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </FadeUp>
-
-          <FadeUp delay={0.58}>
-            <p className="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              elsewhere
+            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              find me elsewhere
             </p>
-            <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {[
-                { label: "GitHub", href: "https://github.com" },
-                { label: "X / Twitter", href: "https://x.com" },
-                { label: "LinkedIn", href: "https://linkedin.com" },
-                { label: "Email", href: "mailto:hi@burhan.dev" },
+                { label: "GitHub", handle: "@burhan", href: "https://github.com" },
+                { label: "Twitter", handle: "@burhan_", href: "https://x.com" },
+                { label: "LinkedIn", handle: "in/burhan", href: "https://linkedin.com" },
+                { label: "Email", handle: "say hi", href: "mailto:hi@burhan.dev" },
               ].map((l) => (
                 <li key={l.label}>
                   <a
                     href={l.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group inline-flex items-baseline gap-1 text-foreground/80 transition-colors hover:text-primary"
+                    className="group flex h-full items-center justify-between rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
                   >
-                    <span className="border-b border-dashed border-foreground/30 pb-px group-hover:border-primary">
-                      {l.label}
+                    <span className="flex flex-col">
+                      <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
+                        {l.label}
+                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        {l.handle}
+                      </span>
                     </span>
-                    <span className="font-mono text-xs text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
+                    <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
                       ↗
                     </span>
                   </a>
