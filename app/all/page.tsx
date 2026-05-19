@@ -4,13 +4,16 @@ import { projectsByYear } from "@/lib/projects-data"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
+import { AuroraBackground } from "@/components/aurora-background"
 
 export default function AllProjectsPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <SiteNav />
+    <div className="relative min-h-screen overflow-hidden bg-background">
+      <AuroraBackground />
+      <div className="relative z-10">
+        <SiteNav />
 
-      <main className="mx-auto w-full max-w-3xl px-6 pb-24">
+        <main className="mx-auto w-full max-w-3xl px-6 pb-24">
         {/* Heading */}
         <section className="mt-6 mb-16">
           <AnimatedHeading
@@ -70,7 +73,8 @@ export default function AllProjectsPage() {
             <FloatingSparkle delay={1.2} />
           </p>
         </FadeUp>
-      </main>
+        </main>
+      </div>
     </div>
   )
 }
