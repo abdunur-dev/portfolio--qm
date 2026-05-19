@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import { motion } from "motion/react"
 import type { Project } from "@/lib/projects-data"
@@ -28,6 +29,18 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
       />
 
       <div className="flex flex-col gap-2 pl-5 py-1">
+        {project.cover_url && (
+          <div className="relative mb-1 aspect-[16/9] w-full overflow-hidden rounded-lg border border-border/60 bg-muted/30">
+            <Image
+              src={project.cover_url || "/placeholder.svg"}
+              alt={`${project.title} cover`}
+              fill
+              sizes="(min-width: 768px) 720px, 100vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+              unoptimized
+            />
+          </div>
+        )}
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h3 className="font-serif text-xl leading-tight tracking-tight text-foreground text-balance transition-colors duration-300 group-hover:text-primary sm:text-2xl">
             {project.title}

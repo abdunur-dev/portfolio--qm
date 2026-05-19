@@ -5,12 +5,46 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import type { ProjectKind, ProjectStatus } from "@/lib/types"
 
+const COVER_BUCKET = "project-covers"
+
 function parseStack(raw: FormDataEntryValue | null): string[] {
   if (!raw || typeof raw !== "string") return []
   return raw
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean)
+}
+
+async function uploadCoverIfPresent(formData: FormData): Promise<string | null | undefined> {
+  const file = formData.get("cover_file")
+  if (!(file instanceof File) || file.size === 0) return undefined
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("Cover image must be under 5MB")
+  }
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) throw new Error("Not authenticated")
+
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase()
+  const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
+
+  const { error: uploadError } = await supabase.storage
+    .from(COVER_BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type || "image/jpeg",
+    })
+
+  if (uploadError) {
+    throw new Error(`Upload failed: ${uploadError.message}`)
+  }
+
+  const { data: pub } = supabase.storage.from(COVER_BUCKET).getPublicUrl(path)
+  return pub.publicUrl
 }
 
 function readForm(formData: FormData) {
@@ -46,6 +80,14 @@ export async function createProject(formData: FormData) {
   const payload = readForm(formData)
   if (!payload.title) return { error: "Title is required" }
 
+  let uploadedUrl: string | null | undefined
+  try {
+    uploadedUrl = await uploadCoverIfPresent(formData)
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
+  if (typeof uploadedUrl === "string") payload.cover_url = uploadedUrl
+
   const { error } = await supabase.from("projects").insert({ ...payload, user_id: user.id })
   if (error) return { error: error.message }
 
@@ -62,6 +104,14 @@ export async function updateProject(id: string, formData: FormData) {
   if (!user) redirect("/auth/login")
 
   const payload = readForm(formData)
+  let uploadedUrl: string | null | undefined
+  try {
+    uploadedUrl = await uploadCoverIfPresent(formData)
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
+  if (typeof uploadedUrl === "string") payload.cover_url = uploadedUrl
+
   const { error } = await supabase.from("projects").update(payload).eq("id", id).eq("user_id", user.id)
   if (error) return { error: error.message }
 

@@ -3,6 +3,7 @@ export type Project = {
   kind: string
   description: string
   stack: string[]
+  cover_url?: string | null
   links?: { label: string; href: string }[]
 }
 

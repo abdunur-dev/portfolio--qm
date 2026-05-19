@@ -1,13 +1,54 @@
 import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
 import { ProjectCard } from "@/components/project-card"
-import { projectsByYear } from "@/lib/projects-data"
+import { projectsByYear as staticByYear, type Project, type ProjectYear } from "@/lib/projects-data"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
 import { AuroraBackground } from "@/components/aurora-background"
+import { createClient } from "@/lib/supabase/server"
+import type { Project as DbProject } from "@/lib/types"
 
-export default function AllProjectsPage() {
+export const dynamic = "force-dynamic"
+
+function dbToCard(p: DbProject): Project {
+  const links: { label: string; href: string }[] = []
+  if (p.live_url) links.push({ label: "Live", href: p.live_url })
+  if (p.repo_url) links.push({ label: "Repo", href: p.repo_url })
+  return {
+    title: p.title,
+    kind: p.kind,
+    description: p.description || "",
+    stack: p.stack ?? [],
+    cover_url: p.cover_url,
+    links: links.length ? links : undefined,
+  }
+}
+
+export default async function AllProjectsPage() {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("projects")
+    .select("*")
+    .order("year", { ascending: false })
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: false })
+
+  const dbProjects = (data ?? []) as DbProject[]
+
+  const groups: ProjectYear[] =
+    dbProjects.length > 0
+      ? Object.entries(
+          dbProjects.reduce<Record<string, Project[]>>((acc, p) => {
+            const key = String(p.year)
+            ;(acc[key] ||= []).push(dbToCard(p))
+            return acc
+          }, {}),
+        )
+          .map(([year, projects]) => ({ year, projects }))
+          .sort((a, b) => Number(b.year) - Number(a.year))
+      : staticByYear
+
   return (
     <div className="relative min-h-screen">
       <AuroraBackground />
@@ -29,8 +70,9 @@ export default function AllProjectsPage() {
 
           <FadeUp delay={0.35}>
             <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
-              Things I&apos;ve built across work, side quests, and experiments —
-              mostly Web3, full-stack, and the occasional whimsical detour{" "}
+              Things I&apos;ve built — and a few events I&apos;ve hosted or
+              spoken at — across work, side quests, and the occasional
+              whimsical detour{" "}
               <FloatingSparkle />
             </p>
           </FadeUp>
@@ -38,7 +80,7 @@ export default function AllProjectsPage() {
 
         {/* Year sections */}
         <div className="flex flex-col gap-20">
-          {projectsByYear.map((group) => (
+          {groups.map((group) => (
             <section
               key={group.year}
               className="grid grid-cols-1 gap-8 sm:grid-cols-[6rem_1fr] sm:gap-10"
@@ -56,7 +98,7 @@ export default function AllProjectsPage() {
               <div className="flex flex-col gap-10">
                 {group.projects.map((project, i) => (
                   <ProjectCard
-                    key={project.title}
+                    key={`${group.year}-${project.title}`}
                     project={project}
                     index={i}
                   />

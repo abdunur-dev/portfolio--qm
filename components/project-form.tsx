@@ -1,7 +1,9 @@
 "use client"
 
+import Image from "next/image"
 import { useRef, useState, useTransition } from "react"
 import { motion, AnimatePresence } from "motion/react"
+import { Upload, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -26,6 +28,33 @@ export function ProjectForm({ initial, onDone, mode }: Props) {
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [preview, setPreview] = useState<string | null>(initial?.cover_url ?? null)
+  const [fileName, setFileName] = useState<string | null>(null)
+
+  function handleFile(file: File | null) {
+    if (!file) {
+      setPreview(initial?.cover_url ?? null)
+      setFileName(null)
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Cover image must be under 5MB")
+      if (fileInputRef.current) fileInputRef.current.value = ""
+      return
+    }
+    setError(null)
+    setFileName(file.name)
+    const reader = new FileReader()
+    reader.onload = (e) => setPreview(String(e.target?.result ?? ""))
+    reader.readAsDataURL(file)
+  }
+
+  function clearFile() {
+    if (fileInputRef.current) fileInputRef.current.value = ""
+    setFileName(null)
+    setPreview(initial?.cover_url ?? null)
+  }
 
   function handleSubmit(formData: FormData) {
     setError(null)
@@ -38,7 +67,11 @@ export function ProjectForm({ initial, onDone, mode }: Props) {
         setError(res.error)
         return
       }
-      if (mode === "create") formRef.current?.reset()
+      if (mode === "create") {
+        formRef.current?.reset()
+        setPreview(null)
+        setFileName(null)
+      }
       onDone?.()
     })
   }
@@ -108,8 +141,65 @@ export function ProjectForm({ initial, onDone, mode }: Props) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Cover image URL" name="cover_url" type="url" defaultValue={initial?.cover_url ?? ""} />
+        <Field label="Cover image URL" name="cover_url" type="url" defaultValue={initial?.cover_url ?? ""} placeholder="https://… (or upload below)" />
         <Field label="Position" name="position" type="number" defaultValue={initial?.position ?? 0} />
+      </div>
+
+      <div className="grid gap-2">
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+          Or upload cover image
+        </Label>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+          {preview ? (
+            <div className="relative h-28 w-40 shrink-0 overflow-hidden rounded-lg border border-border/60 bg-muted/30">
+              <Image
+                src={preview || "/placeholder.svg"}
+                alt="Cover preview"
+                fill
+                sizes="160px"
+                className="object-cover"
+                unoptimized
+              />
+            </div>
+          ) : (
+            <div className="flex h-28 w-40 shrink-0 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20 text-xs text-muted-foreground">
+              No cover yet
+            </div>
+          )}
+          <div className="flex flex-1 flex-col gap-2">
+            <input
+              ref={fileInputRef}
+              type="file"
+              name="cover_file"
+              accept="image/png,image/jpeg,image/webp,image/avif,image/gif"
+              onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
+              className="block w-full cursor-pointer rounded-md border border-border/60 bg-card/40 px-3 py-2 text-sm file:mr-3 file:rounded file:border-0 file:bg-primary/10 file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-primary hover:bg-card/70"
+            />
+            <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+              <span className="truncate">
+                {fileName ? (
+                  <>
+                    <Upload className="mr-1 inline h-3 w-3" />
+                    {fileName}
+                  </>
+                ) : initial?.cover_url ? (
+                  "Current cover shown — pick a file to replace it"
+                ) : (
+                  "PNG, JPG, WEBP, AVIF, or GIF · max 5MB"
+                )}
+              </span>
+              {fileName && (
+                <button
+                  type="button"
+                  onClick={clearFile}
+                  className="inline-flex items-center gap-0.5 text-foreground/70 hover:text-destructive"
+                >
+                  <X className="h-3 w-3" /> clear
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       <AnimatePresence>

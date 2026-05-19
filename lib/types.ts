@@ -1,4 +1,10 @@
-export type ProjectKind = "work" | "side" | "experiment" | "open-source" | "writing"
+export type ProjectKind =
+  | "work"
+  | "side"
+  | "experiment"
+  | "open-source"
+  | "writing"
+  | "event"
 export type ProjectStatus = "live" | "wip" | "archived" | "concept"
 
 export type Project = {
@@ -19,5 +25,12 @@ export type Project = {
   updated_at: string
 }
 
-export const PROJECT_KINDS: ProjectKind[] = ["work", "side", "experiment", "open-source", "writing"]
+export const PROJECT_KINDS: ProjectKind[] = [
+  "work",
+  "side",
+  "experiment",
+  "open-source",
+  "writing",
+  "event",
+]
 export const PROJECT_STATUSES: ProjectStatus[] = ["live", "wip", "archived", "concept"]

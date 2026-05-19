@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { Plus, Pencil, ExternalLink, Github } from "lucide-react"
@@ -59,6 +60,18 @@ export function AdminProjectList({ projects }: { projects: Project[] }) {
           return (
             <li key={p.id} className="px-6 py-5">
               <div className="flex items-start justify-between gap-4">
+                {p.cover_url && (
+                  <div className="relative hidden h-16 w-24 shrink-0 overflow-hidden rounded-md border border-border/60 sm:block">
+                    <Image
+                      src={p.cover_url || "/placeholder.svg"}
+                      alt=""
+                      fill
+                      sizes="96px"
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                )}
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-serif text-xl text-foreground">{p.title}</h3>
