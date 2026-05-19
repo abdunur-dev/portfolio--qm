@@ -1,17 +1,20 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { Plus, Pencil, ExternalLink, Github } from "lucide-react"
+import { Plus, Pencil, ExternalLink, Github, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ProjectForm, DeleteButton } from "@/components/project-form"
+import { seedProjects } from "@/app/admin/actions"
 import type { Project } from "@/lib/types"
 
 export function AdminProjectList({ projects }: { projects: Project[] }) {
   const [creating, setCreating] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
+  const [seeding, startSeed] = useTransition()
+  const [seedError, setSeedError] = useState<string | null>(null)
 
   return (
     <div className="space-y-6">
@@ -50,8 +53,32 @@ export function AdminProjectList({ projects }: { projects: Project[] }) {
 
       <ul className="divide-y divide-border/60 rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
         {projects.length === 0 && (
-          <li className="px-6 py-12 text-center text-sm text-muted-foreground">
-            No projects yet. Click <span className="text-foreground">New project</span> to add your first one.
+          <li className="px-6 py-12 text-center">
+            <p className="text-sm text-muted-foreground">
+              No projects yet. Click{" "}
+              <span className="text-foreground">New project</span> to add one,
+              or import the projects from your portfolio in one click.
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-4"
+              disabled={seeding}
+              onClick={() => {
+                setSeedError(null)
+                startSeed(async () => {
+                  const res = await seedProjects()
+                  if (res?.error) setSeedError(res.error)
+                })
+              }}
+            >
+              <Sparkles className="mr-1.5 h-3.5 w-3.5" />
+              {seeding ? "Importing…" : "Import my portfolio"}
+            </Button>
+            {seedError && (
+              <p className="mt-3 text-xs text-destructive">{seedError}</p>
+            )}
           </li>
         )}
 

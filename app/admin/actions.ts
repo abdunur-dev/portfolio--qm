@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import type { ProjectKind, ProjectStatus } from "@/lib/types"
+import { projectsByYear } from "@/lib/projects-data"
 
 const COVER_BUCKET = "project-covers"
 
@@ -133,4 +134,65 @@ export async function deleteProject(id: string) {
   revalidatePath("/admin")
   revalidatePath("/all")
   return { ok: true }
+}
+
+function inferKind(kindLabel: string): ProjectKind {
+  const k = kindLabel.toLowerCase()
+  if (k.includes("event") || k.includes("talk") || k.includes("meetup")) return "event"
+  if (k.includes("writing") || k.includes("article") || k.includes("blog")) return "writing"
+  if (k.includes("open") || k.includes("oss")) return "open-source"
+  if (k.includes("hackathon") || k.includes("experiment") || k.includes("learning")) return "experiment"
+  if (k.includes("work") || k.includes("client")) return "work"
+  return "side"
+}
+
+function toSlug(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+export async function seedProjects() {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) redirect("/auth/login")
+
+  const { count, error: countError } = await supabase
+    .from("projects")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", user.id)
+
+  if (countError) return { error: countError.message }
+  if ((count ?? 0) > 0) {
+    return { error: "You already have projects — clear them first or add new ones manually." }
+  }
+
+  const rows = projectsByYear.flatMap((group, gIndex) =>
+    group.projects.map((p, pIndex) => ({
+      user_id: user.id,
+      title: p.title,
+      slug: `${toSlug(p.title)}-${gIndex}${pIndex}`,
+      description: p.description,
+      kind: inferKind(p.kind),
+      status: "live" as ProjectStatus,
+      year: Number(group.year),
+      stack: p.stack ?? [],
+      live_url: p.links?.find((l) => /live/i.test(l.label))?.href ?? null,
+      repo_url: p.links?.find((l) => /repo|github/i.test(l.label))?.href ?? null,
+      cover_url: p.cover_url ?? null,
+      position: pIndex,
+    })),
+  )
+
+  if (rows.length === 0) return { ok: true, inserted: 0 }
+
+  const { error } = await supabase.from("projects").insert(rows)
+  if (error) return { error: error.message }
+
+  revalidatePath("/admin")
+  revalidatePath("/all")
+  return { ok: true, inserted: rows.length }
 }
