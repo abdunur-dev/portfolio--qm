@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { SiteNav } from "@/components/site-nav"
 import { AuroraBackground } from "@/components/aurora-background"
@@ -13,7 +14,7 @@ export default function HomePage() {
         <SiteNav />
         <main className="mx-auto w-full max-w-3xl px-6 py-12">
           <AnimatedHeading
-            text="hi, I'm burhan_"
+            text="hi, I'm Burhan_"
             className="text-6xl sm:text-7xl"
           />
 
@@ -26,7 +27,28 @@ export default function HomePage() {
             </p>
           </FadeUp>
 
-          <FadeUp delay={0.55}>
+          <FadeUp delay={0.5}>
+            <figure className="mt-10 overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/burhan-portrait.jpg"
+                  alt="Burhan presenting at the v0 IRL event in Addis Ababa, with a 'Prompt to Production' slide on screen"
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 720px, 100vw"
+                  className="object-cover grayscale"
+                />
+              </div>
+              <figcaption className="flex items-center justify-between gap-4 border-t border-border/60 px-5 py-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                <span>v0 IRL · Addis Ababa</span>
+                <span className="font-serif text-sm italic text-foreground/70">
+                  prompt to production
+                </span>
+              </figcaption>
+            </figure>
+          </FadeUp>
+
+          <FadeUp delay={0.6}>
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
               <Link
                 href="/all"
