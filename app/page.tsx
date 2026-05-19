@@ -42,6 +42,59 @@ export default function HomePage() {
             </figure>
           </FadeUp>
 
+          <FadeUp delay={0.55}>
+            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border/60 bg-border/60 sm:grid-cols-4">
+              {[
+                { k: "based in", v: "Addis Ababa" },
+                { k: "stack", v: "TS · Solidity" },
+                { k: "shipping", v: "Web3 + AI" },
+                { k: "status", v: "open to collab" },
+              ].map((s) => (
+                <div
+                  key={s.k}
+                  className="bg-card/60 px-4 py-3 backdrop-blur-sm"
+                >
+                  <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                    {s.k}
+                  </dt>
+                  <dd className="mt-1 font-serif text-sm text-foreground">
+                    {s.v}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </FadeUp>
+
+          <FadeUp delay={0.58}>
+            <p className="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              elsewhere
+            </p>
+            <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+              {[
+                { label: "GitHub", href: "https://github.com" },
+                { label: "X / Twitter", href: "https://x.com" },
+                { label: "LinkedIn", href: "https://linkedin.com" },
+                { label: "Email", href: "mailto:hi@burhan.dev" },
+              ].map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-baseline gap-1 text-foreground/80 transition-colors hover:text-primary"
+                  >
+                    <span className="border-b border-dashed border-foreground/30 pb-px group-hover:border-primary">
+                      {l.label}
+                    </span>
+                    <span className="font-mono text-xs text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
+                      ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </FadeUp>
+
           <FadeUp delay={0.6}>
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
               <Link

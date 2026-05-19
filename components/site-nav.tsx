@@ -13,10 +13,10 @@ export function SiteNav() {
     <header className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 pt-10 pb-6">
       <Link href="/" className="group flex items-baseline gap-2">
         <span className="font-serif text-3xl leading-none tracking-tight text-foreground">
-          burhan_
+          Burhan_
         </span>
         <span className="hidden font-mono text-xs text-muted-foreground sm:inline">
-          bur · han
+          Bur · han
         </span>
       </Link>
       <div className="flex items-center gap-5">
