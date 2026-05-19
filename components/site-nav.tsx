@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function SiteNav() {
   const links = [
@@ -18,20 +19,23 @@ export function SiteNav() {
           bur · han
         </span>
       </Link>
-      <nav aria-label="Primary">
-        <ul className="flex items-center gap-5 text-sm text-muted-foreground">
-          {links.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className="transition-colors hover:text-foreground"
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="flex items-center gap-5">
+        <nav aria-label="Primary">
+          <ul className="flex items-center gap-5 text-sm text-muted-foreground">
+            {links.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <ThemeToggle />
+      </div>
     </header>
   )
 }

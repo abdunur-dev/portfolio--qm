@@ -11,12 +11,12 @@ export default function AllProjectsPage() {
         {/* Heading */}
         <section className="mt-6 mb-16">
           <h1 className="font-serif text-6xl leading-none tracking-tight text-foreground sm:text-7xl">
-            projects
+            projects<span className="text-primary">.</span>
           </h1>
           <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
             Things I&apos;ve built across work, side quests, and experiments —
             mostly Web3, full-stack, and the occasional whimsical detour
-            <span className="font-serif italic"> ✦</span>
+            <span className="font-serif italic text-primary"> ✦</span>
           </p>
         </section>
 
