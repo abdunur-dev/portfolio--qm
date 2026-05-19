@@ -6,7 +6,6 @@ import { AdminPostList } from "@/components/admin-post-list"
 import { AdminNowList } from "@/components/admin-now-list"
 import { AdminTabs } from "@/components/admin-tabs"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
 import type { Project, Post, NowSection } from "@/lib/types"
 import { LogoutButton } from "@/components/logout-button"
 import { requireAdmin } from "@/lib/auth/require-admin"
@@ -48,52 +47,85 @@ export default async function AdminPage() {
     <main className="relative min-h-svh">
       <AuroraBackground />
 
-      <div className="mx-auto max-w-4xl px-6 py-10 sm:py-16">
-        <header className="mb-12 flex items-center justify-between">
-          <Link
-            href="/"
-            className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground"
-          >
-            ← back to site
-          </Link>
-          <div className="flex items-center gap-2">
+      <div className="mx-auto max-w-5xl px-5 py-6 sm:px-8 sm:py-10">
+        {/* Top bar */}
+        <header className="mb-8 flex items-center justify-between gap-4 rounded-full border border-border/60 bg-card/50 px-4 py-2 backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
+            >
+              ← site
+            </Link>
+            <span aria-hidden className="h-4 w-px bg-border" />
+            <span className="font-serif text-base text-foreground">Studio</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:inline">
+              {user.email}
+            </span>
             <ThemeToggle />
             <LogoutButton />
           </div>
         </header>
 
-        <div className="mb-10">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-foreground/60">admin</p>
-          <h1 className="mt-2 font-serif text-5xl leading-none tracking-tight sm:text-6xl">
-            studio<span className="text-foreground/50">.</span>
-          </h1>
-          <p className="mt-4 max-w-xl text-pretty text-sm leading-relaxed text-foreground/70">
-            Manage projects, writing posts, and your /now page in one place. Changes
-            appear instantly on the public site.
-          </p>
+        {/* Hero */}
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/60">
+              admin · content
+            </p>
+            <h1 className="mt-2 font-serif text-4xl leading-none tracking-tight sm:text-5xl">
+              Manage everything<span className="text-foreground/40">.</span>
+            </h1>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              href="/all"
+              className="rounded-full border border-border/60 bg-card/40 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              /all ↗
+            </Link>
+            <Link
+              href="/writing"
+              className="rounded-full border border-border/60 bg-card/40 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              /writing ↗
+            </Link>
+            <Link
+              href="/now"
+              className="rounded-full border border-border/60 bg-card/40 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              /now ↗
+            </Link>
+          </div>
+        </div>
+
+        {/* Stat row */}
+        <div className="mb-6 grid grid-cols-3 gap-3">
+          <Stat label="Projects" value={projects.length} />
+          <Stat label="Posts" value={posts.length} />
+          <Stat label="Now sections" value={nowSections.length} />
         </div>
 
         <AdminTabs
+          counts={{ projects: projects.length, writing: posts.length, now: nowSections.length }}
           projects={<AdminProjectList projects={projects} />}
           writing={<AdminPostList posts={posts} />}
           now={<AdminNowList sections={nowSections} />}
         />
-
-        <p className="mt-10 text-center font-mono text-xs text-muted-foreground">
-          signed in as <span className="text-foreground">{user.email}</span>
-        </p>
-        <div className="mt-2 flex items-center justify-center gap-3">
-          <Button asChild variant="link" size="sm" className="text-muted-foreground">
-            <Link href="/all">view /all</Link>
-          </Button>
-          <Button asChild variant="link" size="sm" className="text-muted-foreground">
-            <Link href="/writing">view /writing</Link>
-          </Button>
-          <Button asChild variant="link" size="sm" className="text-muted-foreground">
-            <Link href="/now">view /now</Link>
-          </Button>
-        </div>
       </div>
     </main>
+  )
+}
+
+function Stat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm">
+      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+        {label}
+      </p>
+      <p className="mt-1 font-serif text-2xl leading-none text-foreground">{value}</p>
+    </div>
   )
 }
