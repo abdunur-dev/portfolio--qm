@@ -213,7 +213,7 @@ export default function CvPage() {
         <main className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 print:max-w-full print:px-0 print:pt-0 print:pb-0">
           {/* Header */}
           <FadeUp>
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between print:gap-2">
+            <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-12 print:grid-cols-[1fr_auto] print:gap-6">
               <div>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-[10px]">
                   curriculum vitae
@@ -229,36 +229,33 @@ export default function CvPage() {
                 </p>
               </div>
 
-              <PrintCvButton />
+              {/* Right column: links + print button */}
+              <div className="flex flex-col gap-4 sm:min-w-[220px] sm:items-end print:min-w-[180px] print:items-end print:gap-2">
+                <ul className="flex flex-col gap-1.5 sm:items-end print:items-end print:gap-0.5">
+                  {socialLinks.map((l) => (
+                    <li key={l.label}>
+                      <a
+                        href={l.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group inline-flex items-baseline gap-2 font-mono text-xs text-foreground/85 transition-colors hover:text-primary print:text-[10px]"
+                      >
+                        <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground print:text-[8.5px] print:text-foreground/70">
+                          {l.label}
+                        </span>
+                        <span className="underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
+                          {l.href
+                            .replace(/^mailto:/, "")
+                            .replace(/^https?:\/\//, "")
+                            .replace(/\/$/, "")}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <PrintCvButton />
+              </div>
             </div>
-          </FadeUp>
-
-          {/* Links */}
-          <FadeUp delay={0.05}>
-            <Section label="Links">
-              <ul className="flex flex-col gap-1.5 print:gap-0.5">
-                {socialLinks.map((l) => (
-                  <li key={l.label}>
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group inline-flex items-baseline gap-3 font-mono text-sm text-foreground/85 transition-colors hover:text-primary print:text-[10.5px]"
-                    >
-                      <span className="w-20 shrink-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:w-16 print:text-[9px] print:text-foreground/70">
-                        {l.label}
-                      </span>
-                      <span className="underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
-                        {l.href
-                          .replace(/^mailto:/, "")
-                          .replace(/^https?:\/\//, "")
-                          .replace(/\/$/, "")}
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Section>
           </FadeUp>
 
           {/* Experience */}

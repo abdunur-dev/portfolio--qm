@@ -5,9 +5,9 @@ export function PrintCvButton() {
     <button
       type="button"
       onClick={() => window.print()}
-      className="group inline-flex w-fit items-center gap-2 rounded-full border border-border/70 bg-card/40 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-foreground/80 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary print:hidden"
+      className="group inline-flex w-fit items-baseline gap-1.5 font-mono text-xs uppercase tracking-[0.18em] text-foreground/70 underline decoration-foreground/30 decoration-1 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary print:hidden"
     >
-      Print / Save PDF
+      Print PDF
       <span className="text-[10px] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
         ↗
       </span>
