@@ -11,14 +11,18 @@ import { motion, useMotionValue, useSpring, useTransform } from "motion/react"
  *  - faint SVG noise grain
  */
 export function AuroraBackground() {
-  const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0)
-  const mouseY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
   const sx = useSpring(mouseX, { stiffness: 60, damping: 20, mass: 0.6 })
   const sy = useSpring(mouseY, { stiffness: 60, damping: 20, mass: 0.6 })
   const cx = useTransform(sx, (v) => v - 256)
   const cy = useTransform(sy, (v) => v - 256)
 
   useEffect(() => {
+    // Initialize on mount so SSR/CSR start identical (both 0).
+    mouseX.set(window.innerWidth / 2)
+    mouseY.set(window.innerHeight / 2)
+
     const handleMove = (e: MouseEvent) => {
       mouseX.set(e.clientX)
       mouseY.set(e.clientY)
