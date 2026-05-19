@@ -121,7 +121,7 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="border-t border-border/50 py-10 sm:py-12 print:border-foreground/30 print:py-6">
+    <section className="border-t border-border py-10 sm:py-12 print:border-foreground/30 print:py-6">
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-foreground">
         {label}
       </p>
@@ -208,7 +208,7 @@ export default function CvPage() {
           {/* Experience */}
           <FadeUp delay={0.05}>
             <Section label="Experience">
-              <div className="divide-y divide-border/40 print:divide-foreground/20">
+              <div className="divide-y divide-border print:divide-foreground/20">
                 {experience.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
@@ -219,7 +219,7 @@ export default function CvPage() {
           {/* Projects */}
           <FadeUp delay={0.05}>
             <Section label="Projects">
-              <div className="divide-y divide-border/40 print:divide-foreground/20">
+              <div className="divide-y divide-border print:divide-foreground/20">
                 {projects.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
@@ -230,7 +230,7 @@ export default function CvPage() {
           {/* Events */}
           <FadeUp delay={0.05}>
             <Section label="Events">
-              <div className="divide-y divide-border/40 print:divide-foreground/20">
+              <div className="divide-y divide-border print:divide-foreground/20">
                 {events.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
@@ -241,7 +241,7 @@ export default function CvPage() {
           {/* Education */}
           <FadeUp delay={0.05}>
             <Section label="Education">
-              <div className="divide-y divide-border/40 print:divide-foreground/20">
+              <div className="divide-y divide-border print:divide-foreground/20">
                 {education.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
