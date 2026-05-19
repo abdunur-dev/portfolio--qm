@@ -78,6 +78,33 @@ const education: Entry[] = [
   },
 ]
 
+const certifications: Entry[] = [
+  {
+    range: "2024",
+    title: "The Complete Web Developer Bootcamp",
+    org: "Udemy",
+    desc: "Full-stack JavaScript, React, Node.js, and modern web fundamentals.",
+  },
+  {
+    range: "2024",
+    title: "Ethereum & Solidity: The Complete Developer's Guide",
+    org: "Udemy",
+    desc: "Smart contract development, dApp architecture, and on-chain testing patterns.",
+  },
+  {
+    range: "2023",
+    title: "Responsive Web Design",
+    org: "freeCodeCamp",
+    desc: "Semantic HTML, CSS layout, accessibility, and responsive design principles.",
+  },
+  {
+    range: "2023",
+    title: "JavaScript Algorithms & Data Structures",
+    org: "freeCodeCamp",
+    desc: "Modern JavaScript, functional programming, and core data structures.",
+  },
+]
+
 const skills = [
   "frontend engineering",
   "smart contract development",
@@ -122,23 +149,23 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="border-t-2 border-foreground/30 py-10 sm:py-12 print:border-foreground/40 print:py-6">
+    <section className="border-t-2 border-foreground/30 py-10 sm:py-12 print:border-t print:border-foreground/60 print:py-4">
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-foreground">
         {label}
       </p>
-      <div className="mt-6 print:mt-3">{children}</div>
+      <div className="mt-6 print:mt-2">{children}</div>
     </section>
   )
 }
 
 function EntryRow({ e }: { e: Entry }) {
   return (
-    <div className="grid gap-1 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:py-2">
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-foreground/70">
+    <div className="print-avoid-break grid gap-1 py-4 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-5 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
         {e.range}
       </p>
       <div>
-        <p className="font-serif text-lg leading-snug text-foreground sm:text-xl">
+        <p className="font-serif text-lg leading-snug text-foreground sm:text-xl print:text-[12.5px] print:leading-tight">
           {e.title}
           {e.org && (
             <span className="text-foreground/60">
@@ -148,7 +175,7 @@ function EntryRow({ e }: { e: Entry }) {
           )}
         </p>
         {e.desc && (
-          <p className="mt-1.5 max-w-2xl text-pretty text-sm leading-relaxed text-foreground/75 print:text-foreground/80">
+          <p className="mt-1.5 max-w-2xl text-pretty text-sm leading-relaxed text-foreground/75 print:mt-0.5 print:text-[10.5px] print:leading-snug print:text-foreground/80">
             {e.desc}
           </p>
         )}
@@ -159,11 +186,11 @@ function EntryRow({ e }: { e: Entry }) {
 
 function Chips({ items }: { items: string[] }) {
   return (
-    <ul className="flex flex-wrap gap-1.5">
+    <ul className="flex flex-wrap gap-1.5 print:gap-1">
       {items.map((s) => (
         <li
           key={s}
-          className="rounded-md border border-border/70 bg-card/40 px-2.5 py-1 font-mono text-[11px] lowercase tracking-wide text-foreground/80 backdrop-blur-sm print:border-foreground/40 print:bg-transparent"
+          className="rounded-md border border-border/70 bg-card/40 px-2.5 py-1 font-mono text-[11px] lowercase tracking-wide text-foreground/80 backdrop-blur-sm print:rounded print:border print:border-foreground/40 print:bg-transparent print:px-1.5 print:py-0.5 print:text-[9.5px]"
         >
           {s}
         </li>
@@ -174,7 +201,7 @@ function Chips({ items }: { items: string[] }) {
 
 export default function CvPage() {
   return (
-    <div className="relative min-h-screen">
+    <div className="cv-print relative min-h-screen">
       <div className="print:hidden">
         <AuroraBackground />
       </div>
@@ -183,18 +210,37 @@ export default function CvPage() {
           <SiteNav />
         </div>
 
-        <main className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 print:max-w-full print:px-0 print:pt-0">
+        <main className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 print:max-w-full print:px-0 print:pt-0 print:pb-0">
+          {/* PRINT-ONLY contact bar at top — links only */}
+          <div className="hidden print:block">
+            <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-foreground/60 pb-2 font-mono text-[10px] text-foreground">
+              {socialLinks.map((l) => (
+                <li key={l.label} className="flex items-center gap-1.5">
+                  <span className="uppercase tracking-[0.15em] text-foreground/60">
+                    {l.label}
+                  </span>
+                  <span>
+                    {l.href
+                      .replace(/^mailto:/, "")
+                      .replace(/^https?:\/\//, "")
+                      .replace(/\/$/, "")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Header */}
           <FadeUp>
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between print:mt-3 print:gap-2">
               <div>
-                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-[10px]">
                   curriculum vitae
                 </p>
-                <h1 className="mt-3 font-serif text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl">
+                <h1 className="mt-3 font-serif text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl print:mt-1 print:text-3xl">
                   Abdurhaman Nur<span className="text-primary">.</span>
                 </h1>
-                <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-foreground/75">
+                <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-foreground/75 print:mt-1 print:text-[10.5px] print:leading-snug">
                   Web3 &amp; full-stack developer based in Addis Ababa, also
                   known as Burhan online. I build dApps, design systems, and
                   modern web experiences — and occasionally write about the
@@ -209,7 +255,7 @@ export default function CvPage() {
           {/* Experience */}
           <FadeUp delay={0.05}>
             <Section label="Experience">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/30">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
                 {experience.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
@@ -220,7 +266,7 @@ export default function CvPage() {
           {/* Projects */}
           <FadeUp delay={0.05}>
             <Section label="Projects">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/30">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
                 {projects.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
@@ -231,8 +277,19 @@ export default function CvPage() {
           {/* Events */}
           <FadeUp delay={0.05}>
             <Section label="Events">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/30">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
                 {events.map((e) => (
+                  <EntryRow key={e.title + e.range} e={e} />
+                ))}
+              </div>
+            </Section>
+          </FadeUp>
+
+          {/* Certifications */}
+          <FadeUp delay={0.05}>
+            <Section label="Certifications">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
+                {certifications.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
               </div>
@@ -242,7 +299,7 @@ export default function CvPage() {
           {/* Education */}
           <FadeUp delay={0.05}>
             <Section label="Education">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/30">
+              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
                 {education.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
@@ -253,28 +310,28 @@ export default function CvPage() {
           {/* Workflow */}
           <FadeUp delay={0.05}>
             <Section label="Workflow">
-              <div className="grid gap-8 sm:grid-cols-3">
-                <div>
+              <div className="grid gap-8 sm:grid-cols-3 print:gap-4">
+                <div className="print-avoid-break">
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                     Skills
                   </p>
-                  <div className="mt-3">
+                  <div className="mt-3 print:mt-1.5">
                     <Chips items={skills} />
                   </div>
                 </div>
-                <div>
+                <div className="print-avoid-break">
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                     Tools
                   </p>
-                  <div className="mt-3">
+                  <div className="mt-3 print:mt-1.5">
                     <Chips items={tools} />
                   </div>
                 </div>
-                <div>
+                <div className="print-avoid-break">
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                     Technology
                   </p>
-                  <div className="mt-3">
+                  <div className="mt-3 print:mt-1.5">
                     <Chips items={technology} />
                   </div>
                 </div>
@@ -282,29 +339,34 @@ export default function CvPage() {
             </Section>
           </FadeUp>
 
-          {/* Elsewhere — social links */}
+          {/* Elsewhere — on screen only (links live at the top in print) */}
           <FadeUp delay={0.05}>
-            <Section label="Elsewhere">
-              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 print:grid-cols-2 print:gap-1">
-                {socialLinks.map((l) => (
-                  <li key={l.label}>
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70 print:rounded-none print:border-0 print:border-b print:border-foreground/20 print:bg-transparent print:px-0 print:py-1.5 print:backdrop-blur-none"
-                    >
-                      <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
-                        {l.label}
-                      </span>
-                      <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary print:text-foreground/70">
-                        {l.href.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Section>
+            <div className="print:hidden">
+              <Section label="Elsewhere">
+                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {socialLinks.map((l) => (
+                    <li key={l.label}>
+                      <a
+                        href={l.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
+                      >
+                        <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
+                          {l.label}
+                        </span>
+                        <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
+                          {l.href
+                            .replace(/^mailto:/, "")
+                            .replace(/^https?:\/\//, "")
+                            .replace(/\/$/, "")}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            </div>
           </FadeUp>
         </main>
 

@@ -126,3 +126,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 14mm 16mm 14mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Avoid awkward breaks inside CV rows / sections */
+  .print-avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Force readable text in print regardless of theme */
+  .cv-print * {
+    color: #111 !important;
+    border-color: #999 !important;
+  }
+  .cv-print a {
+    color: #111 !important;
+    text-decoration: none;
+  }
+}
+
