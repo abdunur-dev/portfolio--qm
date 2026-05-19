@@ -4,6 +4,9 @@ import { revalidatePath } from "next/cache"
 import { createClient } from "@/lib/supabase/server"
 import { requireAdmin } from "@/lib/auth/require-admin"
 import { posts as staticPosts } from "@/lib/posts-data"
+import { uploadImageIfPresent } from "@/lib/upload-image"
+
+const NOW_BUCKET = "now-covers"
 
 function readPostForm(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim()
@@ -122,7 +125,8 @@ function readNowForm(formData: FormData) {
     .filter(Boolean)
   const positionRaw = Number(formData.get("position"))
   const position = Number.isFinite(positionRaw) ? positionRaw : 0
-  return { label, items, position }
+  const cover_url = String(formData.get("cover_url") ?? "").trim() || null
+  return { label, items, position, cover_url }
 }
 
 export async function createNowSection(formData: FormData) {
@@ -131,6 +135,13 @@ export async function createNowSection(formData: FormData) {
 
   const payload = readNowForm(formData)
   if (!payload.label) return { error: "Label is required" }
+
+  try {
+    const uploaded = await uploadImageIfPresent(formData, "cover_file", NOW_BUCKET, user.id)
+    if (typeof uploaded === "string") payload.cover_url = uploaded
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
 
   const { error } = await supabase
     .from("now_sections")
@@ -147,6 +158,13 @@ export async function updateNowSection(id: string, formData: FormData) {
   const supabase = await createClient()
 
   const payload = readNowForm(formData)
+  try {
+    const uploaded = await uploadImageIfPresent(formData, "cover_file", NOW_BUCKET, user.id)
+    if (typeof uploaded === "string") payload.cover_url = uploaded
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
+
   const { error } = await supabase
     .from("now_sections")
     .update(payload)

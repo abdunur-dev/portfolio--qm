@@ -175,7 +175,7 @@ function NowForm({
   }
 
   return (
-    <form action={handleSubmit} className="grid gap-5">
+    <form action={handleSubmit} encType="multipart/form-data" className="grid gap-5">
       <div className="grid gap-4 sm:grid-cols-[1fr_8rem]">
         <div className="grid gap-2">
           <Label className="text-xs uppercase tracking-wider text-muted-foreground">Label</Label>
@@ -203,6 +203,41 @@ function NowForm({
           placeholder={`Polishing TibebChain…\nSketching a tiny invoicing tool…`}
           className="resize-none"
         />
+      </div>
+
+      <div className="grid gap-3 rounded-xl border border-border/60 bg-background/40 p-4">
+        <div className="flex items-center justify-between">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+            Section image (optional)
+          </Label>
+          {initial?.cover_url && (
+            <span className="font-mono text-[10px] text-muted-foreground">current attached</span>
+          )}
+        </div>
+        {initial?.cover_url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={initial.cover_url}
+            alt=""
+            className="h-32 w-full rounded-lg border border-border/60 object-cover"
+          />
+        )}
+        <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+          <Input
+            name="cover_url"
+            defaultValue={initial?.cover_url ?? ""}
+            placeholder="Or paste an image URL"
+          />
+          <Input
+            name="cover_file"
+            type="file"
+            accept="image/*"
+            className="cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-xs file:text-secondary-foreground"
+          />
+        </div>
+        <p className="font-mono text-[10px] text-muted-foreground">
+          Upload an image (max 5MB) or paste a URL. Upload wins if both are filled.
+        </p>
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}

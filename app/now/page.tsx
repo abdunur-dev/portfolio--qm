@@ -63,8 +63,13 @@ export default async function NowPage() {
 
   const sections =
     dbSections.length > 0
-      ? dbSections.map((s) => ({ label: s.label, items: s.items, updated: s.updated_at }))
-      : STATIC_SECTIONS.map((s) => ({ ...s, updated: undefined }))
+      ? dbSections.map((s) => ({
+          label: s.label,
+          items: s.items,
+          cover_url: s.cover_url,
+          updated: s.updated_at,
+        }))
+      : STATIC_SECTIONS.map((s) => ({ ...s, cover_url: null, updated: undefined }))
 
   const latestUpdate = dbSections.length
     ? dbSections.reduce<string | undefined>(
@@ -107,6 +112,14 @@ export default async function NowPage() {
                   <h2 className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground sm:absolute sm:-left-24 sm:top-6 sm:mb-0">
                     {s.label}
                   </h2>
+                  {s.cover_url && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={s.cover_url}
+                      alt={`${s.label} image`}
+                      className="mb-5 aspect-[16/9] w-full rounded-xl border border-border/60 object-cover"
+                    />
+                  )}
                   <ul className="space-y-3">
                     {s.items.map((item, j) => (
                       <li
