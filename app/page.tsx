@@ -16,7 +16,7 @@ export default function HomePage() {
         <SiteNav />
         <main className="mx-auto w-full max-w-3xl px-5 py-10 sm:px-6 sm:py-12">
           <AnimatedHeading
-            text="hi, I'm Burhan_"
+            text="Hi, I'm Burhan_"
             className="text-5xl sm:text-6xl md:text-7xl"
           />
 
