@@ -6,9 +6,9 @@ import { FadeUp } from "@/components/fade-up"
 import { PrintCvButton } from "@/components/print-cv-button"
 
 export const metadata: Metadata = {
-  title: "CV · Burhan_",
+  title: "CV · Abdurhaman Nur",
   description:
-    "Curriculum vitae of Burhan — Web3 & full-stack developer based in Addis Ababa.",
+    "Curriculum vitae of Abdurhaman Nur — Web3 & full-stack developer based in Addis Ababa.",
 }
 
 type Entry = {
@@ -27,7 +27,7 @@ const experience: Entry[] = [
   {
     range: "2024 — present",
     title: "Organiser & Speaker, v0 IRL Addis Ababa",
-    desc: "Organising and speaking at v0 IRL events in Ethiopia. Hosted workshops on shipping with v0, AI-assisted product building, and modern Next.js patterns for local builders.",
+    desc: "Hosting v0 IRL community events in Ethiopia — gathering local devs, designers, and founders for talks, hackathons, and hands-on workshops on shipping with v0, AI-assisted product building, and modern Next.js. Partnering with Vercel and v0 to bring the global community to Addis.",
   },
   {
     range: "2022 — 2024",
@@ -57,28 +57,14 @@ const projects: Entry[] = [
     title: "GuardHer AI",
     desc: "An AI safety tool that filters harmful content — focused on protecting women and vulnerable users in online spaces.",
   },
-  {
-    range: "2023 — 2024",
-    title: "v0 IRL Addis Ababa",
-    desc: "Co-built the first v0 community gathering in Ethiopia. Workshops, talks, and hands-on building sessions for local developers.",
-  },
 ]
 
-const communities: Entry[] = [
+const events: Entry[] = [
   {
     range: "2024 — present",
-    title: "Community Organiser",
-    org: "v0 IRL Addis Ababa",
-  },
-  {
-    range: "2023 — present",
-    title: "Mentor & Builder",
-    org: "Ethiopian Web3 Community",
-  },
-  {
-    range: "2022 — present",
-    title: "Open-Source Contributor",
-    org: "Various Web3 & Next.js projects",
+    title: "v0 IRL Addis Ababa",
+    org: "Host & Organiser",
+    desc: "A community event series partnered with Vercel and v0 to gather Ethiopian developers, designers, and founders. Curated speaker lineups, hackathons, and workshops to grow the local AI and Web3 builder scene.",
   },
 ]
 
@@ -205,13 +191,13 @@ export default function CvPage() {
                   curriculum vitae
                 </p>
                 <h1 className="mt-3 font-serif text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl">
-                  Burhan<span className="text-primary">.</span>
+                  Abdurhaman Nur<span className="text-primary">.</span>
                 </h1>
                 <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-foreground/75">
-                  Web3 &amp; full-stack developer based in Addis Ababa. I
-                  build dApps, design systems, and modern web experiences —
-                  and occasionally write about the quiet places where design,
-                  code, and faith overlap.
+                  Web3 &amp; full-stack developer based in Addis Ababa, also
+                  known as Burhan online. I build dApps, design systems, and
+                  modern web experiences — and occasionally write about the
+                  quiet places where design, code, and faith overlap.
                 </p>
               </div>
 
@@ -241,11 +227,11 @@ export default function CvPage() {
             </Section>
           </FadeUp>
 
-          {/* Communities */}
+          {/* Events */}
           <FadeUp delay={0.05}>
-            <Section label="Communities">
+            <Section label="Events">
               <div className="divide-y divide-border/40 print:divide-foreground/20">
-                {communities.map((e) => (
+                {events.map((e) => (
                   <EntryRow key={e.title + e.range} e={e} />
                 ))}
               </div>

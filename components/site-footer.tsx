@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-6 sm:flex-row sm:items-center">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
           <p className="font-mono text-xs text-muted-foreground">
-            © {year} Burhan<span className="text-primary">.</span>
+            © {year} Abdurhaman Nur<span className="text-primary">.</span>
           </p>
           <Link
             href="/cv"
