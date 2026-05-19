@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Coffee } from "lucide-react"
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
@@ -19,10 +20,27 @@ export function SiteFooter() {
             </span>
           </Link>
         </div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
-          built with care{" "}
-          <span className="font-serif italic text-primary">✦</span> Addis Ababa
-        </p>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://buymeacoffee.com/abdurhamanw"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Buy me a coffee"
+            title="Buy me a coffee"
+            className="group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80 transition-colors hover:text-primary"
+          >
+            <Coffee
+              className="h-4 w-4 transition-transform group-hover:-rotate-6 group-hover:scale-110"
+              aria-hidden
+            />
+            <span className="hidden sm:inline">buy me a coffee</span>
+          </a>
+          <span aria-hidden className="hidden h-3 w-px bg-border/60 sm:inline-block" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
+            built with care{" "}
+            <span className="font-serif italic text-primary">✦</span> Addis Ababa
+          </p>
+        </div>
       </div>
     </footer>
   )
