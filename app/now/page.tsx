@@ -1,4 +1,5 @@
 import { SiteNav } from "@/components/site-nav"
+import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
@@ -105,6 +106,7 @@ export default function NowPage() {
             </p>
           </FadeUp>
         </main>
+        <SiteFooter />
       </div>
     </div>
   )

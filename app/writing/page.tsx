@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { SiteNav } from "@/components/site-nav"
+import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
@@ -135,6 +136,7 @@ export default function WritingPage() {
             </p>
           </FadeUp>
         </main>
+        <SiteFooter />
       </div>
     </div>
   )

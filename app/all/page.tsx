@@ -1,4 +1,5 @@
 import { SiteNav } from "@/components/site-nav"
+import { SiteFooter } from "@/components/site-footer"
 import { ProjectCard } from "@/components/project-card"
 import { projectsByYear } from "@/lib/projects-data"
 import { AnimatedHeading } from "@/components/animated-heading"
@@ -65,15 +66,8 @@ export default function AllProjectsPage() {
           ))}
         </div>
 
-        {/* Footer */}
-        <FadeUp as="section" className="mt-24 border-t border-border/60 pt-6">
-          <p className="font-mono text-xs text-muted-foreground">
-            © 2026 burhan_ — let&apos;s build something{" "}
-            <span className="font-serif italic text-foreground/80">amazing</span>{" "}
-            <FloatingSparkle delay={1.2} />
-          </p>
-        </FadeUp>
         </main>
+        <SiteFooter />
       </div>
     </div>
   )
