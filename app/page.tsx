@@ -45,18 +45,20 @@ export default function HomePage() {
               </FadeUp>
 
               <FadeUp delay={0.45}>
-                <p className="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-muted-foreground">
-                  Since <span className="font-serif italic text-foreground/80">2020</span>,
-                  I&apos;ve shipped projects across{" "}
-                  <span className="font-serif italic text-foreground/80">
-                    Web3, Design, and Community
+                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                  <span className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-foreground/70" />
+                    Based in Addis Ababa
                   </span>
-                  . You&apos;re visitor{" "}
-                  <span className="font-mono text-xs tracking-wider text-foreground/80">
-                    #00,142
+                  <span className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-foreground/70" />
+                    Building since 2020
                   </span>
-                  .
-                </p>
+                  <span className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-foreground" />
+                    Open to collaborations
+                  </span>
+                </div>
               </FadeUp>
             </div>
 

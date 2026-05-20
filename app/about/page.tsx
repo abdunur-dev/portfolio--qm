@@ -44,7 +44,7 @@ export default function AboutPage() {
               Abdurhaman<span className="text-primary">.</span>
             </h1>
             <span className="mt-5 inline-block rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
-              Web3 / Full-Stack Developer
+              Full-Stack · Web3 · AI / Vibe Coder
             </span>
           </FadeUp>
 
@@ -60,11 +60,20 @@ export default function AboutPage() {
               <p>
                 I&apos;m a{" "}
                 <span className="font-serif italic">
-                  Web3 &amp; full-stack developer
+                  full-stack developer
                 </span>{" "}
-                and builder at heart. I&apos;ve spent the last few years deep
-                in the world of decentralized apps — shipping smart contracts
-                and dApps across multiple chains like{" "}
+                and builder at heart — comfortable across both Web2 and Web3.
+                On the Web2 side I ship{" "}
+                <span className="font-serif italic">
+                  modern web apps
+                </span>{" "}
+                with{" "}
+                <span className="font-serif italic">Next.js</span>,{" "}
+                <span className="font-serif italic">TypeScript</span>, and the
+                usual SaaS stack — auth, dashboards, APIs, payments. On the
+                Web3 side, I&apos;ve spent the last few years deep in
+                decentralized apps, shipping smart contracts and dApps across
+                multiple chains like{" "}
                 <span className="font-serif italic">Ethereum</span>,{" "}
                 <span className="font-serif italic">Solana</span>,{" "}
                 <span className="font-serif italic">Base</span>, and others —
@@ -76,6 +85,22 @@ export default function AboutPage() {
                 tinkering across small startups, freelance gigs, and side
                 quests as a{" "}
                 <span className="font-serif italic">design engineer</span>.
+              </p>
+              <p>
+                These days I lean hard into{" "}
+                <span className="font-serif italic">AI-assisted</span> and{" "}
+                <span className="font-serif italic">vibe coding</span> — pairing
+                with tools like{" "}
+                <span className="font-serif italic">v0</span>,{" "}
+                <span className="font-serif italic">Cursor</span>, and{" "}
+                <span className="font-serif italic">Claude</span> to go from a
+                rough idea to a working prototype in a single sitting. It&apos;s
+                changed how I think about building: less ceremony, more
+                shipping, and a lot more space for taste, intuition, and weird
+                experiments. I also love wiring up{" "}
+                <span className="font-serif italic">integrations</span> — pulling
+                in tools, APIs, and AI models so my projects can talk to the
+                rest of the internet instead of living in a vacuum.
               </p>
               <p>
                 Going back, my journey into code started during the 2020
