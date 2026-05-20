@@ -52,39 +52,33 @@ export default function AboutPage() {
           <FadeUp delay={0.2}>
             <div className="mt-12 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
               <p>
-                Hii, I&apos;m Burhan{" "}
-                <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
-                Welcome to my little corner of the internet
-                <span className="font-serif italic text-primary"> .✦ ݁˖</span>
+                Hello! My name is{" "}
+                <span className="font-serif italic">Burhan</span> and I enjoy
+                creating tech solutions to my daily problems. My interest in
+                software development started back in 2020 — late nights during
+                lockdown, a Udemy tutorial I almost closed three times, and the
+                quiet realization that there&apos;s so much you can build with
+                nothing but a text editor and a stubborn curiosity
+                <span className="font-serif italic text-primary"> ⋆.˚ ☾⭒</span>
               </p>
               <p>
-                I&apos;m a{" "}
+                Fast-forward to today, and I&apos;ve had the privilege of
+                working with{" "}
+                <span className="font-serif italic">small startups</span>,
+                community-led{" "}
+                <span className="font-serif italic">campus clubs</span>, freelance
+                clients across Web3 and SaaS, and{" "}
+                <span className="font-serif italic">v0 IRL</span> — the local
+                builder community I help organize here in Addis Ababa. My main
+                focus these days is shipping{" "}
                 <span className="font-serif italic">
-                  Web3 &amp; full-stack developer
+                  modern, minimal and powerful products
                 </span>{" "}
-                and builder at heart. I spent the last few years deep in the
-                world of decentralized apps — shipping smart contracts on{" "}
+                — decentralized apps on{" "}
                 <span className="font-serif italic">Base</span> and{" "}
-                <span className="font-serif italic">Scroll</span>, building
-                dApps with TypeScript and Solidity, and exploring the messy,
-                magical edges of where Web3 meets product.
-              </p>
-              <p>
-                Most recently I&apos;ve been leading frontend on{" "}
-                <span className="font-serif italic">TibebChain</span>, an NFT
-                publishing platform for African creators, while organizing and
-                speaking at{" "}
-                <span className="font-serif italic">v0 IRL</span> events in
-                Addis Ababa. Before that I was tinkering across small startups,
-                bouncing between frontend, smart contracts, and design systems.
-              </p>
-              <p>
-                Going back, my journey into code started during the 2020
-                lockdown — late nights with Udemy tutorials, tiny side
-                experiments, and a slow slide into full-stack. I fell in love
-                with being able to{" "}
-                <span className="font-serif italic">create things on the web</span>{" "}
-                for myself and other humans, and the rest is history.
+                <span className="font-serif italic">Scroll</span>, design
+                systems, and digital experiences for the world to explore
+                <span className="font-serif italic text-primary"> .✦ ݁˖</span>
               </p>
             </div>
           </FadeUp>
