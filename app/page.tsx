@@ -29,28 +29,31 @@ export default function HomePage() {
                   the coffee&apos;s on me. I tinker with{" "}
                   <span className="font-serif italic">decentralised apps</span>,
                   ship modern web experiences, and occasionally write about the
-                  quiet places where design, code, and faith overlap
+                  quiet places where design, code, and faith overlap. based in{" "}
+                  <span className="font-serif italic">Addis Ababa</span>, mostly
+                  building on{" "}
+                  <span className="font-serif italic">Base</span> and{" "}
+                  <span className="font-serif italic">Scroll</span>, hosting{" "}
+                  <span className="font-serif italic">v0 IRL</span> for the
+                  local builder community, and chasing late nights where an
+                  empty editor turns into something worth shipping
                   <FloatingSparkle className="ml-2 inline-block" />
                 </p>
               </FadeUp>
             </div>
 
             <FadeUp delay={0.5}>
-              <figure className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm md:sticky md:top-24">
+              <figure className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm md:sticky md:top-24">
                 <div className="relative aspect-[3/4] w-full">
                   <Image
                     src="/images/burhan-portrait.jpg"
-                    alt="Burhan presenting at the v0 IRL event in Addis Ababa"
+                    alt="Burhan, full-stack and Web3 developer based in Addis Ababa"
                     fill
                     priority
                     sizes="(min-width: 1024px) 320px, (min-width: 768px) 280px, 100vw"
-                    className="object-cover grayscale"
+                    className="object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                 </div>
-                <figcaption className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 rounded-lg bg-background/70 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/80 backdrop-blur-md">
-                  <span>Addis Ababa</span>
-                  <span className="text-primary">v0 IRL</span>
-                </figcaption>
               </figure>
             </FadeUp>
           </div>
