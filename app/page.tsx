@@ -17,10 +17,31 @@ export default function HomePage() {
         <main id="main" className="mx-auto w-full max-w-5xl px-5 py-10 sm:px-6 sm:py-12">
           <div className="grid items-start gap-10 md:grid-cols-[1fr_280px] md:gap-12 lg:grid-cols-[1fr_320px]">
             <div>
+              <FadeUp delay={0.1}>
+                <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                  <span className="inline-block h-px w-8 bg-foreground/40" />
+                  Portfolio · v.04
+                </p>
+              </FadeUp>
+
               <AnimatedHeading
                 text="Ey up! I'm Abdurhaman_"
-                className="text-3xl leading-[1.1] sm:text-4xl md:text-5xl"
+                className="mt-4 text-3xl leading-[1.1] sm:text-4xl md:text-5xl"
               />
+
+              <FadeUp delay={0.35}>
+                <p className="mt-4 max-w-xl font-serif text-xl italic leading-snug text-foreground/85 sm:text-2xl md:text-[1.6rem]">
+                  full-stack &amp; Web3 developer turning{" "}
+                  <span className="not-italic font-sans text-foreground">
+                    caffeine
+                  </span>{" "}
+                  &amp;{" "}
+                  <span className="not-italic font-sans text-foreground">
+                    curiosity
+                  </span>{" "}
+                  into shipped products.
+                </p>
+              </FadeUp>
 
               <FadeUp delay={0.4}>
                 <p className="mt-6 max-w-xl text-pretty text-[1.05rem] leading-[1.7] text-foreground/80">
