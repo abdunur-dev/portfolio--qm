@@ -66,7 +66,9 @@ export default async function WritingPage() {
             <FadeUp delay={0.35}>
               <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
                 Field notes from the workbench — software, faith, and the
-                strange middle where they meet.
+                strange middle where they meet. Plus a few notes on{" "}
+                <span className="font-serif italic">events I&apos;ve helped
+                organize or spoken at</span> around the local builder scene.
               </p>
             </FadeUp>
           </section>

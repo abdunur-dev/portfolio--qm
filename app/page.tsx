@@ -30,12 +30,14 @@ export default function HomePage() {
                   <span className="font-serif italic">decentralised apps</span>,
                   ship modern web experiences, and occasionally write about the
                   quiet places where design, code, and faith overlap. based in{" "}
-                  <span className="font-serif italic">Addis Ababa</span>, mostly
-                  building on{" "}
-                  <span className="font-serif italic">Base</span> and{" "}
-                  <span className="font-serif italic">Scroll</span>, hosting{" "}
-                  <span className="font-serif italic">v0 IRL</span> for the
-                  local builder community, and chasing late nights where an
+                  <span className="font-serif italic">Addis Ababa</span>,
+                  building across multiple chains —{" "}
+                  <span className="font-serif italic">
+                    Ethereum, Solana, Base, and beyond
+                  </span>{" "}
+                  — helping organize{" "}
+                  <span className="font-serif italic">v0 IRL</span> meetups for
+                  the local builder community, and chasing late nights where an
                   empty editor turns into something worth shipping
                   <FloatingSparkle className="ml-2 inline-block" />
                 </p>

@@ -52,32 +52,64 @@ export default function AboutPage() {
           <FadeUp delay={0.2}>
             <div className="mt-12 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
               <p>
-                Hello! My name is{" "}
-                <span className="font-serif italic">Burhan</span> and I enjoy
-                creating tech solutions to my daily problems. My interest in
-                software development started back in 2020 — late nights during
-                lockdown, a Udemy tutorial I almost closed three times, and the
-                quiet realization that there&apos;s so much you can build with
-                nothing but a text editor and a stubborn curiosity
-                <span className="font-serif italic text-primary"> ⋆.˚ ☾⭒</span>
+                Hiiiiii, i&apos;m Burhan!{" "}
+                <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
+                Welcome to my little corner of the internet
+                <span className="font-serif italic text-primary"> .✦ ݁˖</span>
               </p>
               <p>
-                Fast-forward to today, and I&apos;ve had the privilege of
-                working with{" "}
-                <span className="font-serif italic">small startups</span>,
-                community-led{" "}
-                <span className="font-serif italic">campus clubs</span>, freelance
-                clients across Web3 and SaaS, and{" "}
-                <span className="font-serif italic">v0 IRL</span> — the local
-                builder community I help organize here in Addis Ababa. My main
-                focus these days is shipping{" "}
+                I&apos;m a{" "}
                 <span className="font-serif italic">
-                  modern, minimal and powerful products
+                  Web3 &amp; full-stack developer
                 </span>{" "}
-                — decentralized apps on{" "}
-                <span className="font-serif italic">Base</span> and{" "}
-                <span className="font-serif italic">Scroll</span>, design
-                systems, and digital experiences for the world to explore
+                and builder at heart. I&apos;ve spent the last few years deep
+                in the world of decentralized apps — shipping smart contracts
+                and dApps across multiple chains like{" "}
+                <span className="font-serif italic">Ethereum</span>,{" "}
+                <span className="font-serif italic">Solana</span>,{" "}
+                <span className="font-serif italic">Base</span>, and others —
+                bouncing between TypeScript, Solidity, and the messy, magical
+                edges of where Web3 meets product. Most recently I&apos;ve
+                been leading frontend on{" "}
+                <span className="font-serif italic">TibebChain</span>, an NFT
+                publishing platform for African creators. Before that I was
+                tinkering across small startups, freelance gigs, and side
+                quests as a{" "}
+                <span className="font-serif italic">design engineer</span>.
+              </p>
+              <p>
+                Going back, my journey into code started during the 2020
+                lockdown — I got curious and started learning how to build
+                things on the web, following Udemy tutorials on the nights and
+                weekends until something finally clicked. I fell in love with
+                being able to{" "}
+                <span className="font-serif italic">
+                  create things on the web
+                </span>{" "}
+                for myself and other humans, and the rest is history.
+              </p>
+              <p>
+                My current venture is exploring both my love for{" "}
+                <span className="font-serif italic">
+                  community and building
+                </span>
+                . I help organize{" "}
+                <span className="font-serif italic">v0 IRL</span> meetups in
+                Addis Ababa — a small but growing space for local builders to
+                ship together — and I&apos;ll usually be hanging out at
+                hackathons, dev meetups, and Web3 events around the city.
+              </p>
+              <p>
+                I&apos;m a collector of curiosities ~ I love tinkering with
+                side projects and experiments, half-finished prototypes,
+                weekend dApps, and weird little tools nobody asked for. When
+                I&apos;m not at the keyboard, I&apos;m usually walking the
+                streets of{" "}
+                <span className="border-b border-dashed border-foreground/40 pb-px">
+                  Addis Ababa
+                </span>
+                , watching football, sketching UI ideas in a notebook, and
+                drinking way more coffee than I should
                 <span className="font-serif italic text-primary"> .✦ ݁˖</span>
               </p>
             </div>
@@ -92,21 +124,16 @@ export default function AboutPage() {
             </p>
             <div className="mt-5 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
               <p>
-                I&apos;m a collector of curiosities. I love tinkering with side
-                projects and small web experiments — half-finished prototypes,
-                weekend dApps, weird little tools that nobody asked for. The
-                joy is in the building.
+                Outside of code, I&apos;m a quiet enthusiast of slow mornings
+                and noisy evenings. I read more than I finish, journal in
+                spurts, and like watching how a city wakes up from a third-floor
+                window with a cup of buna in hand.
               </p>
               <p>
-                When I&apos;m not at the keyboard, I&apos;m usually walking the
-                streets of{" "}
-                <span className="border-b border-dashed border-foreground/40 pb-px">
-                  Addis Ababa
-                </span>
-                , watching football, sketching UI ideas in a notebook, and
-                drinking way more coffee than I should. I also dabble in
-                community organizing, mentoring new builders, and dragging my
-                friends into Web3 rabbit holes at 2am.
+                I dabble in mentoring new builders, dragging friends into Web3
+                rabbit holes at 2am, and trying to make every small thing —
+                a button, a margin, a paragraph — feel a little more
+                considered than it had to be.
               </p>
             </div>
           </FadeUp>

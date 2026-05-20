@@ -70,9 +70,8 @@ export default async function AllProjectsPage() {
 
           <FadeUp delay={0.35}>
             <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
-              Things I&apos;ve built — and a few events I&apos;ve hosted or
-              spoken at — across work, side quests, and the occasional
-              whimsical detour{" "}
+              Things I&apos;ve built across work, side quests, and the
+              occasional whimsical detour{" "}
               <FloatingSparkle />
             </p>
           </FadeUp>
