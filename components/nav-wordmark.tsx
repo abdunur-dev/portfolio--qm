@@ -4,8 +4,8 @@ import Link from "next/link"
 import { motion } from "motion/react"
 
 const segments = [
-  { text: "Bur", tone: "solid" as const },
-  { text: "han", tone: "muted" as const },
+  { text: "Abd", tone: "solid" as const },
+  { text: "urhaman", tone: "muted" as const },
   { text: "_", tone: "soft" as const },
 ]
 
@@ -19,7 +19,7 @@ export function NavWordmark() {
   return (
     <Link
       href="/"
-      aria-label="Burhan — home"
+      aria-label="Abdurhaman — home"
       className="group inline-flex items-baseline gap-2"
     >
       <span className="relative inline-flex font-serif text-2xl leading-none tracking-tight sm:text-3xl">
@@ -55,7 +55,7 @@ export function NavWordmark() {
         ))}
       </span>
       <span className="hidden font-mono text-xs text-muted-foreground transition-colors group-hover:text-foreground/70 sm:inline">
-        Bur · han
+        Abd · urhaman
       </span>
     </Link>
   )

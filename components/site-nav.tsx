@@ -74,7 +74,7 @@ export function SiteNav() {
             <SheetContent side="right" className="w-72 sm:max-w-sm">
               <SheetHeader className="text-left">
                 <SheetTitle className="font-serif text-2xl">
-                  Burhan_
+                  Abdurhaman_
                 </SheetTitle>
               </SheetHeader>
               <nav aria-label="Mobile" className="mt-6 px-4">

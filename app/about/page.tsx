@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { socialLinks } from "@/lib/social-links"
 
 export const metadata: Metadata = {
-  title: "About · Burhan_",
+  title: "About · Abdurhaman_",
   description:
     "Web3 & full-stack developer building decentralized apps and modern web experiences from Addis Ababa.",
 }
@@ -26,7 +26,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/3] w-full">
                 <Image
                   src="/images/burhan-portrait.jpg"
-                  alt="Burhan presenting at the v0 IRL event in Addis Ababa"
+                  alt="Abdurhaman presenting at the v0 IRL event in Addis Ababa"
                   fill
                   priority
                   sizes="(min-width: 768px) 720px, 100vw"
@@ -41,7 +41,7 @@ export default function AboutPage() {
               about
             </p>
             <h1 className="mt-3 font-serif text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl md:text-7xl">
-              Burhan<span className="text-primary">.</span>
+              Abdurhaman<span className="text-primary">.</span>
             </h1>
             <span className="mt-5 inline-block rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
               Web3 / Full-Stack Developer
@@ -52,7 +52,7 @@ export default function AboutPage() {
           <FadeUp delay={0.2}>
             <div className="mt-12 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
               <p>
-                Hiiiiii, i&apos;m Burhan!{" "}
+                Hiiiiii, i&apos;m Abdurhaman!{" "}
                 <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
                 Welcome to my little corner of the internet
                 <span className="font-serif italic text-primary"> .✦ ݁˖</span>

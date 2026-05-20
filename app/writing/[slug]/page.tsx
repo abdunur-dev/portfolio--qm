@@ -79,7 +79,7 @@ export async function generateMetadata({
   const { slug } = await params
   const post = await getPost(slug)
   if (!post) return { title: "Not found" }
-  return { title: `${post.title} — Burhan`, description: post.excerpt }
+  return { title: `${post.title} — Abdurhaman`, description: post.excerpt }
 }
 
 export default async function WritingPost({

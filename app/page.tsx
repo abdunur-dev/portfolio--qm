@@ -18,7 +18,7 @@ export default function HomePage() {
           <div className="grid items-start gap-10 md:grid-cols-[1fr_280px] md:gap-12 lg:grid-cols-[1fr_320px]">
             <div>
               <AnimatedHeading
-                text="Hi, I'm Burhan_"
+                text="Hi, I'm Abdurhaman_"
                 className="text-5xl sm:text-6xl md:text-7xl"
               />
 
@@ -49,7 +49,7 @@ export default function HomePage() {
                 <div className="relative aspect-[3/4] w-full">
                   <Image
                     src="/images/burhan-portrait.jpg"
-                    alt="Burhan, full-stack and Web3 developer based in Addis Ababa"
+                    alt="Abdurhaman, full-stack and Web3 developer based in Addis Ababa"
                     fill
                     priority
                     sizes="(min-width: 1024px) 320px, (min-width: 768px) 280px, 100vw"
