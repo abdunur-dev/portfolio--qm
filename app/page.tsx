@@ -19,7 +19,7 @@ export default function HomePage() {
             <div>
               <AnimatedHeading
                 text="Ey up! I'm Abdurhaman_"
-                className="text-5xl sm:text-6xl md:text-7xl"
+                className="text-6xl leading-[0.95] sm:text-7xl md:text-8xl lg:text-9xl"
               />
 
               <FadeUp delay={0.4}>

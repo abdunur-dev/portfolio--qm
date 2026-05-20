@@ -4,40 +4,40 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light — pure monochrome: white paper, near-black ink */
-  --background: oklch(99% 0 0);
-  --foreground: oklch(14% 0 0);
+  /* Light — matches burhan-ops.vercel.app: near-white paper, near-black ink */
+  --background: oklch(98.84% 0 0);
+  --foreground: oklch(4% 0 0);
   --card: oklch(100% 0 0);
-  --card-foreground: oklch(14% 0 0);
+  --card-foreground: oklch(4% 0 0);
   --popover: oklch(100% 0 0);
-  --popover-foreground: oklch(14% 0 0);
-  --primary: oklch(14% 0 0);
-  --primary-foreground: oklch(99% 0 0);
-  --secondary: oklch(96% 0 0);
-  --secondary-foreground: oklch(14% 0 0);
-  --muted: oklch(96% 0 0);
-  --muted-foreground: oklch(48% 0 0);
-  --accent: oklch(96% 0 0);
-  --accent-foreground: oklch(14% 0 0);
+  --popover-foreground: oklch(4% 0 0);
+  --primary: oklch(4% 0 0);
+  --primary-foreground: oklch(98.84% 0 0);
+  --secondary: oklch(95.36% 0 0);
+  --secondary-foreground: oklch(4% 0 0);
+  --muted: oklch(95.36% 0 0);
+  --muted-foreground: oklch(39.68% 0 0);
+  --accent: oklch(95.36% 0 0);
+  --accent-foreground: oklch(4% 0 0);
   --destructive: oklch(40% 0 0);
-  --destructive-foreground: oklch(99% 0 0);
+  --destructive-foreground: oklch(98.84% 0 0);
   --border: oklch(91% 0 0);
   --input: oklch(91% 0 0);
-  --ring: oklch(14% 0 0);
+  --ring: oklch(4% 0 0);
   --chart-1: oklch(20% 0 0);
   --chart-2: oklch(40% 0 0);
   --chart-3: oklch(55% 0 0);
   --chart-4: oklch(70% 0 0);
   --chart-5: oklch(82% 0 0);
   --radius: 0.5rem;
-  --sidebar: oklch(99% 0 0);
-  --sidebar-foreground: oklch(14% 0 0);
-  --sidebar-primary: oklch(14% 0 0);
-  --sidebar-primary-foreground: oklch(99% 0 0);
-  --sidebar-accent: oklch(96% 0 0);
-  --sidebar-accent-foreground: oklch(14% 0 0);
+  --sidebar: oklch(98.84% 0 0);
+  --sidebar-foreground: oklch(4% 0 0);
+  --sidebar-primary: oklch(4% 0 0);
+  --sidebar-primary-foreground: oklch(98.84% 0 0);
+  --sidebar-accent: oklch(95.36% 0 0);
+  --sidebar-accent-foreground: oklch(4% 0 0);
   --sidebar-border: oklch(91% 0 0);
-  --sidebar-ring: oklch(14% 0 0);
+  --sidebar-ring: oklch(4% 0 0);
 }
 
 .dark {
