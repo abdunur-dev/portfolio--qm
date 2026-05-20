@@ -23,23 +23,37 @@ export default function HomePage() {
               />
 
               <FadeUp delay={0.4}>
-                <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/75">
+                <p className="mt-6 max-w-xl text-pretty text-[1.05rem] leading-[1.7] text-foreground/80">
                   <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
-                  welcome to my little corner of the internet — pull up a chair,
-                  the coffee&apos;s on me. I tinker with{" "}
-                  <span className="font-serif italic">decentralised apps</span>,
-                  ship modern web experiences, and occasionally write about the
-                  quiet places where design, code, and faith overlap. based in{" "}
-                  <span className="font-serif italic">Addis Ababa</span>,
-                  building across multiple chains —{" "}
-                  <span className="font-serif italic">
-                    Ethereum, Solana, Base, and beyond
-                  </span>{" "}
-                  — helping organize{" "}
-                  <span className="font-serif italic">v0 IRL</span> meetups for
-                  the local builder community, and chasing late nights where an
-                  empty editor turns into something worth shipping
+                  Just another curious human being, living in{" "}
+                  <span className="italic">Addis Ababa, Ethiopia</span>.
+                  Welcome to my space on the internet where I convert my
+                  thoughts into pixels™ — pull up a chair, the coffee&apos;s
+                  on me. I tinker with{" "}
+                  <span className="italic">decentralised apps</span>, ship
+                  modern web experiences, and occasionally write about the
+                  quiet places where design, code, and faith overlap. I build
+                  across multiple chains —{" "}
+                  <span className="italic">Ethereum, Solana, Base, and beyond</span>
+                  {" "}— and help organize{" "}
+                  <span className="italic">v0 IRL</span> meetups for the
+                  local builder community
                   <FloatingSparkle className="ml-2 inline-block" />
+                </p>
+              </FadeUp>
+
+              <FadeUp delay={0.45}>
+                <p className="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-muted-foreground">
+                  Since <span className="italic text-foreground/80">2020</span>,
+                  I&apos;ve shipped projects across{" "}
+                  <span className="italic text-foreground/80">
+                    Web3, Design, and Community
+                  </span>
+                  . You&apos;re visitor{" "}
+                  <span className="font-mono text-xs tracking-wider text-foreground/80">
+                    #00,142
+                  </span>
+                  .
                 </p>
               </FadeUp>
             </div>
@@ -61,8 +75,8 @@ export default function HomePage() {
           </div>
 
           <FadeUp delay={0.55}>
-            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-              find me elsewhere
+            <p className="mt-12 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              ⤏ find me elsewhere
             </p>
             <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {socialLinks.map((l) => (
