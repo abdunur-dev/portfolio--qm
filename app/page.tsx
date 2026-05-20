@@ -31,15 +31,19 @@ export default function HomePage() {
 
               <FadeUp delay={0.35}>
                 <p className="mt-4 max-w-xl font-serif text-xl italic leading-snug text-foreground/85 sm:text-2xl md:text-[1.6rem]">
-                  full-stack &amp; Web3 developer turning{" "}
+                  full-stack developer working across{" "}
                   <span className="not-italic font-sans text-foreground">
-                    caffeine
+                    Web2
+                  </span>
+                  ,{" "}
+                  <span className="not-italic font-sans text-foreground">
+                    Web3
                   </span>{" "}
                   &amp;{" "}
                   <span className="not-italic font-sans text-foreground">
-                    curiosity
-                  </span>{" "}
-                  into shipped products.
+                    AI
+                  </span>
+                  .
                 </p>
               </FadeUp>
 
