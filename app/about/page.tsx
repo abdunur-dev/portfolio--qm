@@ -26,7 +26,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/3] w-full">
                 <Image
                   src="/images/burhan-portrait.jpg"
-                  alt="Abdurhaman presenting at the v0 IRL event in Addis Ababa"
+                  alt="Abdurhaman speaking at an IRL meetup in Addis Ababa"
                   fill
                   priority
                   sizes="(min-width: 768px) 720px, 100vw"
@@ -52,7 +52,7 @@ export default function AboutPage() {
           <FadeUp delay={0.2}>
             <div className="mt-12 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
               <p>
-                Hiiiiii, i&apos;m Abdurhaman!{" "}
+                Ey up! I&apos;m Abdurhaman{" "}
                 <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
                 Welcome to my little corner of the internet
                 <span className="font-serif italic text-primary"> .✦ ݁˖</span>
@@ -94,9 +94,11 @@ export default function AboutPage() {
                   community and building
                 </span>
                 . I help organize{" "}
-                <span className="font-serif italic">v0 IRL</span> meetups in
-                Addis Ababa — a small but growing space for local builders to
-                ship together — and I&apos;ll usually be hanging out at
+                <span className="font-serif italic">
+                  IRL meetups and events
+                </span>{" "}
+                in Addis Ababa — a small but growing space for local builders
+                to ship together — and I&apos;ll usually be hanging out at
                 hackathons, dev meetups, and Web3 events around the city.
               </p>
               <p>

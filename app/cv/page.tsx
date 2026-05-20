@@ -27,8 +27,8 @@ const experience: Entry[] = [
   },
   {
     range: "2024 — present",
-    title: "Organiser & Speaker, v0 IRL Addis Ababa",
-    desc: "Hosting v0 IRL community events in Ethiopia — gathering local devs, designers, and founders for talks, hackathons, and hands-on workshops on shipping with v0, AI-assisted product building, and modern Next.js. Partnering with Vercel and v0 to bring the global community to Addis.",
+    title: "Organiser & Speaker, IRL Meetups & Events",
+    desc: "Helping organize IRL meetups and tech events in Addis Ababa — gathering local devs, designers, and founders for talks, hackathons, and hands-on workshops on shipping modern products, AI-assisted building, and Web3. Partnering with global builder communities to bring their programs to Ethiopia.",
   },
   {
     range: "2022 — 2024",
@@ -63,9 +63,9 @@ const projects: Entry[] = [
 const events: Entry[] = [
   {
     range: "2024 — present",
-    title: "v0 IRL Addis Ababa",
-    org: "Host & Organiser",
-    desc: "A community event series partnered with Vercel and v0 to gather Ethiopian developers, designers, and founders. Curated speaker lineups, hackathons, and workshops to grow the local AI and Web3 builder scene.",
+    title: "IRL Meetups & Tech Events, Addis Ababa",
+    org: "Co-organiser & Speaker",
+    desc: "Helping organize a series of in-person meetups and events for Ethiopian developers, designers, and founders. Curated speaker lineups, hackathons, and workshops to grow the local AI and Web3 builder scene.",
   },
 ]
 

@@ -1,14 +1,12 @@
 import type { Metadata } from 'next'
-import { Geist_Mono, Instrument_Serif, Source_Serif_4 } from 'next/font/google'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const sourceSerif = Source_Serif_4({
+const geist = Geist({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-source-serif",
+  variable: "--font-geist",
 });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 const instrumentSerif = Instrument_Serif({
@@ -33,9 +31,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`bg-background ${sourceSerif.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+      className={`bg-background ${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
-      <body className="font-serif antialiased">
+      <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>

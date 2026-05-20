@@ -18,7 +18,7 @@ export default function HomePage() {
           <div className="grid items-start gap-10 md:grid-cols-[1fr_280px] md:gap-12 lg:grid-cols-[1fr_320px]">
             <div>
               <AnimatedHeading
-                text="Hi, I'm Abdurhaman_"
+                text="Ey up! I'm Abdurhaman_"
                 className="text-5xl sm:text-6xl md:text-7xl"
               />
 
@@ -26,27 +26,29 @@ export default function HomePage() {
                 <p className="mt-6 max-w-xl text-pretty text-[1.05rem] leading-[1.7] text-foreground/80">
                   <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
                   Just another curious human being, living in{" "}
-                  <span className="italic">Addis Ababa, Ethiopia</span>.
+                  <span className="font-serif italic">Addis Ababa, Ethiopia</span>.
                   Welcome to my space on the internet where I convert my
                   thoughts into pixels™ — pull up a chair, the coffee&apos;s
                   on me. I tinker with{" "}
-                  <span className="italic">decentralised apps</span>, ship
-                  modern web experiences, and occasionally write about the
-                  quiet places where design, code, and faith overlap. I build
-                  across multiple chains —{" "}
-                  <span className="italic">Ethereum, Solana, Base, and beyond</span>
-                  {" "}— and help organize{" "}
-                  <span className="italic">v0 IRL</span> meetups for the
-                  local builder community
+                  <span className="font-serif italic">decentralised apps</span>,
+                  ship modern web experiences, and occasionally write about
+                  the quiet places where design, code, and faith overlap. I
+                  build across multiple chains —{" "}
+                  <span className="font-serif italic">
+                    Ethereum, Solana, Base, and beyond
+                  </span>{" "}
+                  — and help organize{" "}
+                  <span className="font-serif italic">IRL meetups and events</span>{" "}
+                  for the local builder community
                   <FloatingSparkle className="ml-2 inline-block" />
                 </p>
               </FadeUp>
 
               <FadeUp delay={0.45}>
                 <p className="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-muted-foreground">
-                  Since <span className="italic text-foreground/80">2020</span>,
+                  Since <span className="font-serif italic text-foreground/80">2020</span>,
                   I&apos;ve shipped projects across{" "}
-                  <span className="italic text-foreground/80">
+                  <span className="font-serif italic text-foreground/80">
                     Web3, Design, and Community
                   </span>
                   . You&apos;re visitor{" "}
