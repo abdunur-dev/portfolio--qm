@@ -7,6 +7,7 @@ import { posts as staticPosts } from "@/lib/posts-data"
 import { uploadImageIfPresent } from "@/lib/upload-image"
 
 const NOW_BUCKET = "now-covers"
+const POST_BUCKET = "post-covers"
 
 function readPostForm(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim()
@@ -23,11 +24,24 @@ function readPostForm(formData: FormData) {
   const yearRaw = Number(formData.get("year"))
   const year = Number.isFinite(yearRaw) && yearRaw > 0 ? yearRaw : new Date().getFullYear()
   const href = String(formData.get("href") ?? "").trim() || null
+  const cover_url = String(formData.get("cover_url") ?? "").trim() || null
   const published = formData.get("published") === "on" || formData.get("published") === "true"
   const positionRaw = Number(formData.get("position"))
   const position = Number.isFinite(positionRaw) ? positionRaw : 0
 
-  return { title, slug, excerpt, body, date_label, reading, year, href, published, position }
+  return {
+    title,
+    slug,
+    excerpt,
+    body,
+    date_label,
+    reading,
+    year,
+    href,
+    cover_url,
+    published,
+    position,
+  }
 }
 
 export async function createPost(formData: FormData) {
@@ -36,6 +50,13 @@ export async function createPost(formData: FormData) {
 
   const payload = readPostForm(formData)
   if (!payload.title) return { error: "Title is required" }
+
+  try {
+    const uploaded = await uploadImageIfPresent(formData, "cover_file", POST_BUCKET, user.id)
+    if (typeof uploaded === "string") payload.cover_url = uploaded
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
 
   const { error } = await supabase.from("posts").insert({ ...payload, user_id: user.id })
   if (error) return { error: error.message }
@@ -51,6 +72,13 @@ export async function updatePost(id: string, formData: FormData) {
   const supabase = await createClient()
 
   const payload = readPostForm(formData)
+  try {
+    const uploaded = await uploadImageIfPresent(formData, "cover_file", POST_BUCKET, user.id)
+    if (typeof uploaded === "string") payload.cover_url = uploaded
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
+
   const { error } = await supabase
     .from("posts")
     .update(payload)

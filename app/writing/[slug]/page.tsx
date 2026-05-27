@@ -20,6 +20,7 @@ type ResolvedPost = {
   date: string
   reading: string
   href?: string | null
+  cover_url?: string | null
   blocks: { type: "h2" | "p"; text: string }[]
 }
 
@@ -54,6 +55,7 @@ async function getPost(slug: string): Promise<ResolvedPost | null> {
       date: p.date_label,
       reading: p.reading,
       href: p.href,
+      cover_url: p.cover_url,
       blocks: bodyToBlocks(p.body || ""),
     }
   }
@@ -119,6 +121,17 @@ export default async function WritingPost({
               </p>
             )}
           </FadeUp>
+
+          {post.cover_url && (
+            <FadeUp delay={0.15}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={post.cover_url || "/placeholder.svg"}
+                alt={`${post.title} cover image`}
+                className="mt-10 aspect-[16/9] w-full rounded-2xl border border-border/60 object-cover"
+              />
+            </FadeUp>
+          )}
 
           <FadeUp delay={0.2}>
             <div className="prose prose-neutral mt-12 max-w-none border-t border-border/60 pt-10 dark:prose-invert prose-headings:font-serif prose-headings:tracking-tight prose-p:font-serif prose-p:text-base prose-p:leading-relaxed prose-p:text-foreground/85 sm:prose-p:text-lg prose-a:text-primary">

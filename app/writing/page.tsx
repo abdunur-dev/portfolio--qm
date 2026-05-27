@@ -18,6 +18,7 @@ type ListPost = {
   excerpt: string
   reading: string
   href?: string | null
+  cover_url?: string | null
 }
 
 export default async function WritingPage() {
@@ -42,6 +43,7 @@ export default async function WritingPage() {
           excerpt: p.excerpt,
           reading: p.reading,
           href: p.href,
+          cover_url: p.cover_url,
         }))
       : staticPosts
 
@@ -100,26 +102,40 @@ export default async function WritingPage() {
                           aria-hidden
                           className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 bg-primary transition-all duration-300 group-hover:h-full"
                         />
-                        <div className="flex items-baseline justify-between gap-6 pl-4">
-                          <h3 className="font-serif text-lg leading-snug text-foreground transition-colors group-hover:text-primary sm:text-2xl">
-                            {post.title}
-                          </h3>
-                          <span className="hidden shrink-0 font-mono text-xs text-muted-foreground sm:inline">
-                            {post.date}
-                          </span>
-                        </div>
-                        {post.excerpt && (
-                          <p className="mt-2 max-w-4xl pl-4 text-pretty text-sm leading-relaxed text-foreground/70">
-                            {post.excerpt}
-                          </p>
-                        )}
-                        <div className="mt-3 flex items-center gap-3 pl-4 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                          {post.reading && <span>{post.reading}</span>}
-                          {post.reading && post.date && <span aria-hidden>·</span>}
-                          {post.date && <span className="sm:hidden">{post.date}</span>}
-                          <span className="ml-auto inline-flex items-center gap-1 text-foreground/60 transition-all group-hover:translate-x-1 group-hover:text-primary">
-                            read <span aria-hidden>→</span>
-                          </span>
+                        <div className="flex items-start gap-5 pl-4">
+                          {post.cover_url && (
+                            <div className="hidden shrink-0 overflow-hidden rounded-md border border-border/60 sm:block">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={post.cover_url || "/placeholder.svg"}
+                                alt=""
+                                className="h-20 w-28 object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                            </div>
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-baseline justify-between gap-6">
+                              <h3 className="font-serif text-lg leading-snug text-foreground transition-colors group-hover:text-primary sm:text-2xl">
+                                {post.title}
+                              </h3>
+                              <span className="hidden shrink-0 font-mono text-xs text-muted-foreground sm:inline">
+                                {post.date}
+                              </span>
+                            </div>
+                            {post.excerpt && (
+                              <p className="mt-2 max-w-4xl text-pretty text-sm leading-relaxed text-foreground/70">
+                                {post.excerpt}
+                              </p>
+                            )}
+                            <div className="mt-3 flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                              {post.reading && <span>{post.reading}</span>}
+                              {post.reading && post.date && <span aria-hidden>·</span>}
+                              {post.date && <span className="sm:hidden">{post.date}</span>}
+                              <span className="ml-auto inline-flex items-center gap-1 text-foreground/60 transition-all group-hover:translate-x-1 group-hover:text-primary">
+                                read <span aria-hidden>→</span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </Link>
                     </li>

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { AdminCoverField } from "@/components/admin-cover-field"
 import {
   createPost,
   updatePost,
@@ -186,7 +187,7 @@ function PostForm({
   }
 
   return (
-    <form action={handleSubmit} className="grid gap-5">
+    <form action={handleSubmit} encType="multipart/form-data" className="grid gap-5">
       <Field label="Title" name="title" defaultValue={initial?.title} required />
 
       <div className="grid gap-2">
@@ -199,6 +200,12 @@ function PostForm({
           className="resize-none"
         />
       </div>
+
+      <AdminCoverField
+        initialUrl={initial?.cover_url}
+        label="Cover image (optional)"
+        aspect="wide"
+      />
 
       <div className="grid gap-2">
         <Label className="text-xs uppercase tracking-wider text-muted-foreground">
