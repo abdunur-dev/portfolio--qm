@@ -51,6 +51,38 @@ const STATIC_SECTIONS: { label: string; items: string[] }[] = [
   },
 ]
 
+/**
+ * Split a long text into readable paragraphs.
+ * If the text contains explicit newlines, split on those.
+ * Otherwise, split long single-block text (~300+ chars) into
+ * paragraph-sized chunks at sentence boundaries.
+ */
+function splitIntoParagraphs(text: string): string[] {
+  // First try explicit newlines
+  const byNewline = text.split(/\n+/).filter(Boolean)
+  if (byNewline.length > 1) return byNewline
+
+  // If under 300 chars, it's fine as-is
+  if (text.length < 300) return [text]
+
+  // Split on sentence boundaries (. followed by space and uppercase, or end)
+  const sentences = text.match(/[^.!?]*[.!?]+[\s]*/g) || [text]
+  const paragraphs: string[] = []
+  let current = ""
+
+  for (const sentence of sentences) {
+    if (current.length + sentence.length > 350 && current.length > 0) {
+      paragraphs.push(current.trim())
+      current = sentence
+    } else {
+      current += sentence
+    }
+  }
+  if (current.trim()) paragraphs.push(current.trim())
+
+  return paragraphs.length > 0 ? paragraphs : [text]
+}
+
 export default async function NowPage() {
   const supabase = await createClient()
   const { data } = await supabase
@@ -120,19 +152,29 @@ export default async function NowPage() {
                       className="mb-5 aspect-[3/2] w-full rounded-xl border border-border/60 object-cover"
                     />
                   )}
-                  <ul className="space-y-3">
-                    {s.items.map((item, j) => (
-                      <li
-                        key={j}
-                        className="flex gap-3 text-base leading-relaxed text-foreground/85"
-                      >
-                        <span
-                          aria-hidden
-                          className="mt-2.5 inline-block h-[6px] w-[6px] shrink-0 rounded-full bg-primary"
-                        />
-                        <span className="text-pretty">{item}</span>
-                      </li>
-                    ))}
+                  <ul className="space-y-5">
+                    {s.items.map((item, j) => {
+                      const paragraphs = splitIntoParagraphs(item)
+                      return (
+                        <li
+                          key={j}
+                          className="flex gap-3 text-[0.95rem] leading-[1.75] text-foreground/85"
+                        >
+                          <span
+                            aria-hidden
+                            className="mt-2.5 inline-block h-[6px] w-[6px] shrink-0 rounded-full bg-primary"
+                          />
+                          <div className="space-y-4 text-pretty">
+                            {paragraphs.length > 1
+                              ? paragraphs.map((para, pi) => (
+                                  <p key={pi}>{para}</p>
+                                ))
+                              : <span>{item}</span>
+                            }
+                          </div>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </section>
               </FadeUp>

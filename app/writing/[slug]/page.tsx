@@ -134,17 +134,27 @@ export default async function WritingPost({
           )}
 
           <FadeUp delay={0.2}>
-            <div className="prose prose-neutral mt-12 max-w-none border-t border-border/60 pt-10 dark:prose-invert prose-headings:font-serif prose-headings:tracking-tight prose-p:font-serif prose-p:text-base prose-p:leading-relaxed prose-p:text-foreground/85 sm:prose-p:text-lg prose-a:text-primary">
+            <div className="mt-12 max-w-none border-t border-border/60 pt-10">
               {post.blocks.length > 0 ? (
-                post.blocks.map((block, i) =>
-                  block.type === "h2" ? (
-                    <h2 key={i} className="mt-10 text-2xl sm:text-3xl">
-                      {block.text}
-                    </h2>
-                  ) : (
-                    <p key={i}>{block.text}</p>
-                  ),
-                )
+                <div className="space-y-6">
+                  {post.blocks.map((block, i) =>
+                    block.type === "h2" ? (
+                      <h2
+                        key={i}
+                        className="mt-12 mb-2 font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-3xl"
+                      >
+                        {block.text}
+                      </h2>
+                    ) : (
+                      <p
+                        key={i}
+                        className="text-[0.95rem] leading-[1.8] text-foreground/85 sm:text-base sm:leading-[1.85]"
+                      >
+                        {block.text}
+                      </p>
+                    ),
+                  )}
+                </div>
               ) : (
                 <p className="font-mono text-sm text-muted-foreground">
                   This post is still on the workbench. Come back soon — or

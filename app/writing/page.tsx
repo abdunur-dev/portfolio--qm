@@ -96,26 +96,26 @@ export default async function WritingPage() {
                     <li>
                       <Link
                         href={post.href ?? `/writing/${post.slug}`}
-                        className="group relative block py-6 transition-colors"
+                        className="group relative block py-8 transition-colors"
                       >
                         <span
                           aria-hidden
                           className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 bg-primary transition-all duration-300 group-hover:h-full"
                         />
-                        <div className="flex items-start gap-5 pl-4">
+                        <div className="flex items-start gap-6 pl-5">
                           {post.cover_url && (
-                            <div className="hidden shrink-0 overflow-hidden rounded-md border border-border/60 sm:block">
+                            <div className="hidden shrink-0 overflow-hidden rounded-lg border border-border/60 sm:block">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={post.cover_url || "/placeholder.svg"}
                                 alt=""
-                                className="h-20 w-28 object-cover transition-transform duration-500 group-hover:scale-105"
+                                className="h-24 w-36 object-cover transition-transform duration-500 group-hover:scale-105"
                               />
                             </div>
                           )}
                           <div className="min-w-0 flex-1">
                             <div className="flex items-baseline justify-between gap-6">
-                              <h3 className="font-serif text-lg leading-snug text-foreground transition-colors group-hover:text-primary sm:text-2xl">
+                              <h3 className="font-serif text-xl leading-snug text-foreground transition-colors group-hover:text-primary sm:text-2xl">
                                 {post.title}
                               </h3>
                               <span className="hidden shrink-0 font-mono text-xs text-muted-foreground sm:inline">
@@ -123,11 +123,11 @@ export default async function WritingPage() {
                               </span>
                             </div>
                             {post.excerpt && (
-                              <p className="mt-2 max-w-4xl text-pretty text-sm leading-relaxed text-foreground/70">
+                              <p className="mt-3 max-w-2xl text-pretty text-sm leading-[1.7] text-foreground/65">
                                 {post.excerpt}
                               </p>
                             )}
-                            <div className="mt-3 flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                            <div className="mt-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
                               {post.reading && <span>{post.reading}</span>}
                               {post.reading && post.date && <span aria-hidden>·</span>}
                               {post.date && <span className="sm:hidden">{post.date}</span>}
