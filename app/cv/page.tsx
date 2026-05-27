@@ -216,8 +216,8 @@ export default function CvPage() {
         >
           {/* Header */}
           <FadeUp>
-            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12 print:grid-cols-[1fr_auto] print:gap-6">
-              <div>
+            <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-12 print:flex-row print:items-start print:justify-between print:gap-6">
+              <div className="min-w-0 flex-1">
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-[10px]">
                   curriculum vitae
                 </p>
@@ -230,32 +230,55 @@ export default function CvPage() {
                   modern web experiences — and occasionally write about the
                   quiet places where design, code, and faith overlap.
                 </p>
-              </div>
 
-              {/* Right column: links only */}
-              <div className="flex flex-col gap-4 md:min-w-[220px] md:items-end print:min-w-[180px] print:items-end print:gap-2">
-                <ul className="flex flex-col gap-1.5 md:items-end print:items-end print:gap-0.5">
+                {/* Mobile: social links inline below bio */}
+                <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 md:hidden print:hidden">
                   {socialLinks.map((l) => (
                     <li key={l.label}>
                       <a
                         href={l.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="group inline-flex items-baseline gap-2 font-mono text-xs text-foreground/85 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background print:text-[10px]"
+                        className="group inline-flex items-baseline gap-1.5 font-mono text-xs text-foreground/85 transition-colors hover:text-primary"
                       >
-                        <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground print:text-[8.5px] print:text-foreground/70">
+                        <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                           {l.label}
                         </span>
-                        <span className="break-all underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
+                        <span className="underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary">
                           {l.href
                             .replace(/^mailto:/, "")
                             .replace(/^https?:\/\//, "")
-                            .replace(/\/$/, "")}
+                            .replace(/\/$/, "")
+                            .split("/")
+                            .pop()}
                         </span>
                       </a>
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              {/* Desktop: social links right-aligned */}
+              <div className="hidden shrink-0 flex-col gap-1.5 md:flex md:min-w-[220px] md:items-end print:flex print:min-w-[180px] print:items-end print:gap-0.5">
+                {socialLinks.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-baseline gap-2 font-mono text-xs text-foreground/85 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background print:text-[10px]"
+                  >
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground print:text-[8.5px] print:text-foreground/70">
+                      {l.label}
+                    </span>
+                    <span className="break-all underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
+                      {l.href
+                        .replace(/^mailto:/, "")
+                        .replace(/^https?:\/\//, "")
+                        .replace(/\/$/, "")}
+                    </span>
+                  </a>
+                ))}
               </div>
             </div>
           </FadeUp>
@@ -341,8 +364,8 @@ export default function CvPage() {
             </Section>
           </FadeUp>
 
-          {/* Print button — sits at the bottom like a footer action */}
-          <div className="mt-16 flex justify-end border-t-2 border-foreground/30 pt-8 sm:mt-20 print:hidden">
+          {/* Print button */}
+          <div className="mt-16 flex justify-start border-t-2 border-foreground/30 pt-8 sm:mt-20 sm:justify-end print:hidden">
             <PrintCvButton />
           </div>
         </main>

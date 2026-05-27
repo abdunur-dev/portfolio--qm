@@ -20,7 +20,8 @@ const links = [
   { href: "/writing", label: "Writing" },
   { href: "/all", label: "Projects" },
   { href: "/now", label: "Now" },
-]
+  { href: "/cv", label: "CV", mobileOnly: true },
+] as const
 
 export function SiteNav() {
   const [open, setOpen] = useState(false)
@@ -41,16 +42,18 @@ export function SiteNav() {
         <div className="hidden items-center gap-3 md:flex">
           <nav aria-label="Primary">
             <ul className="flex items-center divide-x divide-border/70 text-sm text-muted-foreground">
-              {links.map((l) => (
-                <li key={l.href} className="px-3 first:pl-0 last:pr-0">
-                  <Link
-                    href={l.href}
-                    className="transition-colors hover:text-foreground"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+              {links
+                .filter((l) => !("mobileOnly" in l && l.mobileOnly))
+                .map((l) => (
+                  <li key={l.href} className="px-3 first:pl-0 last:pr-0">
+                    <Link
+                      href={l.href}
+                      className="transition-colors hover:text-foreground"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </nav>
           <span aria-hidden className="h-4 w-px bg-border/70" />
