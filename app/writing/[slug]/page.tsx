@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
+import { MarkdownBody } from "@/components/markdown-body"
 import { posts as staticPosts } from "@/lib/posts-data"
 import { createClient } from "@/lib/supabase/server"
 import type { Post as DbPost } from "@/lib/types"
@@ -21,6 +22,7 @@ type ResolvedPost = {
   reading: string
   href?: string | null
   cover_url?: string | null
+  body: string
   blocks: { type: "h2" | "p"; text: string }[]
 }
 
@@ -56,6 +58,7 @@ async function getPost(slug: string): Promise<ResolvedPost | null> {
       reading: p.reading,
       href: p.href,
       cover_url: p.cover_url,
+      body: p.body || "",
       blocks: bodyToBlocks(p.body || ""),
     }
   }
@@ -69,6 +72,7 @@ async function getPost(slug: string): Promise<ResolvedPost | null> {
     date: fallback.date,
     reading: fallback.reading,
     href: fallback.href ?? null,
+    body: "",
     blocks: fallback.body ?? [],
   }
 }
@@ -135,20 +139,22 @@ export default async function WritingPost({
 
           <FadeUp delay={0.2}>
             <div className="mt-12 max-w-none border-t border-border/60 pt-10">
-              {post.blocks.length > 0 ? (
+              {post.body ? (
+                <MarkdownBody content={post.body} />
+              ) : post.blocks.length > 0 ? (
                 <div className="space-y-6">
                   {post.blocks.map((block, i) =>
                     block.type === "h2" ? (
                       <h2
                         key={i}
-                        className="mt-12 mb-2 font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-3xl"
+                        className="mt-12 mb-3 font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-3xl"
                       >
                         {block.text}
                       </h2>
                     ) : (
                       <p
                         key={i}
-                        className="text-[0.95rem] leading-[1.8] text-foreground/85 sm:text-base sm:leading-[1.85]"
+                        className="text-[0.95rem] leading-[1.85] text-foreground/85 sm:text-base sm:leading-[1.9]"
                       >
                         {block.text}
                       </p>

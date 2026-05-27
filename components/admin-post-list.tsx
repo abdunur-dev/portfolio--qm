@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { AdminCoverField } from "@/components/admin-cover-field"
+import { MarkdownBody } from "@/components/markdown-body"
 import {
   createPost,
   updatePost,
@@ -172,6 +173,8 @@ function PostForm({
 }) {
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+  const [bodyText, setBodyText] = useState(initial?.body ?? "")
+  const [showPreview, setShowPreview] = useState(false)
 
   function handleSubmit(formData: FormData) {
     setError(null)
@@ -208,16 +211,41 @@ function PostForm({
       />
 
       <div className="grid gap-2">
-        <Label className="text-xs uppercase tracking-wider text-muted-foreground">
-          Body (Markdown — use ## for headings, blank line between paragraphs)
-        </Label>
-        <Textarea
-          name="body"
-          rows={10}
-          defaultValue={initial?.body ?? ""}
-          placeholder={`Write the post here.\n\n## A subheading\n\nA paragraph.`}
-          className="font-mono text-sm"
-        />
+        <div className="flex items-center justify-between">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+            Body (Markdown)
+          </Label>
+          <button
+            type="button"
+            onClick={() => setShowPreview((v) => !v)}
+            className="rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          >
+            {showPreview ? "Edit" : "Preview"}
+          </button>
+        </div>
+        {showPreview ? (
+          <div className="min-h-[15rem] rounded-lg border border-border/60 bg-background/60 p-5">
+            {bodyText.trim() ? (
+              <MarkdownBody content={bodyText} />
+            ) : (
+              <p className="py-8 text-center font-mono text-xs text-muted-foreground">
+                Nothing to preview yet — start writing in the editor.
+              </p>
+            )}
+          </div>
+        ) : (
+          <Textarea
+            name="body"
+            rows={12}
+            value={bodyText}
+            onChange={(e) => setBodyText(e.target.value)}
+            placeholder={`# My Post Title\n\nWrite your post in **Markdown**.\n\n## A subheading\n\nA paragraph with *italic* and [links](https://example.com).\n\n- List item one\n- List item two\n\n> A blockquote for emphasis.`}
+            className="font-mono text-sm"
+          />
+        )}
+        <p className="font-mono text-[10px] text-muted-foreground">
+          Supports **bold**, *italic*, ## headings, - lists, {">"} blockquotes, [links](url), `code`, and --- dividers.
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
