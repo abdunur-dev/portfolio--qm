@@ -33,7 +33,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`bg-background ${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
-      <body className="font-sans bg-grid-fine antialiased">
+      <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>

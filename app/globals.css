@@ -3,12 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
 :root {
   /* Light — matches burhan-ops.vercel.app: near-white paper, near-black ink */
   --background: oklch(98.84% 0 0);
@@ -133,83 +127,6 @@ html {
   }
 }
 
-/* Decorative grid/dot backgrounds inspired by chanhdai.com */
-@layer utilities {
-  .bg-grid-light {
-    background-image: 
-      radial-gradient(circle, oklch(75% 0 0) 0.5px, transparent 0.5px);
-    background-size: 20px 20px;
-  }
-
-  .bg-grid-fine {
-    background-image: 
-      radial-gradient(circle, oklch(85% 0 0) 0.4px, transparent 0.4px);
-    background-size: 24px 24px;
-  }
-
-  .bg-lines-top {
-    background-image: 
-      linear-gradient(90deg, oklch(88% 0 0) 1px, transparent 1px);
-    background-size: 20px 100%;
-    background-repeat: repeat-x;
-    background-position: top;
-  }
-
-  .border-top-dots {
-    border-top: 1px dashed oklch(86% 0 0);
-  }
-
-  .border-bottom-line {
-    border-bottom: 1px solid oklch(88% 0 0);
-  }
-
-  /* Enhanced hover animations */
-  .animate-hover-lift {
-    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg;
-  }
-
-  /* Text shimmer effect for headings */
-  @keyframes shimmer {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-
-  .animate-shimmer {
-    animation: shimmer 3s ease-in-out infinite;
-  }
-
-  /* Smooth link underline */
-  @keyframes underline {
-    from { width: 0; }
-    to { width: 100%; }
-  }
-
-  .animate-underline {
-    animation: underline 0.3s ease-out forwards;
-  }
-
-  /* Stagger animation for lists */
-  @keyframes staggered-fade {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-staggered {
-    animation: staggered-fade 0.5s ease-out;
-  }
-
-  /* Glow effect on hover */
-  .hover-glow {
-    @apply transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.1)];
-  }
-}
-
 @media print {
   @page {
     size: A4;
@@ -287,3 +204,4 @@ html {
     color: #555555 !important;
   }
 }
+
