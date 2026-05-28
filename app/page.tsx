@@ -6,6 +6,7 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
+import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { socialLinks } from "@/lib/social-links"
 
 export default function HomePage() {
@@ -180,6 +181,8 @@ export default function HomePage() {
               </Link>
             </div>
           </FadeUp>
+
+          <TestimonialsCarousel />
         </main>
         <SiteFooter />
       </div>
