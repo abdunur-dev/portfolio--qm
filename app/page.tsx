@@ -6,6 +6,7 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
+import { AnimatedCard } from "@/components/animated-card"
 import { socialLinks } from "@/lib/social-links"
 
 export default function HomePage() {
@@ -111,19 +112,16 @@ export default function HomePage() {
               <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
                 {socialLinks.map((l) => (
                   <li key={l.label}>
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
-                    >
-                      <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
-                        {l.label}
-                      </span>
-                      <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
-                        ↗
-                      </span>
-                    </a>
+                    <AnimatedCard href={l.href} className="px-4 py-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-serif text-base text-foreground">
+                          {l.label}
+                        </span>
+                        <span className="font-mono text-xs text-muted-foreground transition-all group-hover:translate-x-0.5">
+                          ↗
+                        </span>
+                      </div>
+                    </AnimatedCard>
                   </li>
                 ))}
               </ul>
@@ -133,53 +131,50 @@ export default function HomePage() {
           <FadeUp delay={0.6}>
             <div className="border-top-dots mt-10 pt-10">
               <div className="grid gap-3 sm:grid-cols-2">
-                <Link
-                  href="/all"
-                  className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70"
-                >
-                  <span>
-                    <span className="block font-serif text-xl text-foreground">
-                      projects
+                <Link href="/all" className="no-underline">
+                  <AnimatedCard className="h-full px-5 py-4">
+                    <span>
+                      <span className="block font-serif text-xl text-foreground">
+                        projects
+                      </span>
+                      <span className="block text-xs text-muted-foreground">
+                        everything I&apos;ve shipped
+                      </span>
                     </span>
-                    <span className="block text-xs text-muted-foreground">
-                      everything I&apos;ve shipped
+                    <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
+                      →
                     </span>
-                  </span>
-                  <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
-                    →
-                  </span>
+                  </AnimatedCard>
                 </Link>
-                <Link
-                  href="/writing"
-                  className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70"
-                >
-                  <span>
-                    <span className="block font-serif text-xl text-foreground">
-                      writing
+                <Link href="/writing" className="no-underline">
+                  <AnimatedCard className="h-full px-5 py-4">
+                    <span>
+                      <span className="block font-serif text-xl text-foreground">
+                        writing
+                      </span>
+                      <span className="block text-xs text-muted-foreground">
+                        notes & essays
+                      </span>
                     </span>
-                    <span className="block text-xs text-muted-foreground">
-                      notes & essays
+                    <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
+                      →
                     </span>
-                  </span>
-                  <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
-                    →
-                  </span>
+                  </AnimatedCard>
                 </Link>
-                <Link
-                  href="/now"
-                  className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70 sm:col-span-2"
-                >
-                  <span>
-                    <span className="block font-serif text-xl text-foreground">
-                      now
+                <Link href="/now" className="no-underline sm:col-span-2">
+                  <AnimatedCard className="h-full px-5 py-4">
+                    <span>
+                      <span className="block font-serif text-xl text-foreground">
+                        now
+                      </span>
+                      <span className="block text-xs text-muted-foreground">
+                        what I&apos;m up to this season
+                      </span>
                     </span>
-                    <span className="block text-xs text-muted-foreground">
-                      what I&apos;m up to this season
+                    <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
+                      →
                     </span>
-                  </span>
-                  <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
-                    →
-                  </span>
+                  </AnimatedCard>
                 </Link>
               </div>
             </div>
