@@ -10,6 +10,7 @@ import {
   CarouselNext,
 } from '@/components/ui/carousel'
 import { FadeUp } from '@/components/fade-up'
+import Autoplay from 'embla-carousel-autoplay'
 
 interface Testimonial {
   id: string
@@ -17,6 +18,7 @@ interface Testimonial {
   role: string
   content: string
   rating: number
+  avatar: string
 }
 
 const testimonials: Testimonial[] = [
@@ -27,6 +29,7 @@ const testimonials: Testimonial[] = [
     content:
       'Abdurhaman delivered an exceptional Web3 solution that exceeded our expectations. His attention to detail and deep understanding of blockchain architecture made all the difference.',
     rating: 5,
+    avatar: 'SC',
   },
   {
     id: '2',
@@ -35,6 +38,7 @@ const testimonials: Testimonial[] = [
     content:
       'Working with Abdurhaman was a game-changer for our startup. He not only built the product but also mentored our team on best practices. Highly recommend!',
     rating: 5,
+    avatar: 'MJ',
   },
   {
     id: '3',
@@ -43,6 +47,7 @@ const testimonials: Testimonial[] = [
     content:
       'Rare to find a developer who understands design so deeply. The collaboration was seamless, and the final product was beautiful and performant.',
     rating: 5,
+    avatar: 'ER',
   },
   {
     id: '4',
@@ -51,19 +56,24 @@ const testimonials: Testimonial[] = [
     content:
       'Abdurhaman solved complex technical challenges we thought were impossible. His problem-solving skills and communication are top-notch.',
     rating: 5,
+    avatar: 'JW',
   },
 ]
 
 export function TestimonialsCarousel() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true })
+  )
+
   return (
     <FadeUp delay={0.65}>
       <div className="mt-16 border-t border-border/60 pt-16">
         <div className="mb-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-            ⋆ testimonials
+            ⋆ what people say
           </p>
           <h2 className="mt-4 font-serif text-2xl text-foreground sm:text-3xl">
-            What people say
+            Testimonials
           </h2>
         </div>
 
@@ -73,6 +83,7 @@ export function TestimonialsCarousel() {
               align: 'start',
               loop: true,
             }}
+            plugins={[plugin.current]}
             className="w-full"
           >
             <CarouselContent className="-ml-4">
@@ -99,14 +110,21 @@ export function TestimonialsCarousel() {
                       "{testimonial.content}"
                     </p>
 
-                    {/* Author */}
-                    <div className="mt-6 border-t border-border/40 pt-4">
-                      <p className="font-serif font-semibold text-foreground">
-                        {testimonial.author}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {testimonial.role}
-                      </p>
+                    {/* Author with avatar */}
+                    <div className="mt-6 flex items-center gap-3 border-t border-border/40 pt-4">
+                      {/* Avatar */}
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border/60 bg-secondary/60 font-mono font-semibold text-foreground">
+                        {testimonial.avatar}
+                      </div>
+                      {/* Author info */}
+                      <div>
+                        <p className="font-serif font-semibold text-foreground">
+                          {testimonial.author}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {testimonial.role}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
