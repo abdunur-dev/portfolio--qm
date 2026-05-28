@@ -127,6 +127,37 @@
   }
 }
 
+/* Decorative grid/dot backgrounds inspired by chanhdai.com */
+@layer utilities {
+  .bg-grid-light {
+    background-image: 
+      radial-gradient(circle, oklch(75% 0 0) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+  }
+
+  .bg-grid-fine {
+    background-image: 
+      radial-gradient(circle, oklch(85% 0 0) 0.4px, transparent 0.4px);
+    background-size: 24px 24px;
+  }
+
+  .bg-lines-top {
+    background-image: 
+      linear-gradient(90deg, oklch(88% 0 0) 1px, transparent 1px);
+    background-size: 20px 100%;
+    background-repeat: repeat-x;
+    background-position: top;
+  }
+
+  .border-top-dots {
+    border-top: 1px dashed oklch(86% 0 0);
+  }
+
+  .border-bottom-line {
+    border-bottom: 1px solid oklch(88% 0 0);
+  }
+}
+
 @media print {
   @page {
     size: A4;
@@ -204,4 +235,3 @@
     color: #555555 !important;
   }
 }
-
