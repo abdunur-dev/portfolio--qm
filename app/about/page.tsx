@@ -53,17 +53,14 @@ export default function AboutPage() {
           <FadeUp delay={0.2}>
             <div className="mt-12 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
               <p>
-                Ey up! I&apos;m Abdurhaman{" "}
-                <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
-                Welcome to my little corner of the internet
-                <span className="font-serif italic text-primary"> .✦ ݁˖</span>
+                Ey up! I&apos;m Abdurhaman Welcome to my little corner of the internet
               </p>
               <p>
                 I&apos;m a{" "}
                 <span className="font-serif italic">
                   full-stack developer
                 </span>{" "}
-                and builder at heart — comfortable across both Web2 and Web3.
+                and builder at heart, comfortable across both Web2 and Web3.
                 On the Web2 side I ship{" "}
                 <span className="font-serif italic">
                   modern web apps
@@ -77,31 +74,27 @@ export default function AboutPage() {
                 multiple chains like{" "}
                 <span className="font-serif italic">Ethereum</span>,{" "}
                 <span className="font-serif italic">Solana</span>,{" "}
-                <span className="font-serif italic">Base</span>, and others —
-                bouncing between TypeScript, Solidity, and the messy, magical
-                edges of where Web3 meets product. Most recently I&apos;ve
-                been leading frontend on{" "}
+                <span className="font-serif italic">Base</span>, and others.
+                Most recently I&apos;ve been leading frontend on{" "}
                 <span className="font-serif italic">TibebChain</span>, an NFT
                 publishing platform for African creators. Before that I was
                 tinkering across small startups, freelance gigs, and side
-                quests as a{" "}
+                projects as a{" "}
                 <span className="font-serif italic">design engineer</span>.
               </p>
               <p>
                 These days I lean hard into{" "}
                 <span className="font-serif italic">AI-assisted</span> and{" "}
-                <span className="font-serif italic">vibe coding</span> — pairing
+                <span className="font-serif italic">vibe coding</span>, pairing
                 with tools like{" "}
                 <span className="font-serif italic">v0</span>,{" "}
                 <span className="font-serif italic">Cursor</span>, and{" "}
                 <span className="font-serif italic">Claude</span> to go from a
                 rough idea to a working prototype in a single sitting. It&apos;s
-                changed how I think about building: less ceremony, more
-                shipping, and a lot more space for taste, intuition, and weird
-                experiments. I also love wiring up{" "}
-                <span className="font-serif italic">integrations</span> — pulling
-                in tools, APIs, and AI models so my projects can talk to the
-                rest of the internet instead of living in a vacuum.
+                changed how I think about building, less ceremony, more
+                shipping, and a lot more space for taste and intuition. I also love wiring up{" "}
+                <span className="font-serif italic">integrations</span> so my projects can talk to the
+                rest of the internet.
               </p>
               <p>
                 Going back, my journey into code started during the 2020
@@ -128,17 +121,15 @@ export default function AboutPage() {
                 hackathons, dev meetups, and Web3 events around the city.
               </p>
               <p>
-                I&apos;m a collector of curiosities ~ I love tinkering with
+                I&apos;m a collector of curiosities. I love tinkering with
                 side projects and experiments, half-finished prototypes,
-                weekend dApps, and weird little tools nobody asked for. When
-                I&apos;m not at the keyboard, I&apos;m usually walking the
+                weekend dApps, and little tools. When I&apos;m not at the keyboard, I&apos;m usually walking the
                 streets of{" "}
                 <span className="border-b border-dashed border-foreground/40 pb-px">
                   Addis Ababa
                 </span>
                 , watching football, sketching UI ideas in a notebook, and
-                drinking way more coffee than I should
-                <span className="font-serif italic text-primary"> .✦ ݁˖</span>
+                drinking way more coffee than I should.
               </p>
             </div>
           </FadeUp>
