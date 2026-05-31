@@ -122,6 +122,8 @@ export default async function AdminPage() {
         />
 
         <hr className="my-8 border-border/60" />
+
+        <AdminTabs
           counts={{ projects: projects.length, writing: posts.length, now: nowSections.length }}
           projects={<AdminProjectList projects={projects} />}
           writing={<AdminPostList posts={posts} />}
