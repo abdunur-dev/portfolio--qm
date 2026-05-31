@@ -15,7 +15,7 @@ export default function HomePage() {
       <div className="relative z-10">
         <SiteNav />
         <main id="main" className="mx-auto w-full max-w-5xl px-5 py-10 sm:px-6 sm:py-12">
-          <div className="grid items-start gap-10 md:grid-cols-[1fr_280px] md:gap-12 lg:grid-cols-[1fr_320px]">
+          <div className="grid items-start gap-8 md:grid-cols-[1fr_280px] md:gap-14 lg:grid-cols-[1fr_320px]">
             <div>
               <FadeUp delay={0.1}>
                 <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -25,7 +25,16 @@ export default function HomePage() {
               </FadeUp>
 
               <AnimatedHeading
-                text="Ey up! I'm Abdurhaman, known as burhan_"
+                segments={[
+                  { text: "Ey up! I'm", tone: "solid" },
+                  { text: " ", tone: "solid" },
+                  { text: "Abdurhaman", tone: "solid" },
+                  { text: ", ", tone: "solid" },
+                  { text: "known as", tone: "muted" },
+                  { text: " ", tone: "muted" },
+                  { text: "burhan", tone: "accent" },
+                  { text: "_", tone: "accent" },
+                ]}
                 className="mt-4 text-3xl leading-[1.1] sm:text-4xl md:text-5xl"
               />
 
