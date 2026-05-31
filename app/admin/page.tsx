@@ -54,11 +54,11 @@ export default async function AdminPage() {
 
   const heroSettings = {
     title: settingsData?.hero_title || "Ey up! I'm Abdurhaman, known as burhan_",
-    subtitle: settingsData?.hero_subtitle || "full-stack developer working across Web2, Web3 & AI.",
+    subtitle: settingsData?.hero_subtitle || "full-stack developer working across Web2, Web3 and AI.",
   }
 
   const aboutSettings = {
-    text: settingsData?.about_text || "Just another curious human being, living in Addis Ababa, Ethiopia. Welcome to my space on the internet where I convert my thoughts into pixels™",
+    text: settingsData?.about_text || "Just another curious human being, living in Addis Ababa, Ethiopia. Welcome to my space on the internet where I convert my thoughts into pixels",
     description: settingsData?.about_description || "I tinker with decentralised apps, ship modern web experiences, and occasionally write about the quiet places where design, code, and faith overlap.",
   }
 
