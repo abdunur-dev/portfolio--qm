@@ -4,7 +4,6 @@ import { SiteNav } from "@/components/site-nav"
 import { FadeUp } from "@/components/fade-up"
 import { AuroraBackground } from "@/components/aurora-background"
 import { SiteFooter } from "@/components/site-footer"
-import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { socialLinks } from "@/lib/social-links"
 
 export const metadata: Metadata = {
@@ -230,7 +229,6 @@ export default function AboutPage() {
           </FadeUp>
 
           {/* Testimonials section */}
-          <TestimonialsCarousel />
         </main>
         <SiteFooter />
       </div>
