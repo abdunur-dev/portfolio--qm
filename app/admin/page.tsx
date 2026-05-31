@@ -4,6 +4,7 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AdminProjectList } from "@/components/admin-project-list"
 import { AdminPostList } from "@/components/admin-post-list"
 import { AdminNowList } from "@/components/admin-now-list"
+import { AdminSettings } from "@/components/admin-settings"
 import { AdminTabs } from "@/components/admin-tabs"
 import { ThemeToggle } from "@/components/theme-toggle"
 import type { Project, Post, NowSection } from "@/lib/types"
@@ -108,7 +109,19 @@ export default async function AdminPage() {
           <Stat label="Now sections" value={nowSections.length} />
         </div>
 
-        <AdminTabs
+        {/* Settings Tab */}
+        <AdminSettings
+          heroSettings={{
+            title: "Ey up! I'm Abdurhaman, known as burhan_",
+            subtitle: "full-stack developer working across Web2, Web3 & AI.",
+          }}
+          aboutSettings={{
+            text: "Just another curious human being, living in Addis Ababa, Ethiopia. Welcome to my space on the internet where I convert my thoughts into pixels™",
+            description: "I tinker with decentralised apps, ship modern web experiences, and occasionally write about the quiet places where design, code, and faith overlap.",
+          }}
+        />
+
+        <hr className="my-8 border-border/60" />
           counts={{ projects: projects.length, writing: posts.length, now: nowSections.length }}
           projects={<AdminProjectList projects={projects} />}
           writing={<AdminPostList posts={posts} />}

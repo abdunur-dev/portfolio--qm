@@ -25,7 +25,7 @@ export default function HomePage() {
               </FadeUp>
 
               <AnimatedHeading
-                text="Ey up! I'm Abdurhaman_"
+                text="Ey up! I'm Abdurhaman, known as burhan_"
                 className="mt-4 text-3xl leading-[1.1] sm:text-4xl md:text-5xl"
               />
 
