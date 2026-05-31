@@ -4,7 +4,8 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AdminProjectList } from "@/components/admin-project-list"
 import { AdminPostList } from "@/components/admin-post-list"
 import { AdminNowList } from "@/components/admin-now-list"
-import { AdminSettings } from "@/components/admin-settings"
+import { AdminHeroList } from "@/components/admin-hero-list"
+import { AdminAboutList } from "@/components/admin-about-list"
 import { AdminTabs } from "@/components/admin-tabs"
 import { ThemeToggle } from "@/components/theme-toggle"
 import type { Project, Post, NowSection } from "@/lib/types"
@@ -43,6 +44,23 @@ export default async function AdminPage() {
   const projects = (projectsRes.data ?? []) as Project[]
   const posts = (postsRes.data ?? []) as Post[]
   const nowSections = (nowRes.data ?? []) as NowSection[]
+
+  // Fetch hero and about settings
+  const { data: settingsData } = await supabase
+    .from("user_settings")
+    .select("*")
+    .eq("user_id", user.id)
+    .single()
+
+  const heroSettings = {
+    title: settingsData?.hero_title || "Ey up! I'm Abdurhaman, known as burhan_",
+    subtitle: settingsData?.hero_subtitle || "full-stack developer working across Web2, Web3 & AI.",
+  }
+
+  const aboutSettings = {
+    text: settingsData?.about_text || "Just another curious human being, living in Addis Ababa, Ethiopia. Welcome to my space on the internet where I convert my thoughts into pixels™",
+    description: settingsData?.about_description || "I tinker with decentralised apps, ship modern web experiences, and occasionally write about the quiet places where design, code, and faith overlap.",
+  }
 
   return (
     <main className="relative min-h-svh">
@@ -103,28 +121,18 @@ export default async function AdminPage() {
         </div>
 
         {/* Stat row */}
-        <div className="mb-6 grid grid-cols-3 gap-3">
+        <div className="mb-6 grid grid-cols-5 gap-3">
+          <Stat label="Hero" value="1" />
+          <Stat label="About" value="1" />
           <Stat label="Projects" value={projects.length} />
           <Stat label="Posts" value={posts.length} />
           <Stat label="Now sections" value={nowSections.length} />
         </div>
 
-        {/* Settings Tab */}
-        <AdminSettings
-          heroSettings={{
-            title: "Ey up! I'm Abdurhaman, known as burhan_",
-            subtitle: "full-stack developer working across Web2, Web3 & AI.",
-          }}
-          aboutSettings={{
-            text: "Just another curious human being, living in Addis Ababa, Ethiopia. Welcome to my space on the internet where I convert my thoughts into pixels™",
-            description: "I tinker with decentralised apps, ship modern web experiences, and occasionally write about the quiet places where design, code, and faith overlap.",
-          }}
-        />
-
-        <hr className="my-8 border-border/60" />
-
         <AdminTabs
-          counts={{ projects: projects.length, writing: posts.length, now: nowSections.length }}
+          counts={{ hero: 1, about: 1, projects: projects.length, writing: posts.length, now: nowSections.length }}
+          hero={<AdminHeroList initial={heroSettings} />}
+          about={<AdminAboutList initial={aboutSettings} />}
           projects={<AdminProjectList projects={projects} />}
           writing={<AdminPostList posts={posts} />}
           now={<AdminNowList sections={nowSections} />}

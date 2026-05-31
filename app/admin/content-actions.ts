@@ -287,3 +287,61 @@ export async function seedNowSections() {
   revalidatePath("/now")
   return { ok: true, inserted: rows.length }
 }
+
+// ---- Hero Section ----
+
+export async function updateHero(formData: FormData) {
+  const user = await requireAdmin()
+  const supabase = await createClient()
+
+  const title = String(formData.get("title") ?? "").trim()
+  const subtitle = String(formData.get("subtitle") ?? "").trim()
+
+  if (!title || !subtitle) return { error: "Title and subtitle are required" }
+
+  const { error } = await supabase
+    .from("user_settings")
+    .upsert(
+      {
+        user_id: user.id,
+        hero_title: title,
+        hero_subtitle: subtitle,
+      },
+      { onConflict: "user_id" }
+    )
+
+  if (error) return { error: error.message }
+
+  revalidatePath("/admin")
+  revalidatePath("/")
+  return { ok: true }
+}
+
+// ---- About Section ----
+
+export async function updateAbout(formData: FormData) {
+  const user = await requireAdmin()
+  const supabase = await createClient()
+
+  const text = String(formData.get("text") ?? "").trim()
+  const description = String(formData.get("description") ?? "").trim()
+
+  if (!text || !description) return { error: "Both fields are required" }
+
+  const { error } = await supabase
+    .from("user_settings")
+    .upsert(
+      {
+        user_id: user.id,
+        about_text: text,
+        about_description: description,
+      },
+      { onConflict: "user_id" }
+    )
+
+  if (error) return { error: error.message }
+
+  revalidatePath("/admin")
+  revalidatePath("/about")
+  return { ok: true }
+}

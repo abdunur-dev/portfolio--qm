@@ -3,6 +3,8 @@
 import { useState, type ReactNode } from "react"
 
 const TABS = [
+  { id: "hero", label: "Hero" },
+  { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
   { id: "writing", label: "Writing" },
   { id: "now", label: "Now" },
@@ -11,19 +13,23 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"]
 
 export function AdminTabs({
+  hero,
+  about,
   projects,
   writing,
   now,
   counts,
 }: {
+  hero: ReactNode
+  about: ReactNode
   projects: ReactNode
   writing: ReactNode
   now: ReactNode
   counts: Record<TabId, number>
 }) {
-  const [tab, setTab] = useState<TabId>("projects")
+  const [tab, setTab] = useState<TabId>("hero")
 
-  const panels: Record<TabId, ReactNode> = { projects, writing, now }
+  const panels: Record<TabId, ReactNode> = { hero, about, projects, writing, now }
 
   return (
     <div>
