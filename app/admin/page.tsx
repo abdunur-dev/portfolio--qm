@@ -8,6 +8,7 @@ import { AdminHeroList } from "@/components/admin-hero-list"
 import { AdminAboutList } from "@/components/admin-about-list"
 import { AdminTestimonialList } from "@/components/admin-testimonial-list"
 import { AdminTabs } from "@/components/admin-tabs"
+import { SeedTestimonialsButton } from "@/components/seed-testimonials-button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import type { Project, Post, NowSection } from "@/lib/types"
 import { LogoutButton } from "@/components/logout-button"
@@ -136,6 +137,14 @@ export default async function AdminPage() {
           <Stat label="Posts" value={posts.length} />
           <Stat label="Now sections" value={nowSections.length} />
         </div>
+
+        {/* Seed button if no testimonials */}
+        {testimonials.length === 0 && (
+          <div className="mb-6 rounded-lg border border-dashed border-border/60 bg-card/40 p-4 flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">No testimonials yet. Click below to add sample testimonials.</p>
+            <SeedTestimonialsButton />
+          </div>
+        )}
 
         <AdminTabs
           counts={{ hero: 1, about: 1, testimonials: testimonials.length, projects: projects.length, writing: posts.length, now: nowSections.length }}
