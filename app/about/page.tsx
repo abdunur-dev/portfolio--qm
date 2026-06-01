@@ -159,52 +159,6 @@ export default function AboutPage() {
 
           <hr className="my-14 border-border/50" />
 
-          {/* Currently building */}
-          <FadeUp delay={0.05}>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-              Currently building
-            </p>
-            <ul className="mt-5 space-y-3">
-              {[
-                {
-                  name: "TibebChain",
-                  desc: "an NFT publishing platform for African creators",
-                  href: "https://tibebchain.com",
-                },
-                {
-                  name: "VibeVerse",
-                  desc: "a 3D NFT marketplace",
-                  href: "https://vibeverse.app",
-                },
-                {
-                  name: "GuardHer AI",
-                  desc: "an AI safety tool that filters harmful content",
-                  href: "https://guardher.ai",
-                },
-              ].map((p) => (
-                <li
-                  key={p.name}
-                  className="flex flex-wrap items-baseline gap-x-3 gap-y-1"
-                >
-                  <a
-                    href={p.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group inline-flex items-baseline gap-1 font-serif text-lg text-foreground transition-colors hover:text-primary"
-                  >
-                    <span>{p.name}</span>
-                    <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
-                      ↗
-                    </span>
-                  </a>
-                  <span className="text-sm text-foreground/70">{p.desc}</span>
-                </li>
-              ))}
-            </ul>
-          </FadeUp>
-
-          <hr className="my-14 border-border/50" />
-
           {/* Testimonials section */}
           <TestimonialsCarousel />
 
