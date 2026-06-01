@@ -17,6 +17,7 @@ interface Testimonial {
   verified?: boolean
   company?: string
   image?: string
+  link?: string
 }
 
 export function AdminTestimonialList({ testimonials: initialTestimonials }: { testimonials: Testimonial[] }) {
@@ -33,10 +34,11 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
     avatar: '',
     company: '',
     image: '',
+    link: '',
   })
 
   const resetForm = () => {
-    setFormData({ author: '', role: '', content: '', avatar: '', company: '', image: '' })
+    setFormData({ author: '', role: '', content: '', avatar: '', company: '', image: '', link: '' })
     setIsAdding(false)
     setEditingId(null)
   }
@@ -278,6 +280,17 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
                   <span className="text-xs text-muted-foreground">Image Preview</span>
                 </div>
               )}
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Link (Optional)</label>
+              <Input
+                value={formData.link || ''}
+                onChange={(e) =>
+                  setFormData({ ...formData, link: e.target.value })
+                }
+                placeholder="e.g., https://twitter.com/username or https://example.com"
+                type="url"
+              />
             </div>
             <div className="flex gap-2">
               <Button
