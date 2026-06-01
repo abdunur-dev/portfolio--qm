@@ -78,16 +78,13 @@ export function TestimonialsCarousel() {
   return (
     <FadeUp delay={0.65}>
       <div className="mt-20 border-t border-border/60 pt-20">
-        <div className="text-center mb-16">
+        <div className="mb-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-3">
-            TRUSTED BY
+            testimonials
           </p>
           <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
-            Used by amazing people
+            What people are saying
           </h2>
-          <p className="mt-4 text-sm text-foreground/70 max-w-md mx-auto">
-            Join builders and creators who trust my work
-          </p>
         </div>
 
         {/* Testimonials Carousel */}
