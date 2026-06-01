@@ -136,9 +136,9 @@ export function TestimonialsCarousel() {
             </CarouselContent>
 
             {/* Navigation buttons */}
-            <div className="mt-6 flex justify-center gap-4">
-              <CarouselPrevious className="relative top-0 left-0 translate-x-0 translate-y-0 border-border/60 bg-card/40 transition-all duration-200 hover:bg-card/70 hover:shadow-md" />
-              <CarouselNext className="relative top-0 left-0 translate-x-0 translate-y-0 border-border/60 bg-card/40 transition-all duration-200 hover:bg-card/70 hover:shadow-md" />
+            <div className="mt-8 flex justify-center gap-6">
+              <CarouselPrevious className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-card/70 hover:shadow-md hover:border-primary/60 hover:text-primary" />
+              <CarouselNext className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-card/70 hover:shadow-md hover:border-primary/60 hover:text-primary" />
             </div>
           </Carousel>
         </div>
