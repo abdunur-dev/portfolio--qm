@@ -36,7 +36,51 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
     setEditingId(null)
   }
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    setLoading(true)
+    try {
+      if (editingId) {
+        const result = await updateTestimonial(editingId, formData)
+        if (result.ok) {
+          setTestimonials(
+            testimonials.map((t) =>
+              t.id === editingId ? { ...t, ...formData } : t,
+            ),
+          )
+        } else {
+          alert(result.error || 'Failed to update')
+        }
+      } else {
+        const result = await createTestimonial(formData)
+        if (result.ok && result.data) {
+          setTestimonials([...testimonials, result.data])
+        } else {
+          alert(result.error || 'Failed to create')
+        }
+      }
+      resetForm()
+    } finally {
+      setLoading(false)
+    }
+  }
 
+  const handleDelete = async (id: string) => {
+    if (!confirm('Delete this testimonial?')) return
+    
+    setLoading(true)
+    try {
+      const result = await deleteTestimonial(id)
+      if (result.ok) {
+        setTestimonials(testimonials.filter((t) => t.id !== id))
+      } else {
+        alert(result.error || 'Failed to delete')
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <div className="space-y-6">
       {/* Add/Edit Form */}
