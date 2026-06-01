@@ -81,22 +81,23 @@ export function TestimonialsCarousel() {
           </h2>
         </div>
 
-        <div className="relative mx-auto">
+        <div className="relative mx-auto overflow-hidden">
           <Carousel
             opts={{
               align: 'start',
               loop: true,
+              duration: 50,
             }}
             plugins={[plugin.current]}
             className="w-full"
           >
-            <CarouselContent className="-ml-4">
+            <CarouselContent className="-ml-4 transition-transform duration-700 ease-out">
               {testimonials.map((testimonial) => (
                 <CarouselItem
                   key={testimonial.id}
-                  className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
+                  className="pl-4 basis-full md:basis-1/2 lg:basis-1/3 transition-all duration-500"
                 >
-                  <div className="h-full rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all hover:border-primary/60 hover:bg-card/70 hover:shadow-lg shadow-md">
+                  <div className="h-full rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:bg-card/70 hover:shadow-lg shadow-md">
                     {/* Testimonial text */}
                     <p className="text-sm leading-relaxed text-foreground/85">
                       "{testimonial.content}"
@@ -136,8 +137,8 @@ export function TestimonialsCarousel() {
 
             {/* Navigation buttons */}
             <div className="mt-6 flex justify-center gap-4">
-              <CarouselPrevious className="relative top-0 left-0 translate-x-0 translate-y-0 border-border/60 bg-card/40 hover:bg-card/70" />
-              <CarouselNext className="relative top-0 left-0 translate-x-0 translate-y-0 border-border/60 bg-card/40 hover:bg-card/70" />
+              <CarouselPrevious className="relative top-0 left-0 translate-x-0 translate-y-0 border-border/60 bg-card/40 transition-all duration-200 hover:bg-card/70 hover:shadow-md" />
+              <CarouselNext className="relative top-0 left-0 translate-x-0 translate-y-0 border-border/60 bg-card/40 transition-all duration-200 hover:bg-card/70 hover:shadow-md" />
             </div>
           </Carousel>
         </div>
