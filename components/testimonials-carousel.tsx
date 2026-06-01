@@ -72,7 +72,7 @@ const testimonials: Testimonial[] = [
 
 export function TestimonialsCarousel() {
   const plugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
+    Autoplay({ delay: 6000, stopOnInteraction: true })
   )
 
   return (
@@ -96,7 +96,8 @@ export function TestimonialsCarousel() {
             opts={{
               align: 'start',
               loop: true,
-              duration: 50,
+              duration: 60,
+              skipSnaps: false,
             }}
             plugins={[plugin.current]}
             className="w-full"
@@ -105,9 +106,9 @@ export function TestimonialsCarousel() {
               {testimonials.map((testimonial) => (
                 <CarouselItem
                   key={testimonial.id}
-                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 transition-all duration-500"
+                  className="pl-4 basis-full sm:basis-1/2 transition-all duration-700 ease-out"
                 >
-                  <div className="group relative rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:bg-card/70 hover:shadow-lg shadow-md h-full">
+                  <div className="group relative rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:bg-card/70 hover:shadow-lg shadow-md h-full hover:-translate-y-1">
                     {/* Quote Text */}
                     <p className="text-sm leading-relaxed text-foreground/85 mb-6">
                       "{testimonial.content}"
@@ -148,8 +149,8 @@ export function TestimonialsCarousel() {
 
             {/* Navigation buttons */}
             <div className="mt-8 flex justify-center gap-6">
-              <CarouselPrevious className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-card/70 hover:shadow-md hover:border-primary/60 hover:text-primary" />
-              <CarouselNext className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-card/70 hover:shadow-md hover:border-primary/60 hover:text-primary" />
+              <CarouselPrevious className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-primary hover:text-background hover:border-primary hover:shadow-md" />
+              <CarouselNext className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-primary hover:text-background hover:border-primary hover:shadow-md" />
             </div>
           </Carousel>
         </div>
