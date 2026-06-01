@@ -359,6 +359,10 @@ export async function createTestimonial(data: {
     .from("testimonials")
     .insert({
       user_id: user.id,
+      author: "",
+      role: "",
+      content: "",
+      avatar: "",
       image: data.image || null,
       link: data.link || null,
     })
