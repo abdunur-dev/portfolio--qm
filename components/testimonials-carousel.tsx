@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import {
   Carousel,
@@ -20,60 +20,55 @@ interface Testimonial {
   avatar: string
   verified?: boolean
   company?: string
+  image?: string
 }
 
-const testimonials: Testimonial[] = [
-  {
-    id: '1',
-    author: 'Guillermo Rauch',
-    role: 'CEO @ Vercel',
-    content: 'awesome. Love the components, especially slide-to-unlock. Great job',
-    avatar: '/avatars/guillermo.png',
-    company: 'Vercel',
-    verified: true,
-  },
-  {
-    id: '2',
-    author: 'shacdn',
-    role: 'Creator of shadcn/ui',
-    content: "You're doing amazing work.",
-    avatar: '/avatars/shacdn.png',
-    company: 'shadcn/ui',
-    verified: true,
-  },
-  {
-    id: '3',
-    author: 'khushi.vy',
-    role: 'Software Engineer',
-    content: 'Goated portfolio. I love the whole UI in Vercel style',
-    avatar: '/avatars/khushi.png',
-    company: 'Tech',
-    verified: true,
-  },
-  {
-    id: '4',
-    author: 'Megh',
-    role: 'Creator of patterns.dev',
-    content: 'The best looking website @iamncdai portfolio!',
-    avatar: '/avatars/megh.png',
-    company: 'patterns.dev',
-    verified: true,
-  },
-  {
-    id: '5',
-    author: 'jordwalke',
-    role: 'Creator of React',
-    content: 'Also, cool wheel picker!',
-    avatar: '/avatars/jordwalke.png',
-    company: 'React',
-    verified: true,
-  },
-]
-
 export function TestimonialsCarousel() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+  const [loading, setLoading] = useState(true)
   const plugin = React.useRef(
     Autoplay({ delay: 6000, stopOnInteraction: true })
   )
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch('/api/testimonials')
+        if (response.ok) {
+          const data = await response.json()
+          setTestimonials(data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch testimonials:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchTestimonials()
+  }, [])
+
+  if (loading) {
+    return (
+      <FadeUp delay={0.65}>
+        <div className="mt-20 border-t border-border/60 pt-16">
+          <div className="mb-10">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
+              testimonials
+            </p>
+            <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
+              What people are saying
+            </h2>
+          </div>
+          <div className="text-center py-12 text-muted-foreground">Loading testimonials...</div>
+        </div>
+      </FadeUp>
+    )
+  }
+
+  if (testimonials.length === 0) {
+    return null
+  }
 
   return (
     <FadeUp delay={0.65}>
@@ -106,6 +101,18 @@ export function TestimonialsCarousel() {
                   className="pl-4 basis-full sm:basis-1/2 transition-all duration-700 ease-out"
                 >
                   <div className="group relative rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:bg-card/70 hover:shadow-lg shadow-md h-full hover:-translate-y-1">
+                    {/* Testimonial Image if exists */}
+                    {testimonial.image && (
+                      <div className="relative h-40 w-full mb-4 rounded-lg overflow-hidden border border-border/40">
+                        <Image
+                          src={testimonial.image}
+                          alt={`${testimonial.author}'s work`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+
                     {/* Quote Text */}
                     <p className="text-sm leading-relaxed text-foreground/85 mb-6">
                       "{testimonial.content}"

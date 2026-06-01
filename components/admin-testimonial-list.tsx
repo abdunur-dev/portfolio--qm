@@ -15,6 +15,8 @@ interface Testimonial {
   content: string
   avatar: string
   verified?: boolean
+  company?: string
+  image?: string
 }
 
 export function AdminTestimonialList({ testimonials: initialTestimonials }: { testimonials: Testimonial[] }) {
@@ -29,10 +31,12 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
     role: '',
     content: '',
     avatar: '',
+    company: '',
+    image: '',
   })
 
   const resetForm = () => {
-    setFormData({ author: '', role: '', content: '', avatar: '' })
+    setFormData({ author: '', role: '', content: '', avatar: '', company: '', image: '' })
     setIsAdding(false)
     setEditingId(null)
   }
@@ -149,6 +153,16 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
               />
             </div>
             <div>
+              <label className="block text-sm font-medium">Company/Organization</label>
+              <Input
+                value={formData.company || ''}
+                onChange={(e) =>
+                  setFormData({ ...formData, company: e.target.value })
+                }
+                placeholder="e.g., Vercel"
+              />
+            </div>
+            <div>
               <label className="block text-sm font-medium">Testimonial *</label>
               <Textarea
                 value={formData.content}
@@ -206,6 +220,62 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
                     />
                   </div>
                   <span className="text-xs text-muted-foreground">Preview</span>
+                </div>
+              )}
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Testimonial Image (Optional)</label>
+              <div className="flex gap-2">
+                <Input
+                  value={formData.image || ''}
+                  onChange={(e) =>
+                    setFormData({ ...formData, image: e.target.value })
+                  }
+                  placeholder="e.g., /images/testimonial.jpg"
+                  className="flex-1"
+                />
+                <label className="cursor-pointer">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (file) {
+                        const reader = new FileReader()
+                        reader.onload = (event) => {
+                          setFormData({ ...formData, image: event.target?.result as string })
+                        }
+                        reader.readAsDataURL(file)
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      const input = (e.target as HTMLButtonElement).parentElement?.querySelector('input[type="file"]') as HTMLInputElement
+                      input?.click()
+                    }}
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    Upload Image
+                  </Button>
+                </label>
+              </div>
+              {formData.image && (
+                <div className="mt-2 flex gap-2 items-center">
+                  <div className="relative h-20 w-20 rounded border border-border/60 overflow-hidden">
+                    <Image
+                      src={formData.image}
+                      alt="Preview"
+                      fill
+                      className="object-cover"
+                      sizes="80px"
+                    />
+                  </div>
+                  <span className="text-xs text-muted-foreground">Image Preview</span>
                 </div>
               )}
             </div>
