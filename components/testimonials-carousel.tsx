@@ -77,9 +77,9 @@ export function TestimonialsCarousel() {
 
   return (
     <FadeUp delay={0.65}>
-      <div className="mt-20 border-t border-border/60 pt-20">
-        <div className="mb-12">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-3">
+      <div className="mt-20 border-t border-border/60 pt-16">
+        <div className="mb-10">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
             testimonials
           </p>
           <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
@@ -145,7 +145,7 @@ export function TestimonialsCarousel() {
             </CarouselContent>
 
             {/* Navigation buttons */}
-            <div className="mt-8 flex justify-center gap-6">
+            <div className="mt-6 flex justify-center gap-6">
               <CarouselPrevious className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-primary hover:text-background hover:border-primary hover:shadow-md" />
               <CarouselNext className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-primary hover:text-background hover:border-primary hover:shadow-md" />
             </div>

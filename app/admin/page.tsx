@@ -8,7 +8,7 @@ import { AdminHeroList } from "@/components/admin-hero-list"
 import { AdminAboutList } from "@/components/admin-about-list"
 import { AdminTestimonialList } from "@/components/admin-testimonial-list"
 import { AdminTabs } from "@/components/admin-tabs"
-import { SeedTestimonialsButton } from "@/components/seed-testimonials-button"
+import { SetupTestimonialsButton } from "@/components/setup-testimonials-button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import type { Project, Post, NowSection } from "@/lib/types"
 import { LogoutButton } from "@/components/logout-button"
@@ -45,7 +45,9 @@ export default async function AdminPage() {
       .from("testimonials")
       .select("*")
       .eq("user_id", user.id)
-      .order("created_at", { ascending: false }),
+      .order("created_at", { ascending: false })
+      .then(result => result) // Ensure we always return a result
+      .catch(() => ({ data: [] })), // Return empty array if table doesn't exist
   ])
 
   const projects = (projectsRes.data ?? []) as Project[]
@@ -141,8 +143,8 @@ export default async function AdminPage() {
         {/* Seed button if no testimonials */}
         {testimonials.length === 0 && (
           <div className="mb-6 rounded-lg border border-dashed border-border/60 bg-card/40 p-4 flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">No testimonials yet. Click below to add sample testimonials.</p>
-            <SeedTestimonialsButton />
+            <p className="text-sm text-muted-foreground">No testimonials yet. Click below to initialize the table and add sample data.</p>
+            <SetupTestimonialsButton />
           </div>
         )}
 
