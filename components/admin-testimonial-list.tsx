@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Trash2, Plus, Edit2, Upload } from 'lucide-react'
 import { createTestimonial, updateTestimonial, deleteTestimonial } from '@/app/admin/content-actions'
 
@@ -25,103 +24,18 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
   const [isAdding, setIsAdding] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [uploadingImage, setUploadingImage] = useState(false)
 
   const [formData, setFormData] = useState({
-    author: '',
-    role: '',
-    content: '',
-    avatar: '',
-    company: '',
     image: '',
     link: '',
   })
 
   const resetForm = () => {
-    setFormData({ author: '', role: '', content: '', avatar: '', company: '', image: '', link: '' })
+    setFormData({ image: '', link: '' })
     setIsAdding(false)
     setEditingId(null)
   }
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    setUploadingImage(true)
-    try {
-      const formDataUpload = new FormData()
-      formDataUpload.append('file', file)
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formDataUpload,
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        setFormData({ ...formData, avatar: data.url })
-      } else {
-        alert('Upload failed')
-      }
-    } catch (error) {
-      console.error('Upload error:', error)
-      alert('Upload failed')
-    } finally {
-      setUploadingImage(false)
-    }
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!formData.author || !formData.role || !formData.content) {
-      alert('Please fill in all fields')
-      return
-    }
-
-    setLoading(true)
-
-    try {
-      if (editingId) {
-        const result = await updateTestimonial(editingId, formData)
-        if (result.ok) {
-          setTestimonials(
-            testimonials.map((t) =>
-              t.id === editingId ? { ...t, ...formData } : t,
-            ),
-          )
-        } else {
-          alert(result.error || 'Failed to update')
-        }
-      } else {
-        const result = await createTestimonial(formData)
-        if (result.ok && result.data) {
-          setTestimonials([...testimonials, result.data])
-        } else {
-          alert(result.error || 'Failed to create')
-        }
-      }
-      resetForm()
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleDelete = async (id: string) => {
-    if (!confirm('Delete this testimonial?')) return
-    setLoading(true)
-
-    try {
-      const result = await deleteTestimonial(id)
-      if (result.ok) {
-        setTestimonials(testimonials.filter((t) => t.id !== id))
-      } else {
-        alert(result.error || 'Failed to delete')
-      }
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
     <div className="space-y-6">
@@ -133,100 +47,7 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium">Author Name *</label>
-              <Input
-                value={formData.author}
-                onChange={(e) =>
-                  setFormData({ ...formData, author: e.target.value })
-                }
-                placeholder="e.g., Guillermo Rauch"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Role *</label>
-              <Input
-                value={formData.role}
-                onChange={(e) =>
-                  setFormData({ ...formData, role: e.target.value })
-                }
-                placeholder="e.g., CEO @ Vercel"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Company/Organization</label>
-              <Input
-                value={formData.company || ''}
-                onChange={(e) =>
-                  setFormData({ ...formData, company: e.target.value })
-                }
-                placeholder="e.g., Vercel"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Testimonial *</label>
-              <Textarea
-                value={formData.content}
-                onChange={(e) =>
-                  setFormData({ ...formData, content: e.target.value })
-                }
-                placeholder="What do you want to say?"
-                required
-                rows={4}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Avatar Image *</label>
-              <div className="flex gap-2">
-                <Input
-                  value={formData.avatar}
-                  onChange={(e) =>
-                    setFormData({ ...formData, avatar: e.target.value })
-                  }
-                  placeholder="e.g., /avatars/author.png"
-                  className="flex-1"
-                />
-                <label className="cursor-pointer">
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    disabled={uploadingImage}
-                    className="hidden"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    disabled={uploadingImage}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      const input = (e.target as HTMLButtonElement).parentElement?.querySelector('input[type="file"]') as HTMLInputElement
-                      input?.click()
-                    }}
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    {uploadingImage ? 'Uploading...' : 'Upload'}
-                  </Button>
-                </label>
-              </div>
-              {formData.avatar && (
-                <div className="mt-2 flex gap-2 items-center">
-                  <div className="relative h-12 w-12 rounded-full border border-border/60 overflow-hidden">
-                    <Image
-                      src={formData.avatar}
-                      alt="Preview"
-                      fill
-                      className="object-cover"
-                      sizes="48px"
-                    />
-                  </div>
-                  <span className="text-xs text-muted-foreground">Preview</span>
-                </div>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Testimonial Image (Optional)</label>
+              <label className="block text-sm font-medium mb-2">Testimonial Image</label>
               <div className="flex gap-2">
                 <Input
                   value={formData.image || ''}
@@ -262,7 +83,7 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
                     }}
                   >
                     <Upload className="h-4 w-4 mr-2" />
-                    Upload Image
+                    Upload
                   </Button>
                 </label>
               </div>
@@ -277,7 +98,7 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
                       sizes="80px"
                     />
                   </div>
-                  <span className="text-xs text-muted-foreground">Image Preview</span>
+                  <span className="text-xs text-muted-foreground">Preview</span>
                 </div>
               )}
             </div>
@@ -288,14 +109,14 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
                 onChange={(e) =>
                   setFormData({ ...formData, link: e.target.value })
                 }
-                placeholder="e.g., https://twitter.com/username or https://example.com"
+                placeholder="e.g., https://twitter.com/username"
                 type="url"
               />
             </div>
             <div className="flex gap-2">
               <Button
                 type="submit"
-                disabled={loading || uploadingImage}
+                disabled={loading}
                 className="flex-1"
               >
                 {loading ? 'Saving...' : 'Save'}
@@ -304,7 +125,7 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
                 type="button"
                 variant="outline"
                 onClick={resetForm}
-                disabled={loading || uploadingImage}
+                disabled={loading}
               >
                 Cancel
               </Button>

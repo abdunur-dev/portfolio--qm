@@ -349,10 +349,8 @@ export async function updateAbout(formData: FormData) {
 // ---- Testimonials ----
 
 export async function createTestimonial(data: {
-  author: string
-  role: string
-  content: string
-  avatar: string
+  image?: string
+  link?: string
 }) {
   const user = await requireAdmin()
   const supabase = await createClient()
@@ -361,10 +359,8 @@ export async function createTestimonial(data: {
     .from("testimonials")
     .insert({
       user_id: user.id,
-      author: data.author,
-      role: data.role,
-      content: data.content,
-      avatar: data.avatar,
+      image: data.image || null,
+      link: data.link || null,
     })
     .select()
     .single()
@@ -378,7 +374,7 @@ export async function createTestimonial(data: {
 
 export async function updateTestimonial(
   id: string,
-  data: { author: string; role: string; content: string; avatar: string }
+  data: { image?: string; link?: string }
 ) {
   const user = await requireAdmin()
   const supabase = await createClient()
@@ -386,10 +382,8 @@ export async function updateTestimonial(
   const { error } = await supabase
     .from("testimonials")
     .update({
-      author: data.author,
-      role: data.role,
-      content: data.content,
-      avatar: data.avatar,
+      image: data.image || null,
+      link: data.link || null,
     })
     .eq("id", id)
     .eq("user_id", user.id)
