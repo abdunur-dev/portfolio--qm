@@ -205,6 +205,11 @@ export default function AboutPage() {
 
           <hr className="my-14 border-border/50" />
 
+          {/* Testimonials section */}
+          <TestimonialsCarousel />
+
+          <hr className="my-14 border-border/50" />
+
           {/* Let's connect */}
           <FadeUp delay={0.05}>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -228,9 +233,6 @@ export default function AboutPage() {
               ))}
             </ul>
           </FadeUp>
-
-          {/* Testimonials section */}
-          <TestimonialsCarousel />
         </main>
         <SiteFooter />
       </div>

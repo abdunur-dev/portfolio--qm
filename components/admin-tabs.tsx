@@ -5,6 +5,7 @@ import { useState, type ReactNode } from "react"
 const TABS = [
   { id: "hero", label: "Hero" },
   { id: "about", label: "About" },
+  { id: "testimonials", label: "Testimonials" },
   { id: "projects", label: "Projects" },
   { id: "writing", label: "Writing" },
   { id: "now", label: "Now" },
@@ -15,6 +16,7 @@ type TabId = (typeof TABS)[number]["id"]
 export function AdminTabs({
   hero,
   about,
+  testimonials,
   projects,
   writing,
   now,
@@ -22,6 +24,7 @@ export function AdminTabs({
 }: {
   hero: ReactNode
   about: ReactNode
+  testimonials: ReactNode
   projects: ReactNode
   writing: ReactNode
   now: ReactNode
@@ -29,7 +32,7 @@ export function AdminTabs({
 }) {
   const [tab, setTab] = useState<TabId>("hero")
 
-  const panels: Record<TabId, ReactNode> = { hero, about, projects, writing, now }
+  const panels: Record<TabId, ReactNode> = { hero, about, testimonials, projects, writing, now }
 
   return (
     <div>

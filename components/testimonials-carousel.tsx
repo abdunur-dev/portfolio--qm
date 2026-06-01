@@ -96,7 +96,7 @@ export function TestimonialsCarousel() {
                   key={testimonial.id}
                   className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
                 >
-                  <div className="h-full rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all hover:border-primary/60 hover:bg-card/70">
+                  <div className="h-full rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all hover:border-primary/60 hover:bg-card/70 hover:shadow-lg shadow-md">
                     {/* Testimonial text */}
                     <p className="text-sm leading-relaxed text-foreground/85">
                       "{testimonial.content}"

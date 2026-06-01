@@ -6,6 +6,7 @@ import { AdminPostList } from "@/components/admin-post-list"
 import { AdminNowList } from "@/components/admin-now-list"
 import { AdminHeroList } from "@/components/admin-hero-list"
 import { AdminAboutList } from "@/components/admin-about-list"
+import { AdminTestimonialList } from "@/components/admin-testimonial-list"
 import { AdminTabs } from "@/components/admin-tabs"
 import { ThemeToggle } from "@/components/theme-toggle"
 import type { Project, Post, NowSection } from "@/lib/types"
@@ -18,7 +19,7 @@ export default async function AdminPage() {
   const user = await requireAdmin()
   const supabase = await createClient()
 
-  const [projectsRes, postsRes, nowRes] = await Promise.all([
+  const [projectsRes, postsRes, nowRes, testimonialsRes] = await Promise.all([
     supabase
       .from("projects")
       .select("*")
@@ -39,11 +40,17 @@ export default async function AdminPage() {
       .eq("user_id", user.id)
       .order("position", { ascending: true })
       .order("created_at", { ascending: true }),
+    supabase
+      .from("testimonials")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false }),
   ])
 
   const projects = (projectsRes.data ?? []) as Project[]
   const posts = (postsRes.data ?? []) as Post[]
   const nowSections = (nowRes.data ?? []) as NowSection[]
+  const testimonials = (testimonialsRes.data ?? []) as any[]
 
   // Fetch hero and about settings
   const { data: settingsData } = await supabase
@@ -121,18 +128,20 @@ export default async function AdminPage() {
         </div>
 
         {/* Stat row */}
-        <div className="mb-6 grid grid-cols-5 gap-3">
+        <div className="mb-6 grid grid-cols-6 gap-3">
           <Stat label="Hero" value="1" />
           <Stat label="About" value="1" />
+          <Stat label="Testimonials" value={testimonials.length} />
           <Stat label="Projects" value={projects.length} />
           <Stat label="Posts" value={posts.length} />
           <Stat label="Now sections" value={nowSections.length} />
         </div>
 
         <AdminTabs
-          counts={{ hero: 1, about: 1, projects: projects.length, writing: posts.length, now: nowSections.length }}
+          counts={{ hero: 1, about: 1, testimonials: testimonials.length, projects: projects.length, writing: posts.length, now: nowSections.length }}
           hero={<AdminHeroList initial={heroSettings} />}
           about={<AdminAboutList initial={aboutSettings} />}
+          testimonials={<AdminTestimonialList testimonials={testimonials} />}
           projects={<AdminProjectList projects={projects} />}
           writing={<AdminPostList posts={posts} />}
           now={<AdminNowList sections={nowSections} />}

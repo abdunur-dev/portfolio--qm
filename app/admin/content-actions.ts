@@ -345,3 +345,75 @@ export async function updateAbout(formData: FormData) {
   revalidatePath("/about")
   return { ok: true }
 }
+
+// ---- Testimonials ----
+
+export async function createTestimonial(data: {
+  author: string
+  role: string
+  content: string
+  avatar: string
+}) {
+  const user = await requireAdmin()
+  const supabase = await createClient()
+
+  const { data: inserted, error } = await supabase
+    .from("testimonials")
+    .insert({
+      user_id: user.id,
+      author: data.author,
+      role: data.role,
+      content: data.content,
+      avatar: data.avatar,
+    })
+    .select()
+    .single()
+
+  if (error) return { error: error.message }
+
+  revalidatePath("/admin")
+  revalidatePath("/about")
+  return { ok: true, data: inserted }
+}
+
+export async function updateTestimonial(
+  id: string,
+  data: { author: string; role: string; content: string; avatar: string }
+) {
+  const user = await requireAdmin()
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from("testimonials")
+    .update({
+      author: data.author,
+      role: data.role,
+      content: data.content,
+      avatar: data.avatar,
+    })
+    .eq("id", id)
+    .eq("user_id", user.id)
+
+  if (error) return { error: error.message }
+
+  revalidatePath("/admin")
+  revalidatePath("/about")
+  return { ok: true }
+}
+
+export async function deleteTestimonial(id: string) {
+  const user = await requireAdmin()
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from("testimonials")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", user.id)
+
+  if (error) return { error: error.message }
+
+  revalidatePath("/admin")
+  revalidatePath("/about")
+  return { ok: true }
+}
