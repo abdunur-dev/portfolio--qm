@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Star } from 'lucide-react'
+import Image from 'next/image'
 import {
   Carousel,
   CarouselContent,
@@ -17,46 +17,50 @@ interface Testimonial {
   author: string
   role: string
   content: string
-  rating: number
   avatar: string
+  verified?: boolean
 }
 
 const testimonials: Testimonial[] = [
   {
     id: '1',
-    author: 'Sarah Chen',
-    role: 'Product Lead @ TechCorp',
-    content:
-      'Abdurhaman delivered an exceptional Web3 solution that exceeded our expectations. His attention to detail and deep understanding of blockchain architecture made all the difference.',
-    rating: 5,
-    avatar: 'SC',
+    author: 'Guillermo Rauch',
+    role: 'CEO @ Vercel',
+    content: 'awesome. Love the components, especially slide-to-unlock. Great job',
+    avatar: '/avatars/guillermo.png',
+    verified: true,
   },
   {
     id: '2',
-    author: 'Marcus Johnson',
-    role: 'CEO @ StartupXYZ',
-    content:
-      'Working with Abdurhaman was a game-changer for our startup. He not only built the product but also mentored our team on best practices. Highly recommend!',
-    rating: 5,
-    avatar: 'MJ',
+    author: 'shacdn',
+    role: 'Creator of shadcn/ui',
+    content: "You're doing amazing work.",
+    avatar: '/avatars/shacdn.png',
+    verified: true,
   },
   {
     id: '3',
-    author: 'Elena Rodriguez',
-    role: 'Design Director @ Design Studio',
-    content:
-      'Rare to find a developer who understands design so deeply. The collaboration was seamless, and the final product was beautiful and performant.',
-    rating: 5,
-    avatar: 'ER',
+    author: 'khushi.vy',
+    role: 'Software Engineer',
+    content: 'Goated portfolio. I love the whole UI in Vercel style',
+    avatar: '/avatars/khushi.png',
+    verified: true,
   },
   {
     id: '4',
-    author: 'James Wilson',
-    role: 'CTO @ FinanceApp',
-    content:
-      'Abdurhaman solved complex technical challenges we thought were impossible. His problem-solving skills and communication are top-notch.',
-    rating: 5,
-    avatar: 'JW',
+    author: 'Megh',
+    role: 'Creator of patterns.dev',
+    content: 'The best looking website @iamncdai portfolio!',
+    avatar: '/avatars/megh.png',
+    verified: true,
+  },
+  {
+    id: '5',
+    author: 'jordwalke',
+    role: 'Creator of React',
+    content: 'Also, cool wheel picker!',
+    avatar: '/avatars/jordwalke.png',
+    verified: true,
   },
 ]
 
@@ -93,34 +97,33 @@ export function TestimonialsCarousel() {
                   className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
                 >
                   <div className="h-full rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all hover:border-primary/60 hover:bg-card/70">
-                    {/* Rating stars */}
-                    <div className="flex gap-1">
-                      {Array.from({ length: testimonial.rating }).map(
-                        (_, i) => (
-                          <Star
-                            key={i}
-                            className="h-4 w-4 fill-primary text-primary"
-                          />
-                        ),
-                      )}
-                    </div>
-
                     {/* Testimonial text */}
-                    <p className="mt-4 text-sm leading-relaxed text-foreground/85">
+                    <p className="text-sm leading-relaxed text-foreground/85">
                       "{testimonial.content}"
                     </p>
 
                     {/* Author with avatar */}
                     <div className="mt-6 flex items-center gap-3 border-t border-border/40 pt-4">
-                      {/* Avatar */}
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border/60 bg-secondary/60 font-mono font-semibold text-foreground">
-                        {testimonial.avatar}
+                      {/* Avatar image */}
+                      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-border/60 bg-secondary/60">
+                        <Image
+                          src={testimonial.avatar}
+                          alt={testimonial.author}
+                          fill
+                          className="object-cover"
+                          sizes="48px"
+                        />
                       </div>
                       {/* Author info */}
-                      <div>
-                        <p className="font-serif font-semibold text-foreground">
-                          {testimonial.author}
-                        </p>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-1.5">
+                          <p className="font-serif font-semibold text-foreground">
+                            {testimonial.author}
+                          </p>
+                          {testimonial.verified && (
+                            <span className="text-xs text-primary">✓</span>
+                          )}
+                        </div>
                         <p className="text-xs text-muted-foreground">
                           {testimonial.role}
                         </p>
