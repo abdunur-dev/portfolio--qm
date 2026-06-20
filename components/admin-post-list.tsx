@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState, useTransition, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { Plus, Pencil, Sparkles, EyeOff } from "lucide-react"
+import { Plus, Pencil, Sparkles, EyeOff, Link2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
@@ -175,6 +175,35 @@ function PostForm({
   const [error, setError] = useState<string | null>(null)
   const [bodyText, setBodyText] = useState(initial?.body ?? "")
   const [showPreview, setShowPreview] = useState(false)
+  const bodyRef = useRef<HTMLTextAreaElement>(null)
+
+  function insertLink() {
+    const textarea = bodyRef.current
+    if (!textarea) return
+
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const selectedText = bodyText.slice(start, end)
+
+    const url = window.prompt("Enter the link URL:", "https://")
+    if (!url) return
+
+    const label =
+      selectedText ||
+      window.prompt("Enter the text to display for this link:", "") ||
+      url
+
+    const markdown = `[${label}](${url})`
+    const newText = bodyText.slice(0, start) + markdown + bodyText.slice(end)
+    setBodyText(newText)
+
+    // Restore focus and place cursor after the inserted link
+    requestAnimationFrame(() => {
+      textarea.focus()
+      const cursorPos = start + markdown.length
+      textarea.setSelectionRange(cursorPos, cursorPos)
+    })
+  }
 
   function handleSubmit(formData: FormData) {
     setError(null)
@@ -215,13 +244,25 @@ function PostForm({
           <Label className="text-xs uppercase tracking-wider text-muted-foreground">
             Body (Markdown)
           </Label>
-          <button
-            type="button"
-            onClick={() => setShowPreview((v) => !v)}
-            className="rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-          >
-            {showPreview ? "Edit" : "Preview"}
-          </button>
+          <div className="flex items-center gap-2">
+            {!showPreview && (
+              <button
+                type="button"
+                onClick={insertLink}
+                className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              >
+                <Link2 className="h-3 w-3" />
+                Insert link
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setShowPreview((v) => !v)}
+              className="rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              {showPreview ? "Edit" : "Preview"}
+            </button>
+          </div>
         </div>
         {showPreview ? (
           <div className="min-h-[15rem] rounded-lg border border-border/60 bg-background/60 p-5">
@@ -235,6 +276,7 @@ function PostForm({
           </div>
         ) : (
           <Textarea
+            ref={bodyRef}
             name="body"
             rows={12}
             value={bodyText}
