@@ -6,7 +6,6 @@ import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
 import { MarkdownBody } from "@/components/markdown-body"
-import { BlogShare } from "@/components/blog-share"
 import { posts as staticPosts } from "@/lib/posts-data"
 import { createClient } from "@/lib/supabase/server"
 import type { Post as DbPost } from "@/lib/types"
@@ -172,15 +171,6 @@ export default async function WritingPost({
           </FadeUp>
 
           <FadeUp delay={0.3}>
-            <BlogShare 
-              title={post.title}
-              excerpt={post.excerpt}
-              coverUrl={post.cover_url || undefined}
-              slug={post.slug}
-            />
-          </FadeUp>
-
-          <FadeUp delay={0.35}>
             <div className="mt-16 border-t border-border/60 pt-6">
               <Link
                 href="/writing"
