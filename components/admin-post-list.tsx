@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { Plus, Pencil, Sparkles, EyeOff, Link2, Image as ImageIcon, Upload } from "lucide-react"
+import { Plus, Pencil, Sparkles, EyeOff, Link2, Image as ImageIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
@@ -23,7 +23,6 @@ export function AdminPostList({ posts }: { posts: Post[] }) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [seeding, startSeed] = useTransition()
   const [seedError, setSeedError] = useState<string | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   return (
     <div className="space-y-6">
@@ -229,50 +228,7 @@ function PostForm({
     })
   }
 
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
 
-    const textarea = bodyRef.current
-    if (!textarea) return
-
-    try {
-      const formData = new FormData()
-      formData.append("file", file)
-
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      })
-
-      if (!response.ok) throw new Error("Upload failed")
-
-      const data = await response.json()
-      const imageUrl = data.url
-
-      const start = textarea.selectionStart
-      const end = textarea.selectionEnd
-      const altText = file.name.replace(/\.[^/.]+$/, "") || "image"
-
-      const markdown = `![${altText}](${imageUrl})`
-      const newText = bodyText.slice(0, start) + markdown + bodyText.slice(end)
-      setBodyText(newText)
-
-      requestAnimationFrame(() => {
-        textarea.focus()
-        const cursorPos = start + markdown.length
-        textarea.setSelectionRange(cursorPos, cursorPos)
-      })
-    } catch (error) {
-      alert("Failed to upload image. Please try again.")
-      console.error("Upload error:", error)
-    }
-
-    // Reset input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""
-    }
-  }
 
   function handleSubmit(formData: FormData) {
     setError(null)
@@ -344,19 +300,8 @@ function PostForm({
                   className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                 >
                   <ImageIcon className="h-3 w-3" />
-                  Image URL
+                  Insert image
                 </button>
-                <label className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                  />
-                  <Upload className="h-3 w-3" />
-                  Upload image
-                </label>
               </>
             )}
             <button
