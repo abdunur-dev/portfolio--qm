@@ -16,6 +16,33 @@ export function BlogShare({ title, excerpt, coverUrl, slug }: BlogShareProps) {
   const [isGenerating, setIsGenerating] = useState(false)
   const blogUrl = typeof window !== 'undefined' ? `${window.location.origin}/writing/${slug}` : ''
 
+  const loadImage = (src: string): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      img.crossOrigin = 'anonymous'
+      img.onload = () => resolve(img)
+      img.onerror = reject
+      img.src = src
+    })
+  }
+
+  const wrapText = (text: string, maxChars: number): string[] => {
+    const words = text.split(' ')
+    const lines: string[] = []
+    let currentLine = ''
+
+    words.forEach((word) => {
+      if ((currentLine + word).length > maxChars) {
+        if (currentLine) lines.push(currentLine)
+        currentLine = word
+      } else {
+        currentLine += (currentLine ? ' ' : '') + word
+      }
+    })
+    if (currentLine) lines.push(currentLine)
+    return lines
+  }
+
   const generatePreviewImage = async () => {
     setIsGenerating(true)
     try {
@@ -25,90 +52,73 @@ export function BlogShare({ title, excerpt, coverUrl, slug }: BlogShareProps) {
       const ctx = canvas.getContext('2d')
       if (!ctx) return
 
-      // Background
-      ctx.fillStyle = '#f8f8f8'
-      ctx.fillRect(0, 0, 1080, 1080)
-
-      // Dark overlay for contrast
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'
-      ctx.fillRect(0, 0, 1080, 1080)
-
-      // Load and draw cover image if exists
+      // Load cover image if it exists
       if (coverUrl) {
-        const img = new Image()
-        img.crossOrigin = 'anonymous'
-        img.onload = () => {
+        try {
+          const img = await loadImage(coverUrl)
           ctx.drawImage(img, 0, 0, 1080, 1080)
-          drawText(ctx)
+        } catch (err) {
+          // If image fails to load, just use background
+          ctx.fillStyle = '#1a1a1a'
+          ctx.fillRect(0, 0, 1080, 1080)
         }
-        img.src = coverUrl
       } else {
-        drawText(ctx)
+        // Solid background
+        ctx.fillStyle = '#1a1a1a'
+        ctx.fillRect(0, 0, 1080, 1080)
       }
 
-      function drawText(context: CanvasRenderingContext2D) {
-        // Semi-transparent dark background for text
-        context.fillStyle = 'rgba(0, 0, 0, 0.6)'
-        context.fillRect(0, 400, 1080, 680)
+      // Semi-transparent dark background for text readability
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+      ctx.fillRect(0, 300, 1080, 780)
 
-        // Title
-        context.fillStyle = '#ffffff'
-        context.font = 'bold 60px serif'
-        context.textAlign = 'left'
-        
-        const titleLines = wrapText(title, 80)
-        let yPos = 500
-        titleLines.forEach((line) => {
-          context.fillText(line, 60, yPos)
-          yPos += 80
-        })
-
-        // Excerpt
-        context.fillStyle = 'rgba(255, 255, 255, 0.8)'
-        context.font = '32px sans-serif'
-        const excerptLines = wrapText(excerpt, 100)
-        yPos += 40
-        excerptLines.slice(0, 2).forEach((line) => {
-          context.fillText(line, 60, yPos)
-          yPos += 50
-        })
-
-        // Footer with name and URL
-        context.fillStyle = 'rgba(255, 255, 255, 0.7)'
-        context.font = '24px sans-serif'
-        context.fillText('Abdurhaman • burhan-ops.vercel.app', 60, 1000)
-      }
-
-      function wrapText(text: string, maxChars: number): string[] {
-        const words = text.split(' ')
-        const lines: string[] = []
-        let currentLine = ''
-
-        words.forEach((word) => {
-          if ((currentLine + word).length > maxChars) {
-            if (currentLine) lines.push(currentLine)
-            currentLine = word
-          } else {
-            currentLine += (currentLine ? ' ' : '') + word
-          }
-        })
-        if (currentLine) lines.push(currentLine)
-        return lines
-      }
-
-      // Download
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const url = URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = `${slug}-story.png`
-          document.body.appendChild(a)
-          a.click()
-          document.body.removeChild(a)
-          URL.revokeObjectURL(url)
-        }
+      // Title
+      ctx.fillStyle = '#ffffff'
+      ctx.font = 'bold 56px -apple-system, BlinkMacSystemFont, "Segoe UI", serif'
+      ctx.textAlign = 'left'
+      ctx.textBaseline = 'top'
+      
+      const titleLines = wrapText(title, 75)
+      let yPos = 350
+      titleLines.forEach((line) => {
+        ctx.fillText(line, 60, yPos)
+        yPos += 70
       })
+
+      // Excerpt
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)'
+      ctx.font = '28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      const excerptLines = wrapText(excerpt, 120)
+      yPos += 30
+      excerptLines.slice(0, 2).forEach((line) => {
+        ctx.fillText(line, 60, yPos)
+        yPos += 45
+      })
+
+      // Footer with name and URL
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
+      ctx.font = '22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      ctx.fillText('Abdurhaman • burhan-ops.vercel.app', 60, 1000)
+
+      // Download the canvas as PNG
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = `${slug}-story.png`
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+            URL.revokeObjectURL(url)
+          }
+        },
+        'image/png',
+        1
+      )
+    } catch (error) {
+      console.error('Error generating preview:', error)
     } finally {
       setIsGenerating(false)
     }
