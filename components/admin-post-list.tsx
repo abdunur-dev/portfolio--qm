@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { Plus, Pencil, Sparkles, EyeOff, Link2 } from "lucide-react"
+import { Plus, Pencil, Sparkles, EyeOff, Link2, Image as ImageIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
@@ -205,6 +205,30 @@ function PostForm({
     })
   }
 
+  function insertImage() {
+    const textarea = bodyRef.current
+    if (!textarea) return
+
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+
+    const imageUrl = window.prompt("Enter the image URL:", "https://")
+    if (!imageUrl) return
+
+    const altText = window.prompt("Enter alt text for the image:", "") || "image"
+
+    const markdown = `![${altText}](${imageUrl})`
+    const newText = bodyText.slice(0, start) + markdown + bodyText.slice(end)
+    setBodyText(newText)
+
+    // Restore focus and place cursor after the inserted image
+    requestAnimationFrame(() => {
+      textarea.focus()
+      const cursorPos = start + markdown.length
+      textarea.setSelectionRange(cursorPos, cursorPos)
+    })
+  }
+
   function handleSubmit(formData: FormData) {
     setError(null)
     startTransition(async () => {
@@ -256,14 +280,24 @@ function PostForm({
           </Label>
           <div className="flex items-center gap-2">
             {!showPreview && (
-              <button
-                type="button"
-                onClick={insertLink}
-                className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              >
-                <Link2 className="h-3 w-3" />
-                Insert link
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={insertLink}
+                  className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                >
+                  <Link2 className="h-3 w-3" />
+                  Insert link
+                </button>
+                <button
+                  type="button"
+                  onClick={insertImage}
+                  className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                >
+                  <ImageIcon className="h-3 w-3" />
+                  Insert image
+                </button>
+              </>
             )}
             <button
               type="button"
