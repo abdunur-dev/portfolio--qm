@@ -22,6 +22,7 @@ type ResolvedPost = {
   reading: string
   href?: string | null
   cover_url?: string | null
+  image_urls?: string[] | null
   body: string
   blocks: { type: "h2" | "p"; text: string }[]
 }
@@ -58,6 +59,7 @@ async function getPost(slug: string): Promise<ResolvedPost | null> {
       reading: p.reading,
       href: p.href,
       cover_url: p.cover_url,
+      image_urls: p.image_urls || null,
       body: p.body || "",
       blocks: bodyToBlocks(p.body || ""),
     }
@@ -72,6 +74,7 @@ async function getPost(slug: string): Promise<ResolvedPost | null> {
     date: fallback.date,
     reading: fallback.reading,
     href: fallback.href ?? null,
+    image_urls: null,
     body: "",
     blocks: fallback.body ?? [],
   }
