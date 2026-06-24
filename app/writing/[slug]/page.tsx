@@ -137,6 +137,23 @@ export default async function WritingPost({
             </FadeUp>
           )}
 
+          {post.image_urls && post.image_urls.length > 0 && (
+            <FadeUp delay={0.17}>
+              <div className={`mt-10 grid gap-4 ${post.image_urls.length === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+                {post.image_urls.map((img, idx) => (
+                  <div key={idx} className="rounded-2xl border border-border/60 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={img}
+                      alt={`${post.title} image ${idx + 1}`}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+          )}
+
           <FadeUp delay={0.2}>
             <div className="mt-12 max-w-none border-t border-border/60 pt-10">
               {post.body ? (

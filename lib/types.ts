@@ -47,6 +47,7 @@ export type Post = {
   year: number
   href: string | null
   cover_url: string | null
+  image_urls?: string[] | null
   published: boolean
   position: number
   created_at: string

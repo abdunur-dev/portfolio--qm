@@ -240,6 +240,16 @@ function PostForm({
       />
 
       <div className="grid gap-2">
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Blog images (1-2 images)</Label>
+        <Input
+          name="image_urls"
+          placeholder="Paste image URLs separated by comma (e.g., https://img1.com/pic1.jpg, https://img2.com/pic2.jpg)"
+          defaultValue={initial?.image_urls?.join(", ") ?? ""}
+        />
+        <p className="text-[10px] text-muted-foreground">Add 1 or 2 images to display in the blog post. Paste direct image URLs separated by commas.</p>
+      </div>
+
+      <div className="grid gap-2">
         <div className="flex items-center justify-between">
           <Label className="text-xs uppercase tracking-wider text-muted-foreground">
             Body (Markdown)

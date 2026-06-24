@@ -25,6 +25,14 @@ function readPostForm(formData: FormData) {
   const year = Number.isFinite(yearRaw) && yearRaw > 0 ? yearRaw : new Date().getFullYear()
   const href = String(formData.get("href") ?? "").trim() || null
   const cover_url = String(formData.get("cover_url") ?? "").trim() || null
+  const image_urls_raw = String(formData.get("image_urls") ?? "").trim()
+  const image_urls = image_urls_raw
+    ? image_urls_raw
+        .split(",")
+        .map((url) => url.trim())
+        .filter((url) => url.length > 0 && url.startsWith("http"))
+        .slice(0, 2) || null
+    : null
   const published = formData.get("published") === "on" || formData.get("published") === "true"
   const positionRaw = Number(formData.get("position"))
   const position = Number.isFinite(positionRaw) ? positionRaw : 0
@@ -39,6 +47,7 @@ function readPostForm(formData: FormData) {
     year,
     href,
     cover_url,
+    image_urls,
     published,
     position,
   }
