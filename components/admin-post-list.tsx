@@ -313,7 +313,11 @@ function PostForm({
         <Input
           name="image_urls"
           placeholder="Paste image URLs separated by comma (e.g., https://img1.com/pic1.jpg, https://img2.com/pic2.jpg)"
-          defaultValue={Array.isArray(initial?.image_urls) ? initial.image_urls.join(", ") : ""}
+          defaultValue={
+            initial?.image_urls && Array.isArray(initial.image_urls) && initial.image_urls.length > 0
+              ? initial.image_urls.join(", ")
+              : ""
+          }
         />
         <p className="text-[10px] text-muted-foreground">Add 1 or 2 images to display in the blog post. Paste direct image URLs separated by commas.</p>
       </div>
