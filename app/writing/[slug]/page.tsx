@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
 import { MarkdownBody } from "@/components/markdown-body"
+import { BlogImageCarousel } from "@/components/blog-image-carousel"
 import { posts as staticPosts } from "@/lib/posts-data"
 import { createClient } from "@/lib/supabase/server"
 import type { Post as DbPost } from "@/lib/types"
@@ -142,18 +143,7 @@ export default async function WritingPost({
 
           {post.image_urls && post.image_urls.length > 0 && (
             <FadeUp delay={0.17}>
-              <div className={`mt-10 grid gap-4 ${post.image_urls.length === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
-                {post.image_urls.map((img, idx) => (
-                  <div key={idx} className="rounded-2xl border border-border/60 overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={img}
-                      alt={`${post.title} image ${idx + 1}`}
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
+              <BlogImageCarousel images={post.image_urls} title={post.title} />
             </FadeUp>
           )}
 
