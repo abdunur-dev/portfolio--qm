@@ -265,17 +265,21 @@ function PostForm({
       />
 
       <div className="grid gap-2">
-        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Blog images (1-2 images)</Label>
-        <Input
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Additional blog images</Label>
+        <Textarea
           name="image_urls"
-          placeholder="Paste image URLs separated by comma (e.g., https://img1.com/pic1.jpg, https://img2.com/pic2.jpg)"
+          rows={4}
+          placeholder={"Paste one image URL per line\nhttps://example.com/first-image.jpg\nhttps://example.com/second-image.jpg"}
           defaultValue={
             initial?.image_urls && Array.isArray(initial.image_urls) && initial.image_urls.length > 0
-              ? initial.image_urls.join(", ")
+              ? initial.image_urls.join("\n")
               : ""
           }
+          className="font-mono text-xs"
         />
-        <p className="text-[10px] text-muted-foreground">Add 1 or 2 images to display in the blog post. Paste direct image URLs separated by commas.</p>
+        <p className="text-[10px] text-muted-foreground">
+          Add up to 8 images. One URL per line. These appear as a gallery above the article; use “Insert image” below to place images between paragraphs.
+        </p>
       </div>
 
       <div className="grid gap-2">

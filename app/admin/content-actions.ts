@@ -28,10 +28,10 @@ function readPostForm(formData: FormData) {
   const image_urls_raw = String(formData.get("image_urls") ?? "").trim()
   const image_urls = image_urls_raw
     ? image_urls_raw
-        .split(",")
+        .split(/[\n,]+/)
         .map((url) => url.trim())
-        .filter((url) => url.length > 0 && url.startsWith("http"))
-        .slice(0, 2) || null
+        .filter((url) => /^https?:\/\//i.test(url))
+        .slice(0, 8)
     : null
   const published = formData.get("published") === "on" || formData.get("published") === "true"
   const positionRaw = Number(formData.get("position"))
