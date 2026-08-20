@@ -28,16 +28,22 @@ export function MarkdownBody({ content }: { content: string }) {
             {children}
           </p>
         ),
-        a: ({ href, children }) => (
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline decoration-foreground/30 underline-offset-[3px] transition-colors hover:decoration-foreground/70"
-          >
-            {children}
-          </a>
-        ),
+        a: ({ href, children }) => {
+          const externalHref = href && !/^(https?:|mailto:|tel:|\/|#)/i.test(href)
+            ? `https://${href}`
+            : href
+
+          return (
+            <a
+              href={externalHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-foreground/30 underline-offset-[3px] transition-colors hover:decoration-foreground/70"
+            >
+              {children}
+            </a>
+          )
+        },
         strong: ({ children }) => (
           <strong className="font-semibold text-foreground">{children}</strong>
         ),

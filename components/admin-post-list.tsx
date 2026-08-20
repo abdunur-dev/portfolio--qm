@@ -188,8 +188,12 @@ function PostForm({
     const end = textarea.selectionEnd
     const selectedText = bodyText.slice(start, end)
 
-    const url = window.prompt("Enter the link URL:", "https://")
-    if (!url) return
+    const rawUrl = window.prompt("Enter the link URL:", "https://")
+    if (!rawUrl) return
+
+    const url = /^https?:\/\//i.test(rawUrl.trim())
+      ? rawUrl.trim()
+      : `https://${rawUrl.trim()}`
 
     const label =
       selectedText ||
