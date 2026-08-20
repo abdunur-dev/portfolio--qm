@@ -15,6 +15,7 @@ import {
   updatePost,
   deletePost,
   seedPosts,
+  uploadBlogImage,
 } from "@/app/admin/content-actions"
 import type { Post } from "@/lib/types"
 
@@ -175,7 +176,9 @@ function PostForm({
   const [error, setError] = useState<string | null>(null)
   const [bodyText, setBodyText] = useState(initial?.body ?? "")
   const [showPreview, setShowPreview] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const bodyRef = useRef<HTMLTextAreaElement>(null)
+  const imageInputRef = useRef<HTMLInputElement>(null)
 
   function insertLink() {
     const textarea = bodyRef.current
@@ -205,27 +208,31 @@ function PostForm({
     })
   }
 
-  function insertImageUrl() {
+  async function handleInlineImageUpload(file: File) {
     const textarea = bodyRef.current
     if (!textarea) return
-
-    const start = textarea.selectionStart
-    const end = textarea.selectionEnd
-
-    const imageUrl = window.prompt("Enter the image URL:", "https://")
-    if (!imageUrl) return
-
-    const altText = window.prompt("Enter alt text for the image:", "") || "image"
-
-    const markdown = `![${altText}](${imageUrl})`
-    const newText = bodyText.slice(0, start) + markdown + bodyText.slice(end)
-    setBodyText(newText)
-
-    requestAnimationFrame(() => {
-      textarea.focus()
-      const cursorPos = start + markdown.length
-      textarea.setSelectionRange(cursorPos, cursorPos)
-    })
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.set("image_files", file)
+      const result = await uploadBlogImage(formData)
+      if (!result.url) throw new Error("Upload failed")
+      const altText = file.name.replace(/\.[^/.]+$/, "") || "image"
+      const markdown = `![${altText}](${result.url})`
+      const start = textarea.selectionStart
+      const end = textarea.selectionEnd
+      setBodyText(bodyText.slice(0, start) + markdown + bodyText.slice(end))
+      requestAnimationFrame(() => {
+        textarea.focus()
+        const cursorPos = start + markdown.length
+        textarea.setSelectionRange(cursorPos, cursorPos)
+      })
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Image upload failed")
+    } finally {
+      setUploading(false)
+      if (imageInputRef.current) imageInputRef.current.value = ""
+    }
   }
 
 
@@ -266,19 +273,9 @@ function PostForm({
 
       <div className="grid gap-2">
         <Label className="text-xs uppercase tracking-wider text-muted-foreground">Additional blog images</Label>
-        <Textarea
-          name="image_urls"
-          rows={4}
-          placeholder={"Paste one image URL per line\nhttps://example.com/first-image.jpg\nhttps://example.com/second-image.jpg"}
-          defaultValue={
-            initial?.image_urls && Array.isArray(initial.image_urls) && initial.image_urls.length > 0
-              ? initial.image_urls.join("\n")
-              : ""
-          }
-          className="font-mono text-xs"
-        />
+        <Input name="image_files" type="file" accept="image/*" multiple />
         <p className="text-[10px] text-muted-foreground">
-          Add up to 8 images. One URL per line. These appear as a gallery above the article; use “Insert image” below to place images between paragraphs.
+          Select up to 8 real image files. They will be uploaded securely and displayed as a gallery above the article.
         </p>
       </div>
 
@@ -298,13 +295,24 @@ function PostForm({
                   <Link2 className="h-3 w-3" />
                   Insert link
                 </button>
+                <input
+                  ref={imageInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0]
+                    if (file) void handleInlineImageUpload(file)
+                  }}
+                />
                 <button
                   type="button"
-                  onClick={insertImageUrl}
-                  className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  disabled={uploading}
+                  onClick={() => imageInputRef.current?.click()}
+                  className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground disabled:opacity-50"
                 >
                   <ImageIcon className="h-3 w-3" />
-                  Insert image
+                  {uploading ? "Uploading…" : "Upload image here"}
                 </button>
               </>
             )}

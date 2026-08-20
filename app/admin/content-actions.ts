@@ -9,6 +9,27 @@ import { uploadImageIfPresent } from "@/lib/upload-image"
 const NOW_BUCKET = "now-covers"
 const POST_BUCKET = "post-covers"
 
+async function uploadPostImages(formData: FormData, userId: string) {
+  const files = formData.getAll("image_files").filter((value): value is File => value instanceof File && value.size > 0)
+  if (files.length === 0) return []
+  if (files.length > 8) throw new Error("You can add up to 8 images")
+
+  const urls: string[] = []
+  for (const file of files) {
+    const singleFileForm = new FormData()
+    singleFileForm.set("file", file)
+    const url = await uploadImageIfPresent(singleFileForm, "file", POST_BUCKET, userId)
+    if (url) urls.push(url)
+  }
+  return urls
+}
+
+export async function uploadBlogImage(formData: FormData) {
+  const user = await requireAdmin()
+  const urls = await uploadPostImages(formData, user.id)
+  return { url: urls[0] ?? null }
+}
+
 function readPostForm(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim()
   const slug =
@@ -63,6 +84,8 @@ export async function createPost(formData: FormData) {
   try {
     const uploaded = await uploadImageIfPresent(formData, "cover_file", POST_BUCKET, user.id)
     if (typeof uploaded === "string") payload.cover_url = uploaded
+    const imageUrls = await uploadPostImages(formData, user.id)
+    if (imageUrls.length > 0) payload.image_urls = imageUrls
   } catch (e) {
     return { error: (e as Error).message }
   }
@@ -84,6 +107,9 @@ export async function updatePost(id: string, formData: FormData) {
   try {
     const uploaded = await uploadImageIfPresent(formData, "cover_file", POST_BUCKET, user.id)
     if (typeof uploaded === "string") payload.cover_url = uploaded
+    const imageUrls = await uploadPostImages(formData, user.id)
+    if (imageUrls.length > 0) payload.image_urls = [...(payload.image_urls ?? []), ...imageUrls].slice(0, 8)
+    else delete payload.image_urls
   } catch (e) {
     return { error: (e as Error).message }
   }
