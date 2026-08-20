@@ -19,6 +19,11 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: 'Abdurhaman Nur · burhan_',
   description: "A blog by Abdurhaman — software, community, and quiet thinking from Addis Ababa.",
+  icons: {
+    icon: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_2026-08-20_05-28-58-EnRVYSJinKSizsaqJ58b77WHWjUHDY.jpg',
+    shortcut: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_2026-08-20_05-28-58-EnRVYSJinKSizsaqJ58b77WHWjUHDY.jpg',
+    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_2026-08-20_05-28-58-EnRVYSJinKSizsaqJ58b77WHWjUHDY.jpg',
+  },
   generator: 'v0.app',
 }
 
