@@ -27,12 +27,16 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
   const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
+    author: '',
+    role: '',
+    content: '',
+    avatar: '',
     image: '',
     link: '',
   })
 
   const resetForm = () => {
-    setFormData({ image: '', link: '' })
+    setFormData({ author: '', role: '', content: '', avatar: '', image: '', link: '' })
     setIsAdding(false)
     setEditingId(null)
   }
@@ -41,6 +45,10 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
     setEditingId(testimonial.id)
     setIsAdding(true)
     setFormData({
+      author: testimonial.author || '',
+      role: testimonial.role || '',
+      content: testimonial.content || '',
+      avatar: testimonial.avatar || '',
       image: testimonial.image || '',
       link: testimonial.link || '',
     })
@@ -109,7 +117,7 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
             setEditingId(null)
             setIsAdding((v) => !v)
             if (!isAdding) {
-              setFormData({ image: '', link: '' })
+              setFormData({ author: '', role: '', content: '', avatar: '', image: '', link: '' })
             }
           }}
           variant={isAdding ? 'secondary' : 'default'}
@@ -136,6 +144,24 @@ export function AdminTestimonialList({ testimonials: initialTestimonials }: { te
                 {editingId ? 'Edit testimonial' : 'New testimonial'}
               </h3>
               <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Name</label>
+                    <Input value={formData.author} onChange={(e) => setFormData({ ...formData, author: e.target.value })} placeholder="e.g., Thomas Paulmann" required />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Role or company</label>
+                    <Input value={formData.role} onChange={(e) => setFormData({ ...formData, role: e.target.value })} placeholder="e.g., Founder at Luma" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Appreciation</label>
+                  <textarea value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} placeholder="Write what they said about your work..." required className="min-h-28 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6 outline-none focus:ring-2 focus:ring-ring" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Avatar URL (optional)</label>
+                  <Input value={formData.avatar} onChange={(e) => setFormData({ ...formData, avatar: e.target.value })} placeholder="https://..." />
+                </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Testimonial Image</label>
                   <div className="flex gap-2">

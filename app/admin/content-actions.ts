@@ -384,6 +384,10 @@ export async function updateAbout(formData: FormData) {
 // ---- Testimonials ----
 
 export async function createTestimonial(data: {
+  author: string
+  role: string
+  content: string
+  avatar?: string
   image?: string
   link?: string
 }) {
@@ -394,10 +398,10 @@ export async function createTestimonial(data: {
     .from("testimonials")
     .insert({
       user_id: user.id,
-      author: "",
-      role: "",
-      content: "",
-      avatar: "",
+      author: data.author.trim(),
+      role: data.role.trim(),
+      content: data.content.trim(),
+      avatar: data.avatar?.trim() || "",
       image: data.image || null,
       link: data.link || null,
     })
@@ -414,7 +418,14 @@ export async function createTestimonial(data: {
 
 export async function updateTestimonial(
   id: string,
-  data: { image?: string; link?: string }
+  data: {
+    author: string
+    role: string
+    content: string
+    avatar?: string
+    image?: string
+    link?: string
+  }
 ) {
   const user = await requireAdmin()
   const supabase = await createClient()
@@ -422,6 +433,10 @@ export async function updateTestimonial(
   const { error } = await supabase
     .from("testimonials")
     .update({
+      author: data.author.trim(),
+      role: data.role.trim(),
+      content: data.content.trim(),
+      avatar: data.avatar?.trim() || "",
       image: data.image || null,
       link: data.link || null,
     })

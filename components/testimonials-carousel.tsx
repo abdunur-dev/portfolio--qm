@@ -123,14 +123,20 @@ export function TestimonialsCarousel() {
                     <div className="border-t border-border/40 pt-4 flex items-center justify-between">
                       <div className="flex items-center gap-3 flex-1">
                         {/* Avatar */}
-                        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-border/60 bg-secondary/60">
-                          <Image
-                            src={testimonial.avatar}
-                            alt={testimonial.author}
-                            fill
-                            className="object-cover"
-                            sizes="48px"
-                          />
+                        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border/60 bg-secondary/60">
+                          {testimonial.avatar ? (
+                            <Image
+                              src={testimonial.avatar}
+                              alt={testimonial.author || 'Testimonial author'}
+                              fill
+                              className="object-cover"
+                              sizes="48px"
+                            />
+                          ) : (
+                            <span className="font-serif text-lg text-muted-foreground">
+                              {(testimonial.author || '?').charAt(0).toUpperCase()}
+                            </span>
+                          )}
                         </div>
 
                         {/* Author Info */}
