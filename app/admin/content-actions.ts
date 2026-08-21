@@ -408,6 +408,7 @@ export async function createTestimonial(data: {
 
   revalidatePath("/admin")
   revalidatePath("/about")
+  revalidatePath("/")
   return { ok: true, data: inserted }
 }
 
@@ -431,6 +432,7 @@ export async function updateTestimonial(
 
   revalidatePath("/admin")
   revalidatePath("/about")
+  revalidatePath("/")
   return { ok: true }
 }
 
