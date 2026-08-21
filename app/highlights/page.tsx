@@ -191,12 +191,6 @@ export default async function HighlightsPage() {
             ))}
           </div>
 
-          <FadeUp delay={0.4}>
-            <p className="mt-16 max-w-xl text-pretty text-sm leading-relaxed text-foreground/60">
-              If something here resonates, say hi. I keep an open inbox and
-              answer most thoughtful notes within a week.
-            </p>
-          </FadeUp>
         </main>
         <SiteFooter />
       </div>
