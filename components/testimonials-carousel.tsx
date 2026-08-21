@@ -101,10 +101,10 @@ export function TestimonialsCarousel() {
                   key={testimonial.id}
                   className="pl-4 basis-full sm:basis-1/2 transition-all duration-700 ease-out"
                 >
-                  <div className="group relative rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:bg-card/70 hover:shadow-lg shadow-md h-full hover:-translate-y-1">
+                  <div className="h-full border-b border-border/60 pb-6">
                     {/* Testimonial Image if exists */}
                     {testimonial.image && (
-                      <div className="relative h-40 w-full mb-4 rounded-lg overflow-hidden border border-border/40">
+                      <div className="relative h-40 w-full mb-4 overflow-hidden">
                         <Image
                           src={testimonial.image}
                           alt={`${testimonial.author}'s work`}
@@ -161,7 +161,7 @@ export function TestimonialsCarousel() {
                           href={testimonial.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="ml-2 p-1.5 rounded hover:bg-foreground/10 transition-colors"
+                          className="ml-2 p-1.5"
                           title="Visit profile"
                         >
                           <svg
