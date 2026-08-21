@@ -6,6 +6,7 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
+import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { socialLinks } from "@/lib/social-links"
 
 export default function HomePage() {
@@ -136,6 +137,8 @@ export default function HomePage() {
               ))}
             </ul>
           </FadeUp>
+
+          <TestimonialsCarousel />
 
           <FadeUp delay={0.6}>
             <div className="mt-10 grid gap-3 sm:grid-cols-2">

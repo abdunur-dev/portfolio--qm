@@ -58,7 +58,7 @@ export function TestimonialsCarousel() {
               testimonials
             </p>
             <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
-              What people are saying
+              Hear it from others
             </h2>
           </div>
           <div className="text-center py-12 text-muted-foreground">Loading testimonials...</div>
@@ -79,7 +79,7 @@ export function TestimonialsCarousel() {
             testimonials
           </p>
           <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
-            What people are saying
+            Hear it from others
           </h2>
         </div>
 
