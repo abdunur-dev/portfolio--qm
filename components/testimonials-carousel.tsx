@@ -150,7 +150,7 @@ export function TestimonialsCarousel() {
                             )}
                           </div>
                           <p className="text-xs text-muted-foreground truncate">
-                            {testimonial.company}
+                            {testimonial.role || testimonial.company || 'Appreciation'}
                           </p>
                         </div>
                       </div>

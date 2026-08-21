@@ -13,7 +13,6 @@ export async function GET() {
       .from("testimonials")
       .select("*")
       .order("created_at", { ascending: false })
-      .catch(() => ({ data: [], error: null }))
 
     if (error) {
       console.error("Error fetching testimonials:", error)
