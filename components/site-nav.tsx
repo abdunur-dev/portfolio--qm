@@ -19,7 +19,7 @@ const links = [
   { href: "/about", label: "About" },
   { href: "/writing", label: "Writing" },
   { href: "/all", label: "Projects" },
-  { href: "/now", label: "Now" },
+  { href: "/highlights", label: "Highlights" },
   { href: "/cv", label: "CV", mobileOnly: true },
 ] as const
 

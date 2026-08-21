@@ -122,10 +122,10 @@ export default async function AdminPage() {
               /writing ↗
             </Link>
             <Link
-              href="/now"
+              href="/highlights"
               className="rounded-full border border-border/60 bg-card/40 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
             >
-              /now ↗
+              /highlights ↗
             </Link>
           </div>
         </div>

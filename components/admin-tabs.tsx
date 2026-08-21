@@ -8,7 +8,7 @@ const TABS = [
   { id: "testimonials", label: "Testimonials" },
   { id: "projects", label: "Projects" },
   { id: "writing", label: "Writing" },
-  { id: "now", label: "Now" },
+  { id: "now", label: "Highlights" },
 ] as const
 
 type TabId = (typeof TABS)[number]["id"]

@@ -6,7 +6,6 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
-import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { socialLinks } from "@/lib/social-links"
 
 export default function HomePage() {
@@ -138,8 +137,6 @@ export default function HomePage() {
             </ul>
           </FadeUp>
 
-          <TestimonialsCarousel />
-
           <FadeUp delay={0.6}>
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
               <Link
@@ -175,15 +172,15 @@ export default function HomePage() {
                 </span>
               </Link>
               <Link
-                href="/now"
+                href="/highlights"
                 className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70 sm:col-span-2"
               >
                 <span>
                   <span className="block font-serif text-xl text-foreground">
-                    now
+                    highlights
                   </span>
                   <span className="block text-xs text-muted-foreground">
-                    what I&apos;m up to this season
+                    communities, work, and kind words
                   </span>
                 </span>
                 <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">

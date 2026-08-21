@@ -4,7 +4,6 @@ import { SiteNav } from "@/components/site-nav"
 import { FadeUp } from "@/components/fade-up"
 import { AuroraBackground } from "@/components/aurora-background"
 import { SiteFooter } from "@/components/site-footer"
-import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { socialLinks } from "@/lib/social-links"
 
 export const metadata: Metadata = {
@@ -159,10 +158,8 @@ export default function AboutPage() {
 
           <hr className="my-14 border-border/50" />
 
-          {/* Testimonials section */}
-          <TestimonialsCarousel />
+  <hr className="my-14 border-border/50" />
 
-          <hr className="my-14 border-border/50" />
 
           {/* Let's connect */}
           <FadeUp delay={0.05}>
