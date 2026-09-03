@@ -51,85 +51,14 @@ export default function AboutPage() {
           {/* Intro */}
           <FadeUp delay={0.2}>
             <div className="mt-12 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
-              <p>
-                Ey up! I&apos;m Abdurhaman Welcome to my little corner of the internet
-              </p>
-              <p>
-                I&apos;m a{" "}
-                <span className="font-serif italic">
-                  full-stack developer
-                </span>{" "}
-                and builder at heart, comfortable across both Web2 and Web3.
-                On the Web2 side I ship{" "}
-                <span className="font-serif italic">
-                  modern web apps
-                </span>{" "}
-                with{" "}
-                <span className="font-serif italic">Next.js</span>,{" "}
-                <span className="font-serif italic">TypeScript</span>, and the
-                usual SaaS stack — auth, dashboards, APIs, payments. On the
-                Web3 side, I&apos;ve spent the last few years deep in
-                decentralized apps, shipping smart contracts and dApps across
-                multiple chains like{" "}
-                <span className="font-serif italic">Ethereum</span>,{" "}
-                <span className="font-serif italic">Solana</span>,{" "}
-                <span className="font-serif italic">Base</span>, and others.
-                Most recently I&apos;ve been leading frontend on{" "}
-                <span className="font-serif italic">TibebChain</span>, an NFT
-                publishing platform for African creators. Before that I was
-                tinkering across small startups, freelance gigs, and side
-                projects as a{" "}
-                <span className="font-serif italic">design engineer</span>.
-              </p>
-              <p>
-                These days I lean hard into{" "}
-                <span className="font-serif italic">AI-assisted</span> and{" "}
-                <span className="font-serif italic">vibe coding</span>, pairing
-                with tools like{" "}
-                <span className="font-serif italic">v0</span>,{" "}
-                <span className="font-serif italic">Cursor</span>, and{" "}
-                <span className="font-serif italic">Claude</span> to go from a
-                rough idea to a working prototype in a single sitting. It&apos;s
-                changed how I think about building, less ceremony, more
-                shipping, and a lot more space for taste and intuition. I also love wiring up{" "}
-                <span className="font-serif italic">integrations</span> so my projects can talk to the
-                rest of the internet.
-              </p>
-              <p>
-                Going back, my journey into code started during the 2020
-                lockdown — I got curious and started learning how to build
-                things on the web, following Udemy tutorials on the nights and
-                weekends until something finally clicked. I fell in love with
-                being able to{" "}
-                <span className="font-serif italic">
-                  create things on the web
-                </span>{" "}
-                for myself and other humans, and the rest is history.
-              </p>
-              <p>
-                My current venture is exploring both my love for{" "}
-                <span className="font-serif italic">
-                  community and building
-                </span>
-                . I help organize{" "}
-                <span className="font-serif italic">
-                  IRL meetups and events
-                </span>{" "}
-                in Addis Ababa — a small but growing space for local builders
-                to ship together — and I&apos;ll usually be hanging out at
-                hackathons, dev meetups, and Web3 events around the city.
-              </p>
-              <p>
-                I&apos;m a collector of curiosities. I love tinkering with
-                side projects and experiments, half-finished prototypes,
-                weekend dApps, and little tools. When I&apos;m not at the keyboard, I&apos;m usually walking the
-                streets of{" "}
-                <span className="border-b border-dashed border-foreground/40 pb-px">
-                  Addis Ababa
-                </span>
-                , watching football, sketching UI ideas in a notebook, and
-                drinking way more coffee than I should.
-              </p>
+              <p>Hey, I&apos;m Abdurhaman</p>
+              <p>I&apos;m a developer, builder, and community organizer based in Addis Ababa, Ethiopia.</p>
+              <p>I enjoy turning rough ideas into useful things for people. Sometimes that means building a web product from scratch. Sometimes it means experimenting with a new idea, connecting different tools and services, or helping a group of people come together and build something of their own.</p>
+              <p>My journey into code started during the 2020 lockdown. I began learning through online tutorials during nights and weekends, mostly because I was curious about how the websites and products I used were made. Over time, that curiosity turned into a way of thinking and creating.</p>
+              <p>Since then, I&apos;ve worked across different kinds of projects, from early-stage startups and freelance work to digital products, decentralized applications, and tools for creators. I&apos;ve always been drawn to the space between design and engineering — the part where an idea becomes something tangible that another person can actually use.</p>
+              <p>Lately, I&apos;ve been exploring a faster and more intuitive way of building with AI-assisted tools. They&apos;ve made it easier to move from an idea to a prototype, but the technology is only one part of the process. What matters most to me is having good taste, understanding the people I&apos;m building for, and making something that feels simple and intentional.</p>
+              <p>A big part of what I do now is connected to community. I help organize meetups and events for builders in Addis Ababa, where I get to learn from other curious people, share ideas, and create spaces where people can build together.</p>
+              <p>I&apos;m also a collector of curiosities: half-finished side projects, weekend experiments, small tools, and ideas that may or may not become anything. When I&apos;m away from the keyboard, I&apos;m usually walking around Addis Ababa, watching football, sketching in a notebook, reading more books than I finish, or drinking more buna than I should.</p>
             </div>
           </FadeUp>
 
@@ -142,23 +71,18 @@ export default function AboutPage() {
             </p>
             <div className="mt-5 space-y-6 text-pretty text-base leading-relaxed text-foreground/85">
               <p>
-                Outside of code, I&apos;m a quiet enthusiast of slow mornings
-                and noisy evenings. I read more than I finish, journal in
-                spurts, and like watching how a city wakes up from a third-floor
-                window with a cup of buna in hand.
+                I&apos;m drawn to slow mornings, noisy evenings, and the small details that make everyday life feel intentional.
               </p>
               <p>
-                I dabble in mentoring new builders, dragging friends into Web3
-                rabbit holes at 2am, and trying to make every small thing —
-                a button, a margin, a paragraph — feel a little more
-                considered than it had to be.
+                I journal in spurts, mentor new builders when I can, and occasionally pull friends into late-night rabbit holes about technology, creativity, and the future.
+              </p>
+              <p>
+                Whether it&apos;s a button, a margin, or a paragraph, I like making small things feel a little more considered than they need to be.
               </p>
             </div>
           </FadeUp>
 
           <hr className="my-14 border-border/50" />
-
-  <hr className="my-14 border-border/50" />
 
 
           {/* Let's connect */}
