@@ -1,89 +1,62 @@
 import Link from "next/link"
-import { Coffee } from "lucide-react"
+import { Coffee, Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { socialLinks } from "@/lib/social-links"
+
+const iconFor = {
+  GitHub: Github,
+  Twitter,
+  LinkedIn: Linkedin,
+  Email: Mail,
+} as const
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
   return (
-    <footer className="mx-auto w-full max-w-4xl px-5 pb-10 sm:px-6">
-      <div className="border-t border-border/60 pt-6">
-        {/* Mobile: stacked layout */}
-        <div className="flex flex-col gap-5 sm:hidden">
-          <div className="flex items-center justify-between">
-            <p className="font-mono text-xs text-muted-foreground">
-              © {year} Abdurhaman Nur<span className="text-primary">.</span>
-            </p>
-            <Link
-              href="/cv"
-              className="group inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:border-primary hover:text-primary"
-            >
-              CV
-              <span className="text-[10px] transition-transform group-hover:translate-x-0.5">
-                →
-              </span>
-            </Link>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
-              built with care{" "}
-              <span className="font-serif italic text-primary">✦</span> Addis
-              Ababa
-            </p>
-            <a
-              href="https://buymeacoffee.com/abdurhamanw"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Buy me a coffee"
-              title="Buy me a coffee"
-              className="group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80 transition-colors hover:text-primary"
-            >
-              <Coffee
-                className="h-4 w-4 transition-transform group-hover:-rotate-6 group-hover:scale-110"
-                aria-hidden
-              />
-              coffee
-            </a>
+    <footer className="mx-auto w-full max-w-[48rem] border-x border-white/10 bg-[#08090b] text-[#f4f1eb]">
+      <div className="grid border-t border-white/10 text-xs sm:grid-cols-4">
+        <div className="border-b border-white/10 p-4 sm:border-r sm:border-b-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">crafted by</p>
+          <p className="mt-3 font-mono text-white/85">@abdurhaman</p>
+        </div>
+        <div className="border-b border-white/10 p-4 sm:border-r sm:border-b-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">based in</p>
+          <p className="mt-3 font-mono text-white/85">Addis Ababa</p>
+        </div>
+        <div className="border-b border-white/10 p-4 sm:border-r sm:border-b-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">date</p>
+          <p className="mt-3 font-mono text-white/85">{year}</p>
+        </div>
+        <div className="border-b border-white/10 p-4 sm:border-b-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">availability</p>
+          <p className="mt-3 font-mono text-white/85">Open to ideas</p>
+        </div>
+      </div>
+      <div className="grid border-t border-white/10 sm:grid-cols-3">
+        <div className="border-b border-white/10 p-4 sm:col-span-2 sm:border-r sm:border-b-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">stack</p>
+          <p className="mt-3 max-w-md font-mono leading-6 text-white/75">Next.js · TypeScript · Supabase · AI · Web3 · community</p>
+        </div>
+        <div className="p-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">links</p>
+          <div className="mt-3 flex flex-wrap gap-3 font-mono text-white/75">
+            <Link href="/cv" className="underline-offset-4 hover:underline">CV</Link>
+            <Link href="/writing" className="underline-offset-4 hover:underline">Writing</Link>
+            <Link href="/all" className="underline-offset-4 hover:underline">Work</Link>
           </div>
         </div>
-
-        {/* Desktop: single row */}
-        <div className="hidden items-center justify-between sm:flex">
-          <div className="flex items-center gap-5">
-            <p className="font-mono text-xs text-muted-foreground">
-              © {year} Abdurhaman Nur<span className="text-primary">.</span>
-            </p>
-            <Link
-              href="/cv"
-              className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-primary"
-            >
-              CV
-              <span className="text-[10px] transition-transform group-hover:translate-x-0.5">
-                →
-              </span>
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://buymeacoffee.com/abdurhamanw"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Buy me a coffee"
-              title="Buy me a coffee"
-              className="group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80 transition-colors hover:text-primary"
-            >
-              <Coffee
-                className="h-4 w-4 transition-transform group-hover:-rotate-6 group-hover:scale-110"
-                aria-hidden
-              />
-              buy me a coffee
-            </a>
-            <span aria-hidden className="h-3 w-px bg-border/60" />
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
-              built with care{" "}
-              <span className="font-serif italic text-primary">✦</span> Addis
-              Ababa
-            </p>
-          </div>
+      </div>
+      <div className="flex flex-col items-start justify-between gap-4 border-t border-white/10 p-4 sm:flex-row sm:items-center">
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">© {year} Abdurhaman Nur · built in Addis Ababa</p>
+        <div className="flex items-center gap-3">
+          {socialLinks.map((link) => {
+            const Icon = iconFor[link.label as keyof typeof iconFor]
+            return Icon ? <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} className="text-white/45 transition-colors hover:text-white"><Icon className="h-4 w-4" /></a> : null
+          })}
+          <a href="https://buymeacoffee.com/abdurhamanw" target="_blank" rel="noreferrer" aria-label="Buy me a coffee" className="text-white/45 transition-colors hover:text-white"><Coffee className="h-4 w-4" /></a>
         </div>
+      </div>
+      <div className="overflow-hidden border-t border-white/10 px-0 pt-10">
+        <div className="h-40 translate-y-20 select-none whitespace-nowrap text-[8rem] font-black leading-none tracking-[-0.12em] text-white/[0.08] sm:text-[11rem]">abdurhaman</div>
       </div>
     </footer>
   )

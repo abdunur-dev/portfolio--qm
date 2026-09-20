@@ -5,7 +5,6 @@ import { projectsByYear as staticByYear, type Project, type ProjectYear } from "
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
-import { AuroraBackground } from "@/components/aurora-background"
 import { createClient } from "@/lib/supabase/server"
 import type { Project as DbProject } from "@/lib/types"
 
@@ -50,8 +49,7 @@ export default async function AllProjectsPage() {
       : staticByYear
 
   return (
-    <div className="relative min-h-screen">
-      <AuroraBackground />
+    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
       <div className="relative z-10">
         <SiteNav />
 
