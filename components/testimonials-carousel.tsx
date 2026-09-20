@@ -9,7 +9,6 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from '@/components/ui/carousel'
-import { FadeUp } from '@/components/fade-up'
 import Autoplay from 'embla-carousel-autoplay'
 
 interface Testimonial {
@@ -51,7 +50,7 @@ export function TestimonialsCarousel() {
 
   if (loading) {
     return (
-      <FadeUp delay={0.65}>
+      <div>
         <div className="mt-20 border-t border-border/60 pt-16">
           <div className="mb-10">
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
@@ -63,7 +62,7 @@ export function TestimonialsCarousel() {
           </div>
           <div className="text-center py-12 text-muted-foreground">Loading testimonials...</div>
         </div>
-      </FadeUp>
+      </div>
     )
   }
 
@@ -72,7 +71,7 @@ export function TestimonialsCarousel() {
   }
 
   return (
-    <FadeUp delay={0.65}>
+    <div>
       <div className="mt-20 border-t border-border/60 pt-16">
         <div className="mb-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
@@ -193,6 +192,6 @@ export function TestimonialsCarousel() {
           </Carousel>
         </div>
       </div>
-    </FadeUp>
+    </div>
   )
 }

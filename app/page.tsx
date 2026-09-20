@@ -2,196 +2,95 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
-import { AuroraBackground } from "@/components/aurora-background"
-import { AnimatedHeading } from "@/components/animated-heading"
-import { FadeUp } from "@/components/fade-up"
-import { FloatingSparkle } from "@/components/floating-sparkle"
+import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { socialLinks } from "@/lib/social-links"
+
+const achievements = [
+  "Built and led developer communities from zero to millions, creating lifelong advocates and feedback channels for product improvements.",
+  "Brought 350+ developers together in person globally in under 12 months, building local ecosystems around developer tools.",
+  "Led the transformation of AI-powered community infrastructure and live session programmes that became part of company launch strategy.",
+]
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen">
-      <AuroraBackground />
-      <div className="relative z-10">
-        <SiteNav />
-        <main id="main" className="mx-auto w-full max-w-5xl px-5 py-10 sm:px-6 sm:py-12">
-          <div className="grid items-start gap-8 md:grid-cols-[1fr_280px] md:gap-14 lg:grid-cols-[1fr_320px]">
+    <div className="min-h-screen bg-background">
+      <SiteNav />
+      <main id="main" className="mx-auto w-full max-w-3xl px-5 pb-20 pt-16 sm:px-8 sm:pt-24">
+        <section id="about" className="scroll-mt-24">
+          <div className="flex items-start justify-between gap-8">
             <div>
-              <FadeUp delay={0.1}>
-                <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                  <span className="inline-block h-px w-8 bg-foreground/40" />
-                  Portfolio · v.04
-                </p>
-              </FadeUp>
-
-              <AnimatedHeading
-                segments={[
-                  { text: "Ey up! I'm", tone: "solid" },
-                  { text: " ", tone: "solid" },
-                  { text: "Abdurhaman", tone: "solid" },
-                  { text: ", ", tone: "solid" },
-                  { text: "known as", tone: "muted" },
-                  { text: " ", tone: "muted" },
-                  { text: "burhan", tone: "accent" },
-                  { text: "_", tone: "accent" },
-                ]}
-                className="mt-4 text-3xl leading-[1.1] sm:text-4xl md:text-5xl"
-              />
-
-              <FadeUp delay={0.35}>
-                <p className="mt-4 max-w-xl font-serif text-xl italic leading-snug text-foreground/85 sm:text-2xl md:text-[1.6rem]">
-                  full-stack developer working across{" "}
-                  <span className="not-italic font-sans text-foreground">
-                    Web2
-                  </span>
-                  ,{" "}
-                  <span className="not-italic font-sans text-foreground">
-                    Web3
-                  </span>{" "}
-                  &amp;{" "}
-                  <span className="not-italic font-sans text-foreground">
-                    AI
-                  </span>
-                  .
-                </p>
-              </FadeUp>
-
-              <FadeUp delay={0.4}>
-                <p className="mt-6 max-w-xl text-pretty text-[1.05rem] leading-[1.7] text-foreground/80">
-                  <span className="font-serif italic text-primary">⋆.˚ ☾⭒</span>{" "}
-                  Just another curious human being, living in{" "}
-                  <span className="font-serif italic">Addis Ababa, Ethiopia</span>.
-                  Welcome to my space on the internet where I convert my
-                  thoughts into pixels™ — pull up a chair, the coffee&apos;s
-                  on me. I tinker with{" "}
-                  <span className="font-serif italic">decentralised apps</span>,
-                  ship modern web experiences, and occasionally write about
-                  the quiet places where design, code, and faith overlap. I
-                  build across multiple chains —{" "}
-                  <span className="font-serif italic">
-                    Ethereum, Solana, Base, and beyond
-                  </span>{" "}
-                  — and help organize{" "}
-                  <span className="font-serif italic">IRL meetups and events</span>{" "}
-                  for the local builder community
-                  <FloatingSparkle className="ml-2 inline-block" />
-                </p>
-              </FadeUp>
-
-              <FadeUp delay={0.45}>
-                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                  <span className="flex items-center gap-2">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-foreground/70" />
-                    Based in Addis Ababa
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-foreground/70" />
-                    Building since 2020
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-foreground" />
-                    Open to collaborations
-                  </span>
-                </div>
-              </FadeUp>
+              <p className="font-mono text-xs tracking-wide text-muted-foreground">Abdurhaman · burhan_</p>
+              <h1 className="mt-8 max-w-2xl text-4xl font-semibold tracking-[-0.06em] text-foreground sm:text-6xl">
+                Developer, builder, and community organizer.
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
+                I turn rough ideas into useful things for people — across full-stack web, Web3, AI, and the communities around them.
+              </p>
             </div>
-
-            <FadeUp delay={0.5}>
-              <figure className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm md:sticky md:top-24">
-                <div className="relative aspect-[3/4] w-full">
-                  <Image
-                    src="/images/burhan-portrait.jpg"
-                    alt="Abdurhaman, full-stack and Web3 developer based in Addis Ababa"
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 320px, (min-width: 768px) 280px, 100vw"
-                    className="object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                  />
-                </div>
-              </figure>
-            </FadeUp>
+            <Image
+              src="/images/burhan-portrait.jpg"
+              alt="Abdurhaman in Addis Ababa"
+              width={88}
+              height={88}
+              priority
+              className="hidden rounded-full object-cover grayscale sm:block"
+            />
           </div>
+          <div className="mt-10 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs text-muted-foreground">
+            <span>Addis Ababa, Ethiopia</span>
+            <span>Building since 2020</span>
+            <span>Open to collaborations</span>
+          </div>
+        </section>
 
-          <FadeUp delay={0.55}>
-            <p className="mt-12 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-              ⤏ find me elsewhere
-            </p>
-            <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {socialLinks.map((l) => (
-                <li key={l.label}>
-                  <a
-                    href={l.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex h-full items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-card/70"
-                  >
-                    <span className="font-serif text-base text-foreground transition-colors group-hover:text-primary">
-                      {l.label}
-                    </span>
-                    <span className="font-mono text-xs text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary">
-                      ↗
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </FadeUp>
+        <div className="my-20 border-t border-border" />
 
-          <FadeUp delay={0.6}>
-            <div className="mt-10 grid gap-3 sm:grid-cols-2">
-              <Link
-                href="/all"
-                className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70"
-              >
-                <span>
-                  <span className="block font-serif text-xl text-foreground">
-                    projects
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    everything I&apos;ve shipped
-                  </span>
-                </span>
-                <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
-                  →
-                </span>
-              </Link>
-              <Link
-                href="/writing"
-                className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70"
-              >
-                <span>
-                  <span className="block font-serif text-xl text-foreground">
-                    writing
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    notes & essays
-                  </span>
-                </span>
-                <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
-                  →
-                </span>
-              </Link>
-              <Link
-                href="/highlights"
-                className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70 sm:col-span-2"
-              >
-                <span>
-                  <span className="block font-serif text-xl text-foreground">
-                    highlights
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    communities, work, and kind words
-                  </span>
-                </span>
-                <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
-                  →
-                </span>
-              </Link>
-            </div>
-          </FadeUp>
-        </main>
-        <SiteFooter />
-      </div>
+        <section id="work" className="scroll-mt-24">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="text-2xl font-semibold tracking-tight">Selected work</h2>
+            <Link href="/all" className="font-mono text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground">View all ↗</Link>
+          </div>
+          <div className="mt-8 divide-y divide-border border-y border-border">
+            <Link href="/all" className="group flex items-center justify-between gap-5 py-5">
+              <div><h3 className="font-medium group-hover:underline">Products, experiments, and open source</h3><p className="mt-1 text-sm text-muted-foreground">A collection of things I&apos;ve shipped and learned from.</p></div>
+              <span className="text-muted-foreground">↗</span>
+            </Link>
+            <Link href="/writing" className="group flex items-center justify-between gap-5 py-5">
+              <div><h3 className="font-medium group-hover:underline">Writing and notes</h3><p className="mt-1 text-sm text-muted-foreground">Thoughts on design, code, community, and building in public.</p></div>
+              <span className="text-muted-foreground">↗</span>
+            </Link>
+          </div>
+        </section>
+
+        <div className="my-20 border-t border-border" />
+
+        <section id="highlights" className="scroll-mt-24">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Highlights</p>
+          <h2 className="mt-5 text-3xl font-semibold tracking-tight">Building with people is the work.</h2>
+          <div className="mt-8 space-y-5 text-[0.98rem] leading-7 text-muted-foreground">
+            {achievements.map((achievement) => <p key={achievement}>{achievement}</p>)}
+          </div>
+        </section>
+
+        <div className="my-20 border-t border-border" />
+
+        <section id="testimonials" className="scroll-mt-24">
+          <TestimonialsCarousel />
+        </section>
+
+        <div className="my-20 border-t border-border" />
+
+        <section id="contact" className="scroll-mt-24">
+          <div className="flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+            <div><p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Elsewhere</p><h2 className="mt-5 text-3xl font-semibold tracking-tight">Let&apos;s make something useful.</h2></div>
+            <a href="mailto:hello@burhan.ink" className="font-mono text-sm underline underline-offset-4 hover:text-muted-foreground">Say hello ↗</a>
+          </div>
+          <ul className="mt-8 grid gap-x-6 gap-y-3 border-y border-border py-5 sm:grid-cols-2">
+            {socialLinks.map((link) => <li key={link.label}><a href={link.href} target="_blank" rel="noreferrer" className="flex justify-between text-sm text-muted-foreground hover:text-foreground"><span>{link.label}</span><span>↗</span></a></li>)}
+          </ul>
+        </section>
+      </main>
+      <SiteFooter />
     </div>
   )
 }

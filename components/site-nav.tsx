@@ -16,10 +16,11 @@ import { Button } from "@/components/ui/button"
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/writing", label: "Writing" },
-  { href: "/all", label: "Projects" },
-  { href: "/highlights", label: "Highlights" },
+  { href: "/#about", label: "About" },
+  { href: "/#work", label: "Work" },
+  { href: "/#highlights", label: "Highlights" },
+  { href: "/#testimonials", label: "Testimonials" },
+  { href: "/#contact", label: "Contact" },
   { href: "/cv", label: "CV", mobileOnly: true },
 ] as const
 
