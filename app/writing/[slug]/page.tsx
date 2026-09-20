@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
-import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
 import { MarkdownBody } from "@/components/markdown-body"
 import { BlogImageCarousel } from "@/components/blog-image-carousel"
@@ -102,8 +101,7 @@ export default async function WritingPost({
   if (!post) notFound()
 
   return (
-    <div className="relative min-h-screen">
-      <AuroraBackground />
+    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
       <div className="relative z-10">
         <SiteNav />
         <main className="mx-auto w-full max-w-4xl px-5 pb-24 pt-6 sm:px-6 sm:pb-32 sm:pt-10">
@@ -120,7 +118,7 @@ export default async function WritingPost({
             <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
               {[post.date, post.reading].filter(Boolean).join(" · ")}
             </p>
-            <h1 className="mt-3 font-serif text-3xl leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
+            <h1 className="mt-3 max-w-3xl font-sans text-3xl font-medium leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
               {post.title}
             </h1>
             {post.excerpt && (
@@ -136,7 +134,7 @@ export default async function WritingPost({
               <img
                 src={post.cover_url || "/placeholder.svg"}
                 alt={`${post.title} cover image`}
-                className="mt-10 aspect-[16/9] w-full rounded-2xl border border-border/60 object-cover"
+                className="mt-10 aspect-[16/9] w-full border border-white/10 object-cover"
               />
             </FadeUp>
           )}

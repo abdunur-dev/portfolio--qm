@@ -20,7 +20,7 @@ export default function AboutPage() {
         <main id="main" className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12">
           {/* Image first, About text underneath — Maya-style */}
           <FadeUp>
-            <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
+            <figure className="overflow-hidden border border-white/10 bg-black/20">
               <div className="relative aspect-[4/3] w-full">
                 <Image
                   src="/images/burhan-portrait.jpg"

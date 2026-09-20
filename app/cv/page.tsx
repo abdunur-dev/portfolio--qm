@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
-import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
 import { PrintCvButton } from "@/components/print-cv-button"
 import { socialLinks } from "@/lib/social-links"
@@ -190,7 +189,7 @@ function Chips({ items }: { items: string[] }) {
       {items.map((s) => (
         <li
           key={s}
-          className="rounded-md border border-border/70 bg-card/40 px-2.5 py-1 font-mono text-[11px] lowercase tracking-wide text-foreground/80 backdrop-blur-sm print:rounded print:border print:border-foreground/40 print:bg-transparent print:px-1.5 print:py-0.5 print:text-[9.5px]"
+          className="border border-white/15 px-2.5 py-1 font-mono text-[11px] lowercase tracking-wide text-white/75 print:rounded print:border print:border-foreground/40 print:bg-transparent print:px-1.5 print:py-0.5 print:text-[9.5px]"
         >
           {s}
         </li>
@@ -202,9 +201,6 @@ function Chips({ items }: { items: string[] }) {
 export default function CvPage() {
   return (
     <div className="cv-print relative min-h-screen">
-      <div className="print:hidden">
-        <AuroraBackground />
-      </div>
       <div className="relative z-10">
         <div className="contents print:hidden">
           <SiteNav />
