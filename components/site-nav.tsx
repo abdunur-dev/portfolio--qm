@@ -35,8 +35,8 @@ export function SiteNav() {
       >
         Skip to content
       </a>
-      <header className="sticky top-0 z-40 w-full bg-background/90 px-3 backdrop-blur-sm supports-[backdrop-filter]:bg-background/75 sm:px-4">
-      <div className="screen-line-bottom mx-auto flex w-full max-w-5xl items-center justify-between gap-3 bg-background/80 px-1 py-3 backdrop-blur-sm supports-[backdrop-filter]:bg-background/65 sm:px-2 sm:py-4">
+      <header className="sticky top-0 z-40 w-full bg-[#08090b]/95 px-3 text-[#f4f1eb] backdrop-blur-sm sm:px-4">
+      <div className="screen-line-bottom mx-auto flex w-full max-w-[48rem] items-center justify-between gap-3 border-x border-white/10 bg-[#08090b]/90 px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-4">
         <NavWordmark />
 
         {/* Desktop nav */}
