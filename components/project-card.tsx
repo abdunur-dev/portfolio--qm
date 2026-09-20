@@ -30,7 +30,7 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
 
       <div className="flex flex-col gap-2 pl-5 py-1">
         {project.cover_url && (
-          <div className="relative mb-1 aspect-[16/9] w-full overflow-hidden rounded-lg border border-border/60 bg-muted/30">
+          <div className="relative mb-4 aspect-[16/9] w-full overflow-hidden border border-white/10 bg-black/30">
             <Image
               src={project.cover_url || "/placeholder.svg"}
               alt={`${project.title} cover`}
@@ -45,7 +45,7 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
           <h3 className="font-serif text-xl leading-tight tracking-tight text-foreground text-balance transition-colors duration-300 group-hover:text-primary sm:text-2xl">
             {project.title}
           </h3>
-          <span className="rounded-md border border-border/70 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground transition-colors duration-300 group-hover:border-primary/40 group-hover:text-primary/80">
+          <span className="border border-white/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-white/55 transition-colors duration-300 group-hover:border-primary/40 group-hover:text-primary/80">
             {project.kind}
           </span>
         </div>

@@ -96,9 +96,9 @@ export default async function WritingPage() {
                         href={post.href ?? `/writing/${post.slug}`}
                         className="group relative block transition-colors"
                       >
-                        <div className="flex items-start gap-6">
+                        <div className="block">
                           {post.cover_url && (
-                            <div className="mb-5 aspect-[16/10] w-full overflow-hidden rounded-lg border border-white/10 bg-black sm:block">
+                            <div className="mb-5 aspect-[16/10] w-full overflow-hidden border border-white/10 bg-black">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={post.cover_url || "/placeholder.svg"}
@@ -107,7 +107,7 @@ export default async function WritingPage() {
                               />
                             </div>
                           )}
-                          <div className="min-w-0 flex-1">
+                          <div className="min-w-0">
                             <div className="flex items-baseline justify-between gap-6">
                               <h3 className="font-serif text-xl leading-snug text-foreground transition-colors group-hover:text-primary sm:text-2xl">
                                 {post.title}
