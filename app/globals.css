@@ -127,7 +127,81 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px);
+    background-position: center top;
+    background-size: min(100vw, 64rem) 100%, 100% 4rem;
   }
+  main > section:first-child {
+    border-top: 1px solid color-mix(in oklch, var(--foreground) 12%, transparent);
+  }
+}
+
+.reference-stripes {
+  position: relative;
+  isolation: isolate;
+}
+
+.reference-stripes::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2rem;
+  z-index: -1;
+  background: repeating-linear-gradient(135deg, color-mix(in oklch, var(--foreground) 10%, transparent) 0 1px, transparent 1px 7px);
+}
+
+@utility screen-line-top {
+  position: relative;
+}
+
+@utility screen-line-top {
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    z-index: -1;
+    width: 200vw;
+    height: 1px;
+    background: color-mix(in oklch, var(--foreground) 14%, transparent);
+  }
+}
+
+@utility screen-line-bottom {
+  position: relative;
+}
+
+@utility screen-line-bottom {
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -100vw;
+    z-index: -1;
+    width: 200vw;
+    height: 1px;
+    background: color-mix(in oklch, var(--foreground) 14%, transparent);
+  }
+}
+
+@utility stripe-divider {
+  position: relative;
+  height: 2rem;
+  overflow: hidden;
+}
+
+@utility stripe-divider {
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0 -100vw;
+    background: repeating-linear-gradient(135deg, color-mix(in oklch, var(--foreground) 11%, transparent) 0 1px, transparent 1px 7px);
+  }
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 12%, transparent) 1px, transparent 1px);
+  background-size: 8px 8px;
 }
 
 @media print {

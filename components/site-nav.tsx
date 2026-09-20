@@ -35,8 +35,8 @@ export function SiteNav() {
       >
         Skip to content
       </a>
-      <header className="sticky top-3 z-40 w-full px-3 sm:top-4 sm:px-4">
-      <div className="mx-auto flex w-full max-w-4xl items-center justify-between gap-3 rounded-full border border-border/50 bg-background/55 px-4 py-2 shadow-[0_1px_0_0_color-mix(in_oklch,var(--foreground)_6%,transparent)_inset,0_8px_24px_-12px_color-mix(in_oklch,var(--foreground)_18%,transparent)] backdrop-blur-xl supports-[backdrop-filter]:bg-background/40 sm:px-5 sm:py-2.5">
+      <header className="sticky top-0 z-40 w-full bg-background/90 px-3 backdrop-blur-sm supports-[backdrop-filter]:bg-background/75 sm:px-4">
+      <div className="screen-line-bottom mx-auto flex w-full max-w-5xl items-center justify-between gap-3 bg-background/80 px-1 py-3 backdrop-blur-sm supports-[backdrop-filter]:bg-background/65 sm:px-2 sm:py-4">
         <NavWordmark />
 
         {/* Desktop nav */}
@@ -49,7 +49,7 @@ export function SiteNav() {
                   <li key={l.href} className="px-3 first:pl-0 last:pr-0">
                     <Link
                       href={l.href}
-                      className="transition-colors hover:text-foreground"
+                      className="font-mono text-[0.68rem] uppercase tracking-[0.14em] transition-colors hover:text-foreground"
                     >
                       {l.label}
                     </Link>
@@ -88,7 +88,7 @@ export function SiteNav() {
                       <Link
                         href={l.href}
                         onClick={() => setOpen(false)}
-                        className="block rounded-md border border-transparent px-3 py-2 font-serif text-lg text-foreground transition-colors hover:border-border/60 hover:bg-card/60 hover:text-primary"
+                        className="block border-b border-border/60 px-3 py-3 font-mono text-xs uppercase tracking-[0.14em] text-foreground transition-colors hover:text-primary"
                       >
                         {l.label}
                       </Link>
