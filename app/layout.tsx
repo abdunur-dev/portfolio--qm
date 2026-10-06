@@ -38,7 +38,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`bg-background ${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-mono antialiased selection:bg-primary/20 selection:text-foreground">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
