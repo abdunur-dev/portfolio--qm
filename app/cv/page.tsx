@@ -21,11 +21,7 @@ export const metadata: Metadata = {
 }
 
 const cvProjects: CvEntry[] = [
-  {
-    range: "2024 — now",
-    title: "TibebChain",
-    desc: "An NFT publishing platform giving African creators a self-serve way to mint, distribute, and monetize their work on-chain.",
-  },
+
   {
     range: "2024",
     title: "VibeVerse",

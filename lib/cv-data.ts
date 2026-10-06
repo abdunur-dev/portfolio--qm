@@ -11,12 +11,7 @@ export type CvEntry = {
 }
 
 export const experience: CvEntry[] = [
-  {
-    range: "2024 — now",
-    title: "TibebChain",
-    org: "Frontend Lead",
-    desc: "Leading the frontend for an NFT publishing platform built for African creators. Smart-contract integration on Base & Scroll, design system, marketplace UX, and creator onboarding flows.",
-  },
+
   {
     range: "2024 — now",
     title: "IRL Meetups & Events",
