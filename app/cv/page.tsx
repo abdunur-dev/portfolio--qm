@@ -1,9 +1,6 @@
 import type { Metadata } from "next"
-import Image from "next/image"
-import type { ReactNode } from "react"
-import { FolioShell, SectionTitle, stagger } from "@/components/folio/ui"
+import Link from "next/link"
 import { PrintCvButton } from "@/components/print-cv-button"
-import { socialLinks } from "@/lib/social-links"
 import {
   certifications,
   education,
@@ -17,7 +14,7 @@ import {
 
 export const metadata: Metadata = {
   title: "CV · Abdurhaman Nur",
-  description: "Curriculum vitae of Abdurhaman Nur — Web3 & full-stack developer based in Addis Ababa.",
+  description: "Curriculum vitae of Abdurhaman Nur — Full-Stack & Frontend Engineer, DevRel & Vercel Super Host.",
 }
 
 const cvProjects: CvEntry[] = [
@@ -43,132 +40,268 @@ const cvProjects: CvEntry[] = [
   },
 ]
 
-/** One CV entry: years on the left, title / role / description on the right. */
-function Entry({ e, i }: { e: CvEntry; i: number }) {
-  return (
-    <div
-      className="folio-in print-avoid-break grid gap-1 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-6"
-      style={stagger(i)}
-    >
-      <p className="pt-px text-sm tabular-nums text-muted-foreground/60">{e.range}</p>
-      <div className="min-w-0">
-        <p className="font-medium text-highlighted">
-          {e.title}
-          {e.org && <span className="font-normal text-muted-foreground"> — {e.org}</span>}
-        </p>
-        {e.desc && <p className="mt-1 text-pretty text-sm/6 text-muted-foreground">{e.desc}</p>}
-      </div>
-    </div>
-  )
-}
-
-function CvSection({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <section className="flex flex-col gap-3">
-      <SectionTitle as="h2">{title}</SectionTitle>
-      <div className="flex flex-col">{children}</div>
-    </section>
-  )
-}
-
-function Tags({ label, items, i }: { label: string; items: string[]; i: number }) {
-  return (
-    <div className="folio-in print-avoid-break grid gap-2 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-6" style={stagger(i)}>
-      <p className="text-sm text-muted-foreground/60">{label}</p>
-      <ul className="flex flex-wrap gap-1.5">
-        {items.map((s) => (
-          <li key={s} className="rounded-sm bg-muted px-2 py-0.5 text-xs text-foreground">
-            {s}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
 export default function CvPage() {
   return (
-    <div className="cv-print">
-      <FolioShell back={{ href: "/", label: "Home" }} wide>
-        <div className="flex flex-col gap-12">
-          {/* Header */}
-          <header className="folio-in flex flex-col gap-5">
-            <div className="flex items-center gap-4">
-              <Image
-                src="/images/burhan-portrait.jpg"
-                alt="Abdurhaman Nur"
-                width={64}
-                height={64}
-                priority
-                className="size-16 shrink-0 rounded-sm object-cover print:hidden"
-              />
-              <div className="flex flex-col gap-0.5">
-                <p className="text-sm text-muted-foreground/70">Curriculum vitae</p>
-                <h1 className="font-serif text-3xl text-highlighted">
-                  Abdurhaman Nur<span className="text-primary">.</span>
-                </h1>
-                <p className="font-serif text-lg text-primary">Full-Stack &amp; Frontend Engineer · DevRel · Addis Ababa</p>
-              </div>
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
+      {/* Top back navigation */}
+      <div className="mx-auto max-w-4xl px-6 pt-8 print:hidden">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition hover:text-foreground"
+        >
+          <span>←</span> Back to home
+        </Link>
+      </div>
+
+      <main className="mx-auto max-w-4xl px-6 py-8 sm:py-12 print:max-w-none print:px-0 print:py-0">
+        <div className="rounded-xl border border-border/60 bg-card/30 p-6 sm:p-12 print:border-none print:bg-transparent print:p-0">
+          
+          {/* Header Action: Print / Save PDF */}
+          <div className="flex items-center justify-end pb-4 print:hidden">
+            <PrintCvButton />
+          </div>
+
+          {/* CV Header: Name, Note, Bio, and Links */}
+          <header className="grid gap-6 border-b border-border/80 pb-8 sm:grid-cols-[1fr_13rem]">
+            <div className="flex flex-col gap-2.5">
+              <h1 className="font-serif text-3xl tracking-tight text-highlighted sm:text-4xl">
+                Abdurhaman Nur
+              </h1>
+              <p className="font-mono text-xs text-muted-foreground">
+                Also known as Burhan online.
+              </p>
+              <p className="mt-1 max-w-xl text-pretty text-sm/relaxed text-muted-foreground">
+                I build high-performance web products, agentic AI systems, and spaces for developers to learn, connect, and ship modern software.
+              </p>
             </div>
-            <p className="max-w-prose text-pretty text-sm/6 text-muted-foreground">
-              Full-Stack &amp; Frontend Engineer specializing in high-performance web systems, agentic AI workflows, and modern UI architectures. Freelance engineer at Zero Hunger AI (Germany), Vercel Super Host, and Raycast Ambassador with proven DevRel experience uniting 350+ developers across technical conferences and hands-on workshops.
-            </p>
-            <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm">
-              {socialLinks.map((l) => (
-                <li key={l.label}>
+
+            <div className="flex flex-col gap-2 sm:border-l sm:border-border/60 sm:pl-6">
+              <p className="font-mono text-xs uppercase tracking-wider text-foreground">Links</p>
+              <ul className="flex flex-col gap-1.5 font-mono text-xs">
+                <li>
                   <a
-                    href={l.href}
-                    target={l.href.startsWith("mailto:") ? undefined : "_blank"}
+                    href="https://burhan.ink"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground transition-colors hover:text-highlighted"
+                    className="text-muted-foreground transition hover:text-highlighted underline decoration-border underline-offset-4"
                   >
-                    <span className="text-muted-foreground/60">{l.label}</span>{" "}
-                    <span className="border-b border-primary/60 text-foreground">{l.handle}</span>
+                    burhan.ink
                   </a>
                 </li>
-              ))}
-            </ul>
+                <li>
+                  <a
+                    href="https://x.com/AbdurhamanNur"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition hover:text-highlighted underline decoration-border underline-offset-4"
+                  >
+                    x.com/AbdurhamanNur
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/abdunur-dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition hover:text-highlighted underline decoration-border underline-offset-4"
+                  >
+                    github.com/abdunur-dev
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/abdurhaman-nur/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition hover:text-highlighted underline decoration-border underline-offset-4"
+                  >
+                    linkedin.com/in/abdurhaman-nur
+                  </a>
+                </li>
+              </ul>
+            </div>
           </header>
 
-          <CvSection title="Experience">
-            {experience.map((e, i) => (
-              <Entry key={e.title + e.range} e={e} i={i} />
-            ))}
-          </CvSection>
+          {/* Two-Column CV Body (Pauline Bakhtiari style) */}
+          <div className="mt-8 grid gap-10 sm:grid-cols-[1fr_17rem] print:grid-cols-[1fr_16rem] print:gap-8">
+            
+            {/* Left Column: EXPERIENCE & PROJECTS */}
+            <div className="flex flex-col gap-10">
+              
+              {/* EXPERIENCE */}
+              <section className="flex flex-col gap-4">
+                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
+                  EXPERIENCE
+                </h2>
+                <div className="flex flex-col gap-5">
+                  {experience.map((e) => (
+                    <div key={e.title + e.range} className="print-avoid-break grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
+                      <span className="font-mono text-xs text-muted-foreground/70 shrink-0 pt-0.5">
+                        {e.range}
+                      </span>
+                      <div>
+                        <p className="text-sm font-medium text-highlighted">
+                          {e.title}
+                          {e.org && <span className="font-normal text-muted-foreground">, {e.org}</span>}
+                        </p>
+                        {e.desc && (
+                          <p className="mt-1 text-pretty text-xs/relaxed text-muted-foreground">
+                            {e.desc}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-          <CvSection title="Selected projects">
-            {cvProjects.map((e, i) => (
-              <Entry key={e.title} e={e} i={i} />
-            ))}
-          </CvSection>
+              {/* PROJECTS */}
+              <section className="flex flex-col gap-4">
+                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
+                  PROJECTS
+                </h2>
+                <div className="flex flex-col gap-5">
+                  {cvProjects.map((p) => (
+                    <div key={p.title} className="print-avoid-break grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
+                      <span className="font-mono text-xs text-muted-foreground/70 shrink-0 pt-0.5">
+                        {p.range}
+                      </span>
+                      <div>
+                        <p className="text-sm font-medium text-highlighted">
+                          {p.title}
+                        </p>
+                        {p.desc && (
+                          <p className="mt-1 text-pretty text-xs/relaxed text-muted-foreground">
+                            {p.desc}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
 
-          <CvSection title="Events">
-            {events.map((e, i) => (
-              <Entry key={e.title} e={e} i={i} />
-            ))}
-          </CvSection>
+            {/* Right Column: WORKFLOW, COMMUNITIES, EDUCATION, CERTIFICATIONS */}
+            <aside className="flex flex-col gap-8 sm:border-l sm:border-border/60 sm:pl-6 print:border-l print:border-border/60 print:pl-6">
+              
+              {/* WORKFLOW */}
+              <section className="flex flex-col gap-4">
+                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
+                  WORKFLOW
+                </h2>
+                
+                {/* Skills tags */}
+                <div className="flex flex-col gap-2">
+                  <p className="font-mono text-xs text-muted-foreground">Skills</p>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {skills.map((s) => (
+                      <li
+                        key={s}
+                        className="rounded-full border border-border/70 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] text-foreground print:border print:border-black/20"
+                      >
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-          <CvSection title="Education">
-            {education.map((e, i) => (
-              <Entry key={e.title} e={e} i={i} />
-            ))}
-          </CvSection>
+                {/* Tools tags */}
+                <div className="flex flex-col gap-2 pt-2">
+                  <p className="font-mono text-xs text-muted-foreground">Tools</p>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {tools.map((t) => (
+                      <li
+                        key={t}
+                        className="rounded-full border border-border/70 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] text-foreground print:border print:border-black/20"
+                      >
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-          <CvSection title="Certifications">
-            {certifications.map((e, i) => (
-              <Entry key={e.title} e={e} i={i} />
-            ))}
-          </CvSection>
+                {/* Technology tags */}
+                <div className="flex flex-col gap-2 pt-2">
+                  <p className="font-mono text-xs text-muted-foreground">Technology</p>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {technology.map((tech) => (
+                      <li
+                        key={tech}
+                        className="rounded-full border border-border/70 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] text-foreground print:border print:border-black/20"
+                      >
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
 
-          <CvSection title="Workflow">
-            <Tags label="Skills" items={skills} i={0} />
-            <Tags label="Tools" items={tools} i={1} />
-            <Tags label="Technology" items={technology} i={2} />
-          </CvSection>
+              {/* COMMUNITIES */}
+              <section className="flex flex-col gap-3">
+                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
+                  COMMUNITIES
+                </h2>
+                <div className="flex flex-col gap-3">
+                  {events.map((ev) => (
+                    <div key={ev.title} className="print-avoid-break">
+                      <span className="font-mono text-[11px] text-muted-foreground/70 block">
+                        {ev.range}
+                      </span>
+                      <p className="text-xs font-medium text-highlighted mt-0.5">
+                        {ev.org ? `${ev.org}, ` : ""}
+                        <span className="font-normal text-muted-foreground">{ev.title}</span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-          <PrintCvButton />
+              {/* EDUCATION */}
+              <section className="flex flex-col gap-3">
+                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
+                  EDUCATION
+                </h2>
+                <div className="flex flex-col gap-3">
+                  {education.map((ed) => (
+                    <div key={ed.title} className="print-avoid-break">
+                      <span className="font-mono text-[11px] text-muted-foreground/70 block">
+                        {ed.range}
+                      </span>
+                      <p className="text-xs font-medium text-highlighted mt-0.5">
+                        {ed.title}
+                        {ed.org && <span className="font-normal text-muted-foreground">, {ed.org}</span>}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* CERTIFICATIONS */}
+              <section className="flex flex-col gap-3">
+                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
+                  CERTIFICATIONS
+                </h2>
+                <div className="flex flex-col gap-3">
+                  {certifications.map((c) => (
+                    <div key={c.title} className="print-avoid-break">
+                      <span className="font-mono text-[11px] text-muted-foreground/70 block">
+                        {c.range}
+                      </span>
+                      <p className="text-xs font-medium text-highlighted mt-0.5">
+                        {c.title}
+                        {c.org && <span className="font-normal text-muted-foreground">, {c.org}</span>}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+            </aside>
+          </div>
+
         </div>
-      </FolioShell>
+      </main>
     </div>
   )
 }

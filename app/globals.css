@@ -188,11 +188,13 @@
   .cv-print,
   .cv-print *,
   .cv-print *::before,
-  .cv-print *::after {
+  .cv-print *::after,
+  main,
+  main * {
     color: #111111 !important;
     background: transparent !important;
     background-color: transparent !important;
-    border-color: #bbbbbb !important;
+    border-color: #e5e5e5 !important;
     text-shadow: none !important;
     box-shadow: none !important;
     opacity: 1 !important;
@@ -201,11 +203,17 @@
     transform: none !important;
   }
 
-  .cv-print a {
-    text-decoration: none !important;
+  main a {
+    text-decoration: underline !important;
   }
 
-  .cv-print [class*="text-muted-foreground"] {
-    color: #555555 !important;
+  [class*="text-muted-foreground"] {
+    color: #4b5563 !important;
+  }
+
+  [class*="rounded-full"] {
+    border: 1px solid #d1d5db !important;
+    background: #f9fafb !important;
+    color: #111827 !important;
   }
 }
