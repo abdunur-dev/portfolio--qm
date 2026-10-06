@@ -3,8 +3,13 @@ import { createClient } from "@/lib/supabase/server"
 import { FolioShell, PageTitle, Row, Section, SectionTitle } from "@/components/folio/ui"
 import { LogoutButton } from "@/components/logout-button"
 
+export const dynamic = "force-dynamic"
+
 export default async function ProtectedPage() {
   const supabase = await createClient()
+  if (!supabase) {
+    redirect("/auth/login")
+  }
   const {
     data: { user },
   } = await supabase.auth.getUser()

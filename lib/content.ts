@@ -92,6 +92,14 @@ export async function getPost(slug: string): Promise<FullPost | null> {
       .maybeSingle()
     if (data) {
       const p = data as DbPost
+      const fallback = staticPosts.find((sp) => sp.slug === slug)
+      const imageUrls =
+        p.image_urls && p.image_urls.length > 1
+          ? p.image_urls
+          : fallback?.image_urls && fallback.image_urls.length > 1
+          ? fallback.image_urls
+          : p.image_urls ?? (p.cover_url ? [p.cover_url] : null)
+
       return {
         title: p.title,
         slug: p.slug,
@@ -101,7 +109,7 @@ export async function getPost(slug: string): Promise<FullPost | null> {
         reading: p.reading,
         href: p.href,
         cover_url: p.cover_url,
-        image_urls: p.image_urls ?? null,
+        image_urls: imageUrls,
         body: p.body ?? "",
         blocks: [],
       }
