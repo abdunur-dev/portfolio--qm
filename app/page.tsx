@@ -53,24 +53,15 @@ export default async function HomePage() {
         <Section>
           <SectionTitle>Projects</SectionTitle>
           <div className="flex flex-col">
-            {(() => {
-              const selectedTitles = ["VibeVerse", "Team Chat", "Base Link"]
-              const featuredProjects = selectedTitles
-                .map((title) => projects.find((p) => p.title.toLowerCase() === title.toLowerCase()))
-                .filter(Boolean) as typeof projects
-
-              const displayList = featuredProjects.length > 0 ? featuredProjects : projects.slice(0, 3)
-
-              return displayList.map((p, i) => (
-                <Row
-                  key={p.title + p.year}
-                  index={i}
-                  href={p.href ?? "/all"}
-                  title={p.title}
-                  meta={<span className="block max-w-[14rem] truncate sm:max-w-xs">{p.kind}</span>}
-                />
-              ))
-            })()}
+            {projects.slice(0, 4).map((p, i) => (
+              <Row
+                key={p.title + p.year}
+                index={i}
+                href={p.href ?? "/all"}
+                title={p.title}
+                meta={<span className="block max-w-[14rem] truncate sm:max-w-xs">{p.kind}</span>}
+              />
+            ))}
           </div>
           <MoreLink href="/all">View all</MoreLink>
         </Section>
