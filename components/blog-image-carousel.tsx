@@ -41,26 +41,26 @@ export function BlogImageCarousel({ images, title }: { images: string[]; title: 
   return (
     <section className="mt-8 select-none" aria-label={`${title} image gallery`}>
       <div
-        className="group relative overflow-hidden rounded-md border border-border/60 bg-muted/20 touch-pan-y"
+        className="group relative aspect-[16/9] w-full overflow-hidden rounded-md border border-border/60 bg-muted/20 touch-pan-y"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Images sliding track - Clean 16/9 matching standard post covers */}
+        {/* Images sliding track */}
         <div
-          className="flex transition-transform duration-500 ease-out"
+          className="flex h-full w-full transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${active * 100}%)` }}
         >
           {images.map((src, i) => (
             <div
               key={src + i}
-              className="relative aspect-[16/9] max-h-[380px] min-w-full shrink-0"
+              className="relative h-full w-full min-w-full shrink-0"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={src}
                 alt={`${title} photo ${i + 1} of ${images.length}`}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover object-center"
                 loading="eager"
                 draggable={false}
               />
