@@ -16,11 +16,10 @@ import { Button } from "@/components/ui/button"
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/#about", label: "About" },
-  { href: "/#work", label: "Work" },
-  { href: "/#highlights", label: "Highlights" },
-  { href: "/#testimonials", label: "Testimonials" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/about", label: "About" },
+  { href: "/writing", label: "Writing" },
+  { href: "/all", label: "Projects" },
+  { href: "/highlights", label: "Highlights" },
   { href: "/cv", label: "CV", mobileOnly: true },
 ] as const
 
@@ -35,8 +34,8 @@ export function SiteNav() {
       >
         Skip to content
       </a>
-      <header className="sticky top-0 z-40 w-full bg-[#08090b]/95 px-3 text-[#f4f1eb] backdrop-blur-sm sm:px-4">
-      <div className="screen-line-bottom mx-auto flex w-full max-w-[48rem] items-center justify-between gap-3 border-x border-white/10 bg-[#08090b]/90 px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-4">
+      <header className="sticky top-0 z-40 w-full border-b border-[#8b86a4]/15 bg-[#fbfbff]/85 px-3 backdrop-blur-xl sm:px-5">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 py-3 sm:py-4">
         <NavWordmark />
 
         {/* Desktop nav */}
@@ -49,7 +48,7 @@ export function SiteNav() {
                   <li key={l.href} className="px-3 first:pl-0 last:pr-0">
                     <Link
                       href={l.href}
-                      className="font-mono text-[0.68rem] uppercase tracking-[0.14em] transition-colors hover:text-foreground"
+                      className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-[#858096] transition-colors hover:text-[#7370d8]"
                     >
                       {l.label}
                     </Link>
@@ -88,7 +87,7 @@ export function SiteNav() {
                       <Link
                         href={l.href}
                         onClick={() => setOpen(false)}
-                        className="block border-b border-border/60 px-3 py-3 font-mono text-xs uppercase tracking-[0.14em] text-foreground transition-colors hover:text-primary"
+                        className="block rounded-md border border-transparent px-3 py-2 font-serif text-lg text-foreground transition-colors hover:border-border/60 hover:bg-card/60 hover:text-primary"
                       >
                         {l.label}
                       </Link>

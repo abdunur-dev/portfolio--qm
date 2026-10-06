@@ -1,5 +1,6 @@
 import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
+import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { FloatingSparkle } from "@/components/floating-sparkle"
@@ -115,7 +116,8 @@ export default async function HighlightsPage() {
     : "May 2026"
 
   return (
-    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
+    <div className="ana-page relative min-h-screen">
+      <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
         <main id="main" className="mx-auto w-full max-w-4xl px-5 pb-24 sm:px-6 sm:pb-32">

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
+import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
 import { FadeUp } from "@/components/fade-up"
 import { posts as staticPosts } from "@/lib/posts-data"
@@ -53,7 +54,8 @@ export default async function WritingPage() {
   const years = Object.keys(grouped).map(Number).sort((a, b) => b - a)
 
   return (
-    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
+    <div className="ana-page relative min-h-screen">
+      <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
         <main className="mx-auto w-full max-w-4xl px-5 pb-24 sm:px-6 sm:pb-32">
@@ -88,26 +90,30 @@ export default async function WritingPage() {
                   {year}
                 </h2>
               </FadeUp>
-              <ul className="grid gap-6 border-y border-white/10 py-6 sm:grid-cols-2">
+              <ul className="grid gap-5 border-y border-[#8b86a4]/15 py-6 sm:grid-cols-2">
                 {grouped[year].map((post, i) => (
                   <FadeUp key={post.slug} delay={0.08 + i * 0.05}>
-                    <li className="min-w-0">
+                    <li>
                       <Link
                         href={post.href ?? `/writing/${post.slug}`}
-                        className="group relative block transition-colors"
+                        className="group relative block py-8 transition-colors"
                       >
-                        <div className="block">
+                        <span
+                          aria-hidden
+                          className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 bg-primary transition-all duration-300 group-hover:h-full"
+                        />
+                        <div className="flex items-start gap-6 pl-5">
                           {post.cover_url && (
-                            <div className="mb-5 aspect-[16/10] w-full overflow-hidden border border-white/10 bg-black">
+                            <div className="hidden shrink-0 overflow-hidden rounded-lg border border-border/60 sm:block">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={post.cover_url || "/placeholder.svg"}
                                 alt=""
-                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                className="h-24 w-36 object-cover transition-transform duration-500 group-hover:scale-105"
                               />
                             </div>
                           )}
-                          <div className="min-w-0">
+                          <div className="min-w-0 flex-1">
                             <div className="flex items-baseline justify-between gap-6">
                               <h3 className="font-serif text-xl leading-snug text-foreground transition-colors group-hover:text-primary sm:text-2xl">
                                 {post.title}

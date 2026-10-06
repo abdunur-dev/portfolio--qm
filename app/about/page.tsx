@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { SiteNav } from "@/components/site-nav"
 import { FadeUp } from "@/components/fade-up"
+import { AuroraBackground } from "@/components/aurora-background"
 import { SiteFooter } from "@/components/site-footer"
 import { socialLinks } from "@/lib/social-links"
 
@@ -13,14 +14,15 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
+    <div className="ana-page relative min-h-screen">
+      <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
 
         <main id="main" className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12">
           {/* Image first, About text underneath — Maya-style */}
           <FadeUp>
-            <figure className="overflow-hidden border border-white/10 bg-black/20">
+            <figure className="overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm">
               <div className="relative aspect-[4/3] w-full">
                 <Image
                   src="/images/burhan-portrait.jpg"

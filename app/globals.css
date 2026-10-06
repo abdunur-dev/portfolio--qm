@@ -5,8 +5,8 @@
 
 :root {
   /* Light — matches burhan-ops.vercel.app: near-white paper, near-black ink */
-  --background: oklch(98.84% 0 0);
-  --foreground: oklch(4% 0 0);
+  --background: oklch(98.5% 0.008 285);
+  --foreground: oklch(25% 0.018 285);
   --card: oklch(100% 0 0);
   --card-foreground: oklch(4% 0 0);
   --popover: oklch(100% 0 0);
@@ -119,90 +119,42 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
-    background-image: linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px);
-    background-position: center top;
-    background-size: min(100vw, 64rem) 100%, 100% 4rem;
-  }
-  main > section:first-child {
-    border-top: 1px solid color-mix(in oklch, var(--foreground) 12%, transparent);
+    background-image: radial-gradient(circle at 20% 0%, color-mix(in oklch, #a78bfa 9%, transparent), transparent 34rem), linear-gradient(180deg, #fbfbff 0%, #f5f3fb 100%);
   }
 }
 
-.reference-stripes {
-  position: relative;
-  isolation: isolate;
+.ana-page {
+  min-height: 100vh;
+  color: #29263a;
 }
 
-.reference-stripes::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 2rem;
-  z-index: -1;
-  background: repeating-linear-gradient(135deg, color-mix(in oklch, var(--foreground) 10%, transparent) 0 1px, transparent 1px 7px);
+.ana-card {
+  border: 1px solid color-mix(in oklch, #8b86a4 18%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in oklch, white 78%, transparent);
+  box-shadow: 0 8px 28px -20px rgba(69, 47, 120, 0.32);
 }
 
-@utility screen-line-top {
-  position: relative;
+.ana-label {
+  color: #858096;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-@utility screen-line-top {
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100vw;
-    z-index: -1;
-    width: 200vw;
-    height: 1px;
-    background: color-mix(in oklch, var(--foreground) 14%, transparent);
-  }
-}
+.ana-link { color: #7370d8; transition: color 180ms ease; }
+.ana-link:hover { color: #4f46b8; }
 
-@utility screen-line-bottom {
-  position: relative;
-}
+.dark body { background-image: none; }
+.dark .ana-page { color: #f2efff; }
+.dark .ana-card { border-color: rgb(255 255 255 / 0.12); background: rgb(20 18 30 / 0.74); }
 
-@utility screen-line-bottom {
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: -100vw;
-    z-index: -1;
-    width: 200vw;
-    height: 1px;
-    background: color-mix(in oklch, var(--foreground) 14%, transparent);
-  }
-}
-
-@utility stripe-divider {
-  position: relative;
-  height: 2rem;
-  overflow: hidden;
-}
-
-@utility stripe-divider {
-  &:before {
-    content: "";
-    position: absolute;
-    inset: 0 -100vw;
-    background: repeating-linear-gradient(135deg, color-mix(in oklch, var(--foreground) 11%, transparent) 0 1px, transparent 1px 7px);
-  }
-}
-
-@utility dot-grid {
-  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 12%, transparent) 1px, transparent 1px);
-  background-size: 8px 8px;
-}
 
 @media print {
   @page {
