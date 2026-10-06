@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Coffee } from "lucide-react"
+import { Coffee, Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { socialLinks } from "@/lib/social-links"
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
@@ -83,6 +84,16 @@ export function SiteFooter() {
               Ababa
             </p>
           </div>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-border/60 pt-5">
+          {socialLinks.map((social) => {
+            const Icon = social.label === "GitHub" ? Github : social.label === "Twitter" ? Twitter : social.label === "LinkedIn" ? Linkedin : Mail
+            return (
+              <a key={social.label} href={social.href} target={social.href.startsWith("mailto:") ? undefined : "_blank"} rel={social.href.startsWith("mailto:") ? undefined : "noreferrer"} aria-label={social.label} title={social.label} className="inline-flex size-9 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:border-primary hover:text-primary">
+                <Icon className="size-4" aria-hidden />
+              </a>
+            )
+          })}
         </div>
       </div>
     </footer>

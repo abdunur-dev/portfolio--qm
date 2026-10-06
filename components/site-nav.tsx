@@ -2,25 +2,18 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu } from "lucide-react"
+import { BookOpen, FileText, FolderKanban, Home, Info, Menu, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { NavWordmark } from "@/components/nav-wordmark"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/writing", label: "Writing" },
-  { href: "/all", label: "Projects" },
-  { href: "/highlights", label: "Highlights" },
-  { href: "/cv", label: "CV", mobileOnly: true },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/about", label: "About", icon: Info },
+  { href: "/writing", label: "Writing", icon: BookOpen },
+  { href: "/all", label: "Projects", icon: FolderKanban },
+  { href: "/highlights", label: "Highlights", icon: Sparkles },
+  { href: "/cv", label: "CV", icon: FileText },
 ] as const
 
 export function SiteNav() {
@@ -28,80 +21,56 @@ export function SiteNav() {
 
   return (
     <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:border focus:border-primary/60 focus:bg-background focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:text-foreground focus:shadow-lg focus:outline-none"
-      >
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:border focus:border-primary/60 focus:bg-background focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-foreground focus:shadow-lg focus:outline-none">
         Skip to content
       </a>
-      <header className="fixed right-5 top-5 z-40 sm:right-8 sm:top-7">
-      <div className="flex items-center gap-4">
-        <div className="hidden">
-          <NavWordmark />
-        </div>
-
-        {/* Reference layout keeps navigation intentionally quiet. */}
-        <div className="flex items-center gap-3">
-          <nav aria-label="Primary" className="hidden">
-            <ul className="flex items-center divide-x divide-border/70 text-sm text-muted-foreground">
-              {links
-                .filter((l) => !("mobileOnly" in l && l.mobileOnly))
-                .map((l) => (
-                  <li key={l.href} className="px-3 first:pl-0 last:pr-0">
-                    <Link
-                      href={l.href}
-                      className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-[#858096] transition-colors hover:text-[#7370d8]"
-                    >
-                      {l.label}
+      <header className="fixed inset-x-0 top-0 z-40 px-4 py-4 sm:px-8 sm:py-6">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
+          <Link href="/" aria-label="Go to homepage" className="text-sm font-medium tracking-tight text-foreground">
+            Abdurhaman<span className="text-primary">_</span>
+          </Link>
+          <div className="flex items-center gap-2 rounded-full border border-border/70 bg-background/80 p-1 shadow-sm backdrop-blur-xl">
+            <nav aria-label="Primary" className="hidden sm:block">
+              <ul className="flex items-center divide-x divide-border/70 text-sm text-muted-foreground">
+                {links.filter((link) => link.href !== "/cv").map((link) => (
+                  <li key={link.href} className="px-3 first:pl-2 last:pr-2">
+                    <Link href={link.href} className="font-mono text-[0.68rem] uppercase tracking-[0.12em] transition-colors hover:text-primary">
+                      {link.label}
                     </Link>
                   </li>
                 ))}
-            </ul>
-          </nav>
-          <span aria-hidden className="h-4 w-px bg-border/70" />
-          <ThemeToggle />
+              </ul>
+            </nav>
+            <ThemeToggle />
+            <div className="sm:hidden">
+              <Sheet open={open} onOpenChange={setOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label="Open menu" className="size-9">
+                    <Menu className="size-4" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[min(20rem,90vw)]">
+                  <SheetHeader className="text-left">
+                    <SheetTitle className="font-serif text-2xl">Abdurhaman_</SheetTitle>
+                  </SheetHeader>
+                  <nav aria-label="Mobile" className="mt-8">
+                    <ul className="flex flex-col gap-1">
+                      {links.map(({ href, label, icon: Icon }) => (
+                        <li key={href}>
+                          <Link href={href} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-3 text-base transition-colors hover:bg-muted hover:text-primary">
+                            <Icon className="size-4" aria-hidden />
+                            {label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </div>
         </div>
-
-        {/* Mobile nav */}
-        <div className="hidden">
-          <ThemeToggle />
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Open menu"
-                className="h-9 w-9"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-72 sm:max-w-sm">
-              <SheetHeader className="text-left">
-                <SheetTitle className="font-serif text-2xl">
-                  Abdurhaman_
-                </SheetTitle>
-              </SheetHeader>
-              <nav aria-label="Mobile" className="mt-6 px-4">
-                <ul className="flex flex-col gap-1">
-                  {links.map((l) => (
-                    <li key={l.href}>
-                      <Link
-                        href={l.href}
-                        onClick={() => setOpen(false)}
-                        className="block rounded-md border border-transparent px-3 py-2 font-serif text-lg text-foreground transition-colors hover:border-border/60 hover:bg-card/60 hover:text-primary"
-                      >
-                        {l.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
-    </header>
+      </header>
     </>
   )
 }
