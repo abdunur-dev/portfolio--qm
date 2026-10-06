@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { SiteNav } from "@/components/site-nav"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter } from "@/components/site-footer"
 import { FadeUp } from "@/components/fade-up"
 import { MarkdownBody } from "@/components/markdown-body"
@@ -103,7 +103,7 @@ export default async function WritingPost({
   return (
     <div className="ana-page relative min-h-screen">
       <div className="relative z-10">
-        <SiteNav />
+        <div className="fixed right-5 top-5 z-40"><ThemeToggle /></div>
         <main id="main" className="mx-auto w-full max-w-[640px] px-5 pb-24 pt-24 sm:px-0 sm:pb-32 sm:pt-28">
           <FadeUp>
             <Link

@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { SiteNav } from "@/components/site-nav"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter } from "@/components/site-footer"
 import { socialLinks } from "@/lib/social-links"
 
@@ -19,7 +19,7 @@ const writing = [
 export default function HomePage() {
   return (
     <div className="hugorcd-page min-h-screen bg-[#080808] text-white">
-      <SiteNav plain />
+      <div className="fixed right-5 top-5 z-40"><ThemeToggle /></div>
       <main id="main" className="mx-auto w-full max-w-[560px] px-5 pb-20 pt-16 sm:px-0 sm:pt-20">
         <section className="space-y-5">
           <div className="flex items-center gap-4">

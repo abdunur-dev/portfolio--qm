@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { SiteNav } from "@/components/site-nav"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { AnimatedHeading } from "@/components/animated-heading"
@@ -57,7 +57,7 @@ export default async function WritingPage() {
     <div className="ana-page relative min-h-screen">
       <AuroraBackground />
       <div className="relative z-10">
-        <SiteNav />
+        <div className="fixed right-5 top-5 z-40"><ThemeToggle /></div>
         <main className="mx-auto w-full max-w-[560px] px-5 pb-24 pt-16 sm:px-0 sm:pt-20 sm:pb-32">
           <section className="pt-4 pb-12 sm:pb-14">
             <AnimatedHeading

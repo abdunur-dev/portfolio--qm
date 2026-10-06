@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { SiteNav } from "@/components/site-nav"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter } from "@/components/site-footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
@@ -206,9 +206,7 @@ export default function CvPage() {
         <AuroraBackground />
       </div>
       <div className="relative z-10">
-        <div className="contents print:hidden">
-          <SiteNav />
-        </div>
+<div className="fixed right-5 top-5 z-40 print:hidden"><ThemeToggle /></div>
 
         <main
           id="main"

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { SiteNav } from "@/components/site-nav"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { FadeUp } from "@/components/fade-up"
 import { AuroraBackground } from "@/components/aurora-background"
 import { SiteFooter } from "@/components/site-footer"
@@ -17,7 +17,7 @@ export default function AboutPage() {
     <div className="ana-page relative min-h-screen">
       <AuroraBackground />
       <div className="relative z-10">
-        <SiteNav />
+        <div className="fixed right-5 top-5 z-40"><ThemeToggle /></div>
 
         <main id="main" className="mx-auto w-full max-w-[560px] px-5 pb-20 pt-16 sm:px-0 sm:pb-24 sm:pt-20">
           {/* Image first, About text underneath — Maya-style */}
