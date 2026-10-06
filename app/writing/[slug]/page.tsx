@@ -1,196 +1,122 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { SiteNav } from "@/components/site-nav"
-import { SiteFooter } from "@/components/site-footer"
-import { FadeUp } from "@/components/fade-up"
+import { FolioShell } from "@/components/folio/ui"
 import { MarkdownBody } from "@/components/markdown-body"
 import { BlogImageCarousel } from "@/components/blog-image-carousel"
-import { posts as staticPosts } from "@/lib/posts-data"
-import { createClient } from "@/lib/supabase/server"
-import type { Post as DbPost } from "@/lib/types"
+import { getPost, getPosts } from "@/lib/content"
 
 export const dynamic = "force-dynamic"
 
 type Params = { slug: string }
 
-type ResolvedPost = {
-  title: string
-  slug: string
-  excerpt: string
-  date: string
-  reading: string
-  href?: string | null
-  cover_url?: string | null
-  image_urls?: string[] | null
-  body: string
-  blocks: { type: "h2" | "p"; text: string }[]
-}
-
-function bodyToBlocks(body: string): { type: "h2" | "p"; text: string }[] {
-  if (!body.trim()) return []
-  return body
-    .split(/\n{2,}/)
-    .map((chunk) => chunk.trim())
-    .filter(Boolean)
-    .map((chunk) =>
-      chunk.startsWith("## ")
-        ? { type: "h2" as const, text: chunk.slice(3).trim() }
-        : { type: "p" as const, text: chunk.replace(/\n/g, " ") },
-    )
-}
-
-async function getPost(slug: string): Promise<ResolvedPost | null> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("slug", slug)
-    .eq("published", true)
-    .maybeSingle()
-
-  if (data) {
-    const p = data as DbPost
-    return {
-      title: p.title,
-      slug: p.slug,
-      excerpt: p.excerpt,
-      date: p.date_label,
-      reading: p.reading,
-      href: p.href,
-      cover_url: p.cover_url,
-      image_urls: p.image_urls || null,
-      body: p.body || "",
-      blocks: bodyToBlocks(p.body || ""),
-    }
-  }
-
-  const fallback = staticPosts.find((p) => p.slug === slug)
-  if (!fallback) return null
-  return {
-    title: fallback.title,
-    slug: fallback.slug,
-    excerpt: fallback.excerpt,
-    date: fallback.date,
-    reading: fallback.reading,
-    href: fallback.href ?? null,
-    image_urls: null,
-    body: "",
-    blocks: fallback.body ?? [],
-  }
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<Params>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params
   const post = await getPost(slug)
   if (!post) return { title: "Not found" }
-  return { title: `${post.title} — Abdurhaman`, description: post.excerpt }
+  return {
+    title: `${post.title} · Abdurhaman Nur`,
+    description: post.excerpt,
+    openGraph: post.cover_url ? { images: [post.cover_url] } : undefined,
+  }
 }
 
-export default async function WritingPost({
-  params,
-}: {
-  params: Promise<Params>
-}) {
+export default async function WritingPost({ params }: { params: Promise<Params> }) {
   const { slug } = await params
-  const post = await getPost(slug)
+  const [post, all] = await Promise.all([getPost(slug), getPosts()])
   if (!post) notFound()
 
+  // Previous / next navigation within the writing list.
+  const idx = all.findIndex((p) => p.slug === post.slug)
+  const newer = idx > 0 ? all[idx - 1] : null
+  const older = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : null
+
   return (
-    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
-      <div className="relative z-10">
-        <SiteNav />
-        <main className="mx-auto w-full max-w-4xl px-5 pb-24 pt-6 sm:px-6 sm:pb-32 sm:pt-10">
-          <FadeUp>
-            <Link
-              href="/writing"
-              className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span aria-hidden>←</span> back to writing
-            </Link>
-          </FadeUp>
-
-          <FadeUp delay={0.1}>
-            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-              {[post.date, post.reading].filter(Boolean).join(" · ")}
-            </p>
-            <h1 className="mt-3 max-w-3xl font-sans text-3xl font-medium leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
-              {post.title}
-            </h1>
-            {post.excerpt && (
-              <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
-                {post.excerpt}
-              </p>
-            )}
-          </FadeUp>
-
-          {post.cover_url && (
-            <FadeUp delay={0.15}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={post.cover_url || "/placeholder.svg"}
-                alt={`${post.title} cover image`}
-                className="mt-10 aspect-[16/9] w-full border border-white/10 object-cover"
-              />
-            </FadeUp>
+    <FolioShell back={{ href: "/writing", label: "All writing" }} wide>
+      <article>
+        {/* Title block */}
+        <header className="folio-in flex flex-col gap-3">
+          <p className="text-sm text-muted-foreground/70">
+            {[post.date, post.reading].filter(Boolean).join(" · ")}
+          </p>
+          <h1 className="text-balance font-serif text-3xl leading-tight text-highlighted sm:text-4xl">
+            {post.title}
+            <span className="text-primary">.</span>
+          </h1>
+          {post.excerpt && (
+            <p className="max-w-prose text-pretty text-base/7 text-muted-foreground">{post.excerpt}</p>
           )}
+        </header>
 
-          {post.image_urls && post.image_urls.length > 0 && (
-            <FadeUp delay={0.17}>
-              <BlogImageCarousel images={post.image_urls} title={post.title} />
-            </FadeUp>
-          )}
+        {/* Picture / Carousel */}
+        {post.image_urls && post.image_urls.length > 1 ? (
+          <div className="folio-in mt-8" style={{ animationDelay: "80ms" }}>
+            <BlogImageCarousel images={post.image_urls} title={post.title} />
+          </div>
+        ) : post.cover_url ? (
+          <figure className="folio-in mt-10" style={{ animationDelay: "80ms" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.cover_url}
+              alt={`${post.title} cover image`}
+              className="aspect-[16/9] w-full rounded-md border border-border/60 object-cover"
+            />
+          </figure>
+        ) : null}
 
-          <FadeUp delay={0.2}>
-            <div className="mt-12 max-w-none border-t border-border/60 pt-10">
-              {post.body ? (
-                <MarkdownBody content={post.body} />
-              ) : post.blocks.length > 0 ? (
-                <div className="space-y-6">
-                  {post.blocks.map((block, i) =>
-                    block.type === "h2" ? (
-                      <h2
-                        key={i}
-                        className="mt-12 mb-3 font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-3xl"
-                      >
-                        {block.text}
-                      </h2>
-                    ) : (
-                      <p
-                        key={i}
-                        className="text-[0.95rem] leading-[1.85] text-foreground/85 sm:text-base sm:leading-[1.9]"
-                      >
-                        {block.text}
-                      </p>
-                    ),
-                  )}
-                </div>
-              ) : (
-                <p className="font-mono text-sm text-muted-foreground">
-                  This post is still on the workbench. Come back soon — or
-                  email me and I&apos;ll send you the rough draft.
-                </p>
+        {/* Article */}
+        <div className="folio-in mt-10" style={{ animationDelay: "160ms" }}>
+          {post.body ? (
+            <MarkdownBody content={post.body} />
+          ) : post.blocks.length > 0 ? (
+            <div>
+              {post.blocks.map((block, i) =>
+                block.type === "h2" ? (
+                  <h2 key={i} className="mt-10 mb-3 font-serif text-2xl italic leading-tight text-highlighted">
+                    {block.text}
+                  </h2>
+                ) : (
+                  <p key={i} className="my-5 text-pretty text-[0.95rem] leading-[1.85] text-foreground sm:text-base">
+                    {block.text}
+                  </p>
+                ),
               )}
             </div>
-          </FadeUp>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              This post is still on the workbench. Come back soon — or email me and I&apos;ll send you the rough
+              draft.
+            </p>
+          )}
+        </div>
+      </article>
 
-          <FadeUp delay={0.3}>
-            <div className="mt-16 border-t border-border/60 pt-6">
-              <Link
-                href="/writing"
-                className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <span aria-hidden>←</span> all writing
-              </Link>
-            </div>
-          </FadeUp>
-        </main>
-        <SiteFooter />
-      </div>
-    </div>
+      {/* Prev / next */}
+      {(newer || older) && (
+        <nav aria-label="More writing" className="mt-16 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-2">
+          {older ? (
+            <Link href={older.href ?? `/writing/${older.slug}`} className="group flex flex-col gap-1">
+              <span className="text-xs text-muted-foreground/60">← Older</span>
+              <span className="font-medium text-highlighted decoration-primary underline-offset-4 group-hover:underline">
+                {older.title}
+              </span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {newer && (
+            <Link
+              href={newer.href ?? `/writing/${newer.slug}`}
+              className="group flex flex-col gap-1 sm:items-end sm:text-right"
+            >
+              <span className="text-xs text-muted-foreground/60">Newer →</span>
+              <span className="font-medium text-highlighted decoration-primary underline-offset-4 group-hover:underline">
+                {newer.title}
+              </span>
+            </Link>
+          )}
+        </nav>
+      )}
+    </FolioShell>
   )
 }

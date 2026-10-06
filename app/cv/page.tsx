@@ -1,49 +1,28 @@
 import type { Metadata } from "next"
-import { SiteNav } from "@/components/site-nav"
-import { SiteFooter } from "@/components/site-footer"
-import { FadeUp } from "@/components/fade-up"
+import Image from "next/image"
+import type { ReactNode } from "react"
+import { FolioShell, SectionTitle, stagger } from "@/components/folio/ui"
 import { PrintCvButton } from "@/components/print-cv-button"
 import { socialLinks } from "@/lib/social-links"
+import {
+  certifications,
+  education,
+  events,
+  experience,
+  skills,
+  technology,
+  tools,
+  type CvEntry,
+} from "@/lib/cv-data"
 
 export const metadata: Metadata = {
   title: "CV · Abdurhaman Nur",
-  description:
-    "Curriculum vitae of Abdurhaman Nur — Web3 & full-stack developer based in Addis Ababa.",
+  description: "Curriculum vitae of Abdurhaman Nur — Web3 & full-stack developer based in Addis Ababa.",
 }
 
-type Entry = {
-  range: string
-  title: string
-  org?: string
-  desc?: string
-}
-
-const experience: Entry[] = [
+const cvProjects: CvEntry[] = [
   {
-    range: "2024 — present",
-    title: "Frontend Lead, TibebChain",
-    desc: "Leading the frontend for an NFT publishing platform built for African creators. Smart-contract integration on Base & Scroll, design system, marketplace UX, and creator onboarding flows.",
-  },
-  {
-    range: "2024 — present",
-    title: "Organiser & Speaker, IRL Meetups & Events",
-    desc: "Helping organize IRL meetups and tech events in Addis Ababa — gathering local devs, designers, and founders for talks, hackathons, and hands-on workshops on shipping modern products, AI-assisted building, and Web3. Partnering with global builder communities to bring their programs to Ethiopia.",
-  },
-  {
-    range: "2022 — 2024",
-    title: "Full-Stack & Smart Contract Developer, Freelance",
-    desc: "Shipped dApps on Base and Scroll with TypeScript and Solidity. Built design systems and frontends for early-stage startups across Web3, productivity, and AI.",
-  },
-  {
-    range: "2020 — 2022",
-    title: "Self-taught Developer",
-    desc: "Started coding during the 2020 lockdown — late-night Udemy tutorials, side experiments, and a slow slide into full-stack. Fell in love with creating things on the web.",
-  },
-]
-
-const projects: Entry[] = [
-  {
-    range: "2024 — present",
+    range: "2024 — now",
     title: "TibebChain",
     desc: "An NFT publishing platform giving African creators a self-serve way to mint, distribute, and monetize their work on-chain.",
   },
@@ -59,317 +38,133 @@ const projects: Entry[] = [
   },
 ]
 
-const events: Entry[] = [
-  {
-    range: "2024 — present",
-    title: "IRL Meetups & Tech Events, Addis Ababa",
-    org: "Co-organiser & Speaker",
-    desc: "Helping organize a series of in-person meetups and events for Ethiopian developers, designers, and founders. Curated speaker lineups, hackathons, and workshops to grow the local AI and Web3 builder scene.",
-  },
-]
-
-const education: Entry[] = [
-  {
-    range: "2020 — present",
-    title: "Self-Directed Learning",
-    org: "Internet & open-source",
-    desc: "Web development, smart contracts, design, and product — through open courses, docs, and shipping in public.",
-  },
-]
-
-const certifications: Entry[] = [
-  {
-    range: "2024",
-    title: "The Complete Web Developer Bootcamp",
-    org: "Udemy",
-    desc: "Full-stack JavaScript, React, Node.js, and modern web fundamentals.",
-  },
-  {
-    range: "2024",
-    title: "Ethereum & Solidity: The Complete Developer's Guide",
-    org: "Udemy",
-    desc: "Smart contract development, dApp architecture, and on-chain testing patterns.",
-  },
-  {
-    range: "2023",
-    title: "Responsive Web Design",
-    org: "freeCodeCamp",
-    desc: "Semantic HTML, CSS layout, accessibility, and responsive design principles.",
-  },
-  {
-    range: "2023",
-    title: "JavaScript Algorithms & Data Structures",
-    org: "freeCodeCamp",
-    desc: "Modern JavaScript, functional programming, and core data structures.",
-  },
-]
-
-const skills = [
-  "frontend engineering",
-  "smart contract development",
-  "design systems",
-  "product thinking",
-  "community building",
-  "public speaking",
-  "mentorship",
-  "technical writing",
-]
-
-const tools = [
-  "figma",
-  "github",
-  "notion",
-  "linear",
-  "vercel",
-  "v0",
-  "claude",
-  "cursor",
-]
-
-const technology = [
-  "typescript",
-  "react",
-  "next.js",
-  "tailwind",
-  "solidity",
-  "ethers / viem",
-  "base",
-  "scroll",
-  "supabase",
-  "node.js",
-  "ai sdk",
-]
-
-function Section({
-  label,
-  children,
-}: {
-  label: string
-  children: React.ReactNode
-}) {
+/** One CV entry: years on the left, title / role / description on the right. */
+function Entry({ e, i }: { e: CvEntry; i: number }) {
   return (
-    <section className="border-t-2 border-foreground/30 py-14 sm:py-20 print:border-t print:border-foreground/60 print:py-4">
-      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-foreground">
-        {label}
-      </p>
-      <div className="mt-8 sm:mt-10 print:mt-2">{children}</div>
-    </section>
-  )
-}
-
-function EntryRow({ e }: { e: Entry }) {
-  return (
-    <div className="print-avoid-break grid gap-2 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-4 print:py-1.5">
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
-        {e.range}
-      </p>
-      <div>
-        <p className="font-serif text-lg leading-snug text-foreground sm:text-xl print:text-[12.5px] print:leading-tight">
+    <div
+      className="folio-in print-avoid-break grid gap-1 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-6"
+      style={stagger(i)}
+    >
+      <p className="pt-px text-sm tabular-nums text-muted-foreground/60">{e.range}</p>
+      <div className="min-w-0">
+        <p className="font-medium text-highlighted">
           {e.title}
-          {e.org && (
-            <span className="text-foreground/60">
-              {" "}
-              <span className="text-foreground/40">·</span> {e.org}
-            </span>
-          )}
+          {e.org && <span className="font-normal text-muted-foreground"> — {e.org}</span>}
         </p>
-        {e.desc && (
-          <p className="mt-1.5 max-w-2xl text-pretty text-sm leading-relaxed text-foreground/75 print:mt-0.5 print:text-[10.5px] print:leading-snug print:text-foreground/80">
-            {e.desc}
-          </p>
-        )}
+        {e.desc && <p className="mt-1 text-pretty text-sm/6 text-muted-foreground">{e.desc}</p>}
       </div>
     </div>
   )
 }
 
-function Chips({ items }: { items: string[] }) {
+function CvSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <ul className="flex flex-wrap gap-1.5 print:gap-1">
-      {items.map((s) => (
-        <li
-          key={s}
-          className="border border-white/15 px-2.5 py-1 font-mono text-[11px] lowercase tracking-wide text-white/75 print:rounded print:border print:border-foreground/40 print:bg-transparent print:px-1.5 print:py-0.5 print:text-[9.5px]"
-        >
-          {s}
-        </li>
-      ))}
-    </ul>
+    <section className="flex flex-col gap-3">
+      <SectionTitle as="h2">{title}</SectionTitle>
+      <div className="flex flex-col">{children}</div>
+    </section>
+  )
+}
+
+function Tags({ label, items, i }: { label: string; items: string[]; i: number }) {
+  return (
+    <div className="folio-in print-avoid-break grid gap-2 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-6" style={stagger(i)}>
+      <p className="text-sm text-muted-foreground/60">{label}</p>
+      <ul className="flex flex-wrap gap-1.5">
+        {items.map((s) => (
+          <li key={s} className="rounded-sm bg-muted px-2 py-0.5 text-xs text-foreground">
+            {s}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
 export default function CvPage() {
   return (
-    <div className="cv-print relative min-h-screen">
-      <div className="relative z-10">
-        <div className="contents print:hidden">
-          <SiteNav />
-        </div>
-
-        <main
-          id="main"
-          className="mx-auto w-full max-w-4xl px-5 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 print:max-w-full print:px-0 print:pt-0 print:pb-0"
-        >
+    <div className="cv-print">
+      <FolioShell back={{ href: "/", label: "Home" }} wide>
+        <div className="flex flex-col gap-12">
           {/* Header */}
-          <FadeUp>
-            <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-12 print:flex-row print:items-start print:justify-between print:gap-6">
-              <div className="min-w-0 flex-1">
-                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground print:text-[10px]">
-                  curriculum vitae
-                </p>
-                <h1 className="mt-3 font-serif text-4xl leading-[0.95] tracking-tight text-foreground sm:text-5xl md:text-6xl print:mt-1 print:text-3xl">
+          <header className="folio-in flex flex-col gap-5">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/images/burhan-portrait.jpg"
+                alt="Abdurhaman Nur"
+                width={64}
+                height={64}
+                priority
+                className="size-16 shrink-0 rounded-sm object-cover print:hidden"
+              />
+              <div className="flex flex-col gap-0.5">
+                <p className="text-sm text-muted-foreground/70">Curriculum vitae</p>
+                <h1 className="font-serif text-3xl text-highlighted">
                   Abdurhaman Nur<span className="text-primary">.</span>
                 </h1>
-                <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-foreground/75 print:mt-1 print:max-w-none print:text-[10.5px] print:leading-snug">
-                  Web3 &amp; full-stack developer based in Addis Ababa, also
-                  known as Burhan online. I build dApps, design systems, and
-                  modern web experiences — and occasionally write about the
-                  quiet places where design, code, and faith overlap.
-                </p>
-
-                {/* Mobile: social links inline below bio */}
-                <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 md:hidden print:hidden">
-                  {socialLinks.map((l) => (
-                    <li key={l.label}>
-                      <a
-                        href={l.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group inline-flex items-baseline gap-1.5 font-mono text-xs text-foreground/85 transition-colors hover:text-primary"
-                      >
-                        <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                          {l.label}
-                        </span>
-                        <span className="underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary">
-                          {l.href
-                            .replace(/^mailto:/, "")
-                            .replace(/^https?:\/\//, "")
-                            .replace(/\/$/, "")
-                            .split("/")
-                            .pop()}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Desktop: social links right-aligned */}
-              <div className="hidden shrink-0 flex-col gap-1.5 md:flex md:min-w-[220px] md:items-end print:flex print:min-w-[180px] print:items-end print:gap-0.5">
-                {socialLinks.map((l) => (
-                  <a
-                    key={l.label}
-                    href={l.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group inline-flex items-baseline gap-2 font-mono text-xs text-foreground/85 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background print:text-[10px]"
-                  >
-                    <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground print:text-[8.5px] print:text-foreground/70">
-                      {l.label}
-                    </span>
-                    <span className="break-all underline decoration-foreground/20 decoration-1 underline-offset-4 group-hover:decoration-primary print:no-underline">
-                      {l.href
-                        .replace(/^mailto:/, "")
-                        .replace(/^https?:\/\//, "")
-                        .replace(/\/$/, "")}
-                    </span>
-                  </a>
-                ))}
+                <p className="font-serif text-lg text-primary">Web3 &amp; Full-Stack Developer · Addis Ababa</p>
               </div>
             </div>
-          </FadeUp>
+            <p className="max-w-prose text-pretty text-sm/6 text-muted-foreground">
+              Also known as Burhan online. I build dApps, design systems, and modern web experiences — and help grow
+              the local builder community through meetups, hackathons and workshops.
+            </p>
+            <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm">
+              {socialLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target={l.href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition-colors hover:text-highlighted"
+                  >
+                    <span className="text-muted-foreground/60">{l.label}</span>{" "}
+                    <span className="border-b border-primary/60 text-foreground">{l.handle}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </header>
 
-          {/* Experience */}
-          <FadeUp delay={0.05}>
-            <Section label="Experience">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                {experience.map((e) => (
-                  <EntryRow key={e.title + e.range} e={e} />
-                ))}
-              </div>
-            </Section>
-          </FadeUp>
+          <CvSection title="Experience">
+            {experience.map((e, i) => (
+              <Entry key={e.title + e.range} e={e} i={i} />
+            ))}
+          </CvSection>
 
-          {/* Projects */}
-          <FadeUp delay={0.05}>
-            <Section label="Projects">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                {projects.map((e) => (
-                  <EntryRow key={e.title + e.range} e={e} />
-                ))}
-              </div>
-            </Section>
-          </FadeUp>
+          <CvSection title="Selected projects">
+            {cvProjects.map((e, i) => (
+              <Entry key={e.title} e={e} i={i} />
+            ))}
+          </CvSection>
 
-          {/* Events / Communities */}
-          <FadeUp delay={0.05}>
-            <Section label="Events">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                {events.map((e) => (
-                  <EntryRow key={e.title + e.range} e={e} />
-                ))}
-              </div>
-            </Section>
-          </FadeUp>
+          <CvSection title="Events">
+            {events.map((e, i) => (
+              <Entry key={e.title} e={e} i={i} />
+            ))}
+          </CvSection>
 
-          {/* Education */}
-          <FadeUp delay={0.05}>
-            <Section label="Education">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                {education.map((e) => (
-                  <EntryRow key={e.title + e.range} e={e} />
-                ))}
-              </div>
-            </Section>
-          </FadeUp>
+          <CvSection title="Education">
+            {education.map((e, i) => (
+              <Entry key={e.title} e={e} i={i} />
+            ))}
+          </CvSection>
 
-          {/* Certifications */}
-          <FadeUp delay={0.05}>
-            <Section label="Certifications">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                {certifications.map((e) => (
-                  <EntryRow key={e.title + e.range} e={e} />
-                ))}
-              </div>
-            </Section>
-          </FadeUp>
+          <CvSection title="Certifications">
+            {certifications.map((e, i) => (
+              <Entry key={e.title} e={e} i={i} />
+            ))}
+          </CvSection>
 
-          {/* Workflow — side-by-side rows like Experience entries */}
-          <FadeUp delay={0.05}>
-            <Section label="Workflow">
-              <div className="divide-y divide-foreground/20 print:divide-foreground/40">
-                <div className="print-avoid-break grid gap-3 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
-                    Skills
-                  </p>
-                  <Chips items={skills} />
-                </div>
-                <div className="print-avoid-break grid gap-3 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
-                    Tools
-                  </p>
-                  <Chips items={tools} />
-                </div>
-                <div className="print-avoid-break grid gap-3 py-6 sm:grid-cols-[160px_1fr] sm:gap-6 sm:py-8 print:grid-cols-[110px_1fr] print:gap-3 print:py-1">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground print:text-[9px] print:text-foreground/70">
-                    Technology
-                  </p>
-                  <Chips items={technology} />
-                </div>
-              </div>
-            </Section>
-          </FadeUp>
+          <CvSection title="Workflow">
+            <Tags label="Skills" items={skills} i={0} />
+            <Tags label="Tools" items={tools} i={1} />
+            <Tags label="Technology" items={technology} i={2} />
+          </CvSection>
 
-          {/* Print button */}
-          <div className="mt-16 flex justify-start border-t-2 border-foreground/30 pt-8 sm:mt-20 sm:justify-end print:hidden">
-            <PrintCvButton />
-          </div>
-        </main>
-
-        <div className="contents print:hidden">
-          <SiteFooter />
+          <PrintCvButton />
         </div>
-      </div>
+      </FolioShell>
     </div>
   )
 }

@@ -1,11 +1,6 @@
 import { redirect } from "next/navigation"
-import Link from "next/link"
 import { createClient } from "@/lib/supabase/server"
-import { SiteNav } from "@/components/site-nav"
-import { SiteFooter } from "@/components/site-footer"
-import { AuroraBackground } from "@/components/aurora-background"
-import { AnimatedHeading } from "@/components/animated-heading"
-import { FadeUp } from "@/components/fade-up"
+import { FolioShell, PageTitle, Row, Section, SectionTitle } from "@/components/folio/ui"
 import { LogoutButton } from "@/components/logout-button"
 
 export default async function ProtectedPage() {
@@ -19,60 +14,28 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="relative min-h-screen">
-      <AuroraBackground />
-      <div className="relative z-10">
-        <SiteNav />
-        <main className="mx-auto w-full max-w-4xl px-6 py-12">
-          <AnimatedHeading
-            text="hello, friend."
-            accentLast
-            className="text-5xl sm:text-6xl"
-          />
-
-          <FadeUp delay={0.35}>
-            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/75">
-              You&apos;re signed in as{" "}
-              <span className="font-mono text-foreground">{user.email}</span>.
-              This is a private space — only visible when you&apos;re
-              authenticated.
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.5}>
-            <div className="mt-10 grid gap-3 sm:grid-cols-2">
-              <Link
-                href="/admin"
-                className="group flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-primary/60 hover:bg-card/70"
-              >
-                <span>
-                  <span className="block font-serif text-xl text-foreground">
-                    admin
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    manage projects
-                  </span>
-                </span>
-                <span className="font-mono text-sm text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary">
-                  →
-                </span>
-              </Link>
-              <div className="flex items-center justify-between rounded-xl border border-border/60 bg-card/40 px-5 py-4 backdrop-blur-sm">
-                <span>
-                  <span className="block font-serif text-xl text-foreground">
-                    sign out
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    end this session
-                  </span>
-                </span>
-                <LogoutButton />
-              </div>
+    <FolioShell back={{ href: "/", label: "Home" }}>
+      <div className="flex flex-col gap-12">
+        <PageTitle
+          title="Hello, friend"
+          intro={
+            <>
+              You&apos;re signed in as <span className="font-medium text-highlighted">{user.email}</span>. This is a
+              private space — only visible when you&apos;re authenticated.
+            </>
+          }
+        />
+        <Section>
+          <SectionTitle>Manage</SectionTitle>
+          <div className="flex flex-col">
+            <Row href="/admin" title="Admin" sub="projects, writing, testimonials" meta="→" />
+            <div className="flex items-baseline justify-between gap-4 py-2">
+              <span className="font-medium text-highlighted">Sign out</span>
+              <LogoutButton />
             </div>
-          </FadeUp>
-        </main>
-        <SiteFooter />
+          </div>
+        </Section>
       </div>
-    </div>
+    </FolioShell>
   )
 }

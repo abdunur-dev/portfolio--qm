@@ -1,15 +1,6 @@
-'use client'
+"use client"
 
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from '@/components/ui/carousel'
-import Autoplay from 'embla-carousel-autoplay'
+import { useEffect, useState } from "react"
 
 interface Testimonial {
   id: string
@@ -23,175 +14,78 @@ interface Testimonial {
   link?: string
 }
 
+/**
+ * Testimonials list ("Kind words.") — fetched from /api/testimonials and
+ * rendered as quiet quote blocks in the hugorcd.com-inspired style.
+ */
 export function TestimonialsCarousel() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [loading, setLoading] = useState(true)
-  const plugin = React.useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: true })
-  )
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await fetch('/api/testimonials')
+        const response = await fetch("/api/testimonials")
         if (response.ok) {
           const data = await response.json()
-          setTestimonials(data)
+          setTestimonials(Array.isArray(data) ? data : [])
         }
       } catch (error) {
-        console.error('Failed to fetch testimonials:', error)
+        console.error("Failed to fetch testimonials:", error)
       } finally {
         setLoading(false)
       }
     }
-
     fetchTestimonials()
   }, [])
 
-  if (loading) {
-    return (
-      <div>
-        <div className="mt-20 border-t border-border/60 pt-16">
-          <div className="mb-10">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
-              testimonials
-            </p>
-            <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
-              Hear it from others
-            </h2>
-          </div>
-          <div className="text-center py-12 text-muted-foreground">Loading testimonials...</div>
-        </div>
-      </div>
-    )
-  }
-
-  if (testimonials.length === 0) {
-    return null
-  }
+  if (!loading && testimonials.length === 0) return null
 
   return (
-    <div>
-      <div className="mt-20 border-t border-border/60 pt-16">
-        <div className="mb-10">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
-            testimonials
-          </p>
-          <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
-            Hear it from others
-          </h2>
-        </div>
+    <section className="flex flex-col gap-6">
+      <h3 className="font-serif text-lg italic text-highlighted">
+        Kind words<span className="text-primary">.</span>
+      </h3>
 
-        {/* Testimonials Carousel */}
-        <div className="relative mx-auto overflow-hidden">
-          <Carousel
-            opts={{
-              align: 'start',
-              loop: true,
-              duration: 60,
-              skipSnaps: false,
-            }}
-            plugins={[plugin.current]}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4 transition-transform duration-700 ease-out">
-              {testimonials.map((testimonial) => (
-                <CarouselItem
-                  key={testimonial.id}
-                  className="pl-4 basis-full sm:basis-1/2 transition-all duration-700 ease-out"
-                >
-                  <div className="h-full border-b border-border/60 pb-6">
-                    {/* Testimonial Image if exists */}
-                    {testimonial.image && (
-                      <div className="relative h-40 w-full mb-4 overflow-hidden">
-                        <Image
-                          src={testimonial.image}
-                          alt={`${testimonial.author}'s work`}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-
-                    {/* Quote Text */}
-                    <p className="text-sm leading-relaxed text-foreground/85 mb-6">
-                      "{testimonial.content}"
-                    </p>
-
-                    {/* Divider */}
-                    <div className="border-t border-border/40 pt-4 flex items-center justify-between">
-                      <div className="flex items-center gap-3 flex-1">
-                        {/* Avatar */}
-                        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border/60 bg-secondary/60">
-                          {testimonial.avatar ? (
-                            <Image
-                              src={testimonial.avatar}
-                              alt={testimonial.author || 'Testimonial author'}
-                              fill
-                              className="object-cover"
-                              sizes="48px"
-                            />
-                          ) : (
-                            <span className="font-serif text-lg text-muted-foreground">
-                              {(testimonial.author || '?').charAt(0).toUpperCase()}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Author Info */}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1">
-                            <p className="font-serif font-semibold text-foreground truncate">
-                              {testimonial.author}
-                            </p>
-                            {testimonial.verified && (
-                              <span className="text-xs text-primary shrink-0">✓</span>
-                            )}
-                          </div>
-                          <p className="text-xs text-muted-foreground truncate">
-                            {testimonial.role || testimonial.company || 'Appreciation'}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Link Icon */}
-                      {testimonial.link && (
-                        <a
-                          href={testimonial.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="ml-2 p-1.5"
-                          title="Visit profile"
-                        >
-                          <svg
-                            className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                            />
-                          </svg>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            {/* Navigation buttons */}
-            <div className="mt-6 flex justify-center gap-6">
-              <CarouselPrevious className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-primary hover:text-background hover:border-primary hover:shadow-md" />
-              <CarouselNext className="relative top-0 left-0 h-11 w-11 translate-x-0 translate-y-0 border border-border/60 bg-card/40 text-foreground transition-all duration-200 hover:bg-primary hover:text-background hover:border-primary hover:shadow-md" />
-            </div>
-          </Carousel>
-        </div>
-      </div>
-    </div>
+      {loading ? (
+        <p className="text-sm text-muted-foreground/60">Loading…</p>
+      ) : (
+        <ul className="flex flex-col gap-8">
+          {testimonials.map((t, i) => (
+            <li key={t.id} className="folio-in flex flex-col gap-3" style={{ animationDelay: `${i * 40}ms` }}>
+              <blockquote className="border-l-2 border-primary/70 pl-4 text-pretty text-sm/6 text-foreground">
+                &ldquo;{t.content}&rdquo;
+              </blockquote>
+              <div className="flex items-center gap-3 pl-4">
+                {t.avatar ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={t.avatar} alt="" className="size-7 rounded-sm object-cover" />
+                ) : (
+                  <span className="flex size-7 items-center justify-center rounded-sm bg-muted font-serif text-sm text-muted-foreground">
+                    {(t.author || "?").charAt(0).toUpperCase()}
+                  </span>
+                )}
+                <div className="min-w-0 text-sm">
+                  {t.link ? (
+                    <a
+                      href={t.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-highlighted decoration-primary underline-offset-4 hover:underline"
+                    >
+                      {t.author}
+                    </a>
+                  ) : (
+                    <span className="font-medium text-highlighted">{t.author}</span>
+                  )}
+                  {t.verified && <span className="ml-1 text-xs text-primary">✓</span>}
+                  <span className="ml-2 text-muted-foreground/70">{t.role || t.company}</span>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   )
 }

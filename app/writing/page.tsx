@@ -1,146 +1,80 @@
 import Link from "next/link"
-import { SiteNav } from "@/components/site-nav"
-import { SiteFooter } from "@/components/site-footer"
-import { AnimatedHeading } from "@/components/animated-heading"
-import { FadeUp } from "@/components/fade-up"
-import { posts as staticPosts } from "@/lib/posts-data"
-import { createClient } from "@/lib/supabase/server"
-import type { Post as DbPost } from "@/lib/types"
+import type { Metadata } from "next"
+import { FolioShell, PageTitle, stagger } from "@/components/folio/ui"
+import { getPosts, groupByYear } from "@/lib/content"
 
 export const dynamic = "force-dynamic"
 
-type ListPost = {
-  title: string
-  slug: string
-  date: string
-  year: number
-  excerpt: string
-  reading: string
-  href?: string | null
-  cover_url?: string | null
+export const metadata: Metadata = {
+  title: "Writing · Abdurhaman Nur",
+  description: "Field notes on software, faith, community and building from Addis Ababa.",
 }
 
 export default async function WritingPage() {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("published", true)
-    .order("year", { ascending: false })
-    .order("position", { ascending: true })
-    .order("created_at", { ascending: false })
-
-  const dbPosts = (data ?? []) as DbPost[]
-
-  const posts: ListPost[] =
-    dbPosts.length > 0
-      ? dbPosts.map((p) => ({
-          title: p.title,
-          slug: p.slug,
-          date: p.date_label,
-          year: p.year,
-          excerpt: p.excerpt,
-          reading: p.reading,
-          href: p.href,
-          cover_url: p.cover_url,
-        }))
-      : staticPosts
-
-  const grouped = posts.reduce<Record<number, ListPost[]>>((acc, p) => {
-    ;(acc[p.year] ||= []).push(p)
-    return acc
-  }, {})
-  const years = Object.keys(grouped).map(Number).sort((a, b) => b - a)
+  const posts = await getPosts()
+  const groups = groupByYear(posts, (p) => p.year)
+  let n = 0
 
   return (
-    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
-      <div className="relative z-10">
-        <SiteNav />
-        <main className="mx-auto w-full max-w-4xl px-5 pb-24 sm:px-6 sm:pb-32">
-          <section className="pt-4 pb-12 sm:pb-14">
-            <AnimatedHeading
-              text="writing."
-              className="text-5xl sm:text-6xl md:text-7xl"
-              accentLast
-            />
-            <FadeUp delay={0.35}>
-              <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
-                Field notes from the workbench — software, faith, and the
-                strange middle where they meet. Plus a few notes on{" "}
-                <span className="font-serif italic">events I&apos;ve helped
-                organize or spoken at</span> around the local builder scene.
-              </p>
-            </FadeUp>
+    <FolioShell back={{ href: "/", label: "Home" }}>
+      <PageTitle
+        title="Writing"
+        intro="Field notes from the workbench — software, faith, and the strange middle where they meet. Plus a few notes on events I've helped organise or spoken at."
+      />
+
+      {posts.length === 0 && (
+        <p className="mt-12 text-sm text-muted-foreground">Nothing published yet — come back soon.</p>
+      )}
+
+      <div className="mt-12 flex flex-col gap-12">
+        {groups.map(({ year, items }) => (
+          <section key={year} className="flex flex-col gap-2">
+            <h2 className="folio-in font-serif text-lg italic text-muted-foreground/70" style={stagger(n++)}>
+              {year}
+            </h2>
+            <ul className="flex flex-col">
+              {items.map((post) => (
+                <li key={post.slug} className="folio-in" style={stagger(n++)}>
+                  <Link
+                    href={post.href ?? `/writing/${post.slug}`}
+                    className="group flex items-start justify-between gap-5 border-b border-border/60 py-5"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <h3 className="font-medium text-highlighted decoration-primary underline-offset-4 group-hover:underline">
+                          {post.title}
+                        </h3>
+                        <span className="shrink-0 text-sm text-muted-foreground/60">{post.date}</span>
+                      </div>
+                      {post.excerpt && (
+                        <p className="mt-1.5 line-clamp-2 text-pretty text-sm/6 text-muted-foreground">
+                          {post.excerpt}
+                        </p>
+                      )}
+                      {post.reading && (
+                        <p className="mt-2 text-xs text-muted-foreground/60">
+                          {post.reading}
+                          <span className="ml-2 inline-block text-primary transition-transform group-hover:translate-x-1">
+                            →
+                          </span>
+                        </p>
+                      )}
+                    </div>
+                    {post.cover_url && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={post.cover_url}
+                        alt=""
+                        className="hidden size-20 shrink-0 rounded-sm object-cover sm:block"
+                      />
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </section>
-
-          {posts.length === 0 && (
-            <FadeUp>
-              <p className="font-mono text-sm text-muted-foreground">
-                Nothing published yet — come back soon.
-              </p>
-            </FadeUp>
-          )}
-
-          {years.map((year, yi) => (
-            <section key={year} className="relative mb-16">
-              <FadeUp delay={0.05 * yi}>
-                <h2 className="mb-6 font-mono text-xs uppercase tracking-widest text-muted-foreground sm:absolute sm:-left-24 sm:top-1 sm:mb-0">
-                  {year}
-                </h2>
-              </FadeUp>
-              <ul className="grid gap-6 border-y border-white/10 py-6 sm:grid-cols-2">
-                {grouped[year].map((post, i) => (
-                  <FadeUp key={post.slug} delay={0.08 + i * 0.05}>
-                    <li className="min-w-0">
-                      <Link
-                        href={post.href ?? `/writing/${post.slug}`}
-                        className="group relative block transition-colors"
-                      >
-                        <div className="block">
-                          {post.cover_url && (
-                            <div className="mb-5 aspect-[16/10] w-full overflow-hidden border border-white/10 bg-black">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
-                                src={post.cover_url || "/placeholder.svg"}
-                                alt=""
-                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                              />
-                            </div>
-                          )}
-                          <div className="min-w-0">
-                            <div className="flex items-baseline justify-between gap-6">
-                              <h3 className="font-serif text-xl leading-snug text-foreground transition-colors group-hover:text-primary sm:text-2xl">
-                                {post.title}
-                              </h3>
-                              <span className="hidden shrink-0 font-mono text-xs text-muted-foreground sm:inline">
-                                {post.date}
-                              </span>
-                            </div>
-                            {post.excerpt && (
-                              <p className="mt-3 max-w-2xl text-pretty text-sm leading-[1.7] text-foreground/65">
-                                {post.excerpt}
-                              </p>
-                            )}
-                            <div className="mt-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                              {post.reading && <span>{post.reading}</span>}
-                              {post.reading && post.date && <span aria-hidden>·</span>}
-                              {post.date && <span className="sm:hidden">{post.date}</span>}
-                              <span className="ml-auto inline-flex items-center gap-1 text-foreground/60 transition-all group-hover:translate-x-1 group-hover:text-primary">
-                                read <span aria-hidden>→</span>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </li>
-                  </FadeUp>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </main>
-        <SiteFooter />
+        ))}
       </div>
-    </div>
+    </FolioShell>
   )
 }

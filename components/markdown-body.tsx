@@ -9,22 +9,22 @@ export function MarkdownBody({ content }: { content: string }) {
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ children }) => (
-          <h1 className="mt-14 mb-4 font-serif text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mt-12 mb-4 font-serif text-3xl italic leading-tight text-highlighted">
             {children}
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="mt-12 mb-3 font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-3xl">
+          <h2 className="mt-10 mb-3 font-serif text-2xl italic leading-tight text-highlighted">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="mt-10 mb-3 font-serif text-xl leading-snug tracking-tight text-foreground sm:text-2xl">
+          <h3 className="mt-8 mb-2 font-serif text-xl italic leading-snug text-highlighted">
             {children}
           </h3>
         ),
         p: ({ children }) => (
-          <p className="my-5 text-[0.95rem] leading-[1.85] text-foreground/85 sm:text-base sm:leading-[1.9]">
+          <p className="my-5 text-pretty text-[0.95rem] leading-[1.85] text-foreground sm:text-base">
             {children}
           </p>
         ),
@@ -38,7 +38,7 @@ export function MarkdownBody({ content }: { content: string }) {
               href={externalHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline decoration-foreground/30 underline-offset-[3px] transition-colors hover:decoration-foreground/70"
+              className="border-b border-primary font-medium text-highlighted transition-colors hover:border-highlighted"
             >
               {children}
             </a>

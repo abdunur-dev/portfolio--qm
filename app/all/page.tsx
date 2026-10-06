@@ -1,113 +1,103 @@
-import { SiteNav } from "@/components/site-nav"
-import { SiteFooter } from "@/components/site-footer"
-import { ProjectCard } from "@/components/project-card"
-import { projectsByYear as staticByYear, type Project, type ProjectYear } from "@/lib/projects-data"
-import { AnimatedHeading } from "@/components/animated-heading"
-import { FadeUp } from "@/components/fade-up"
-import { FloatingSparkle } from "@/components/floating-sparkle"
-import { createClient } from "@/lib/supabase/server"
-import type { Project as DbProject } from "@/lib/types"
+import type { Metadata } from "next"
+import { FolioShell, PageTitle, stagger } from "@/components/folio/ui"
+import { getProjects, groupByYear } from "@/lib/content"
+import { ArrowUpRight } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
-function dbToCard(p: DbProject): Project {
-  const links: { label: string; href: string }[] = []
-  if (p.live_url) links.push({ label: "Live", href: p.live_url })
-  if (p.repo_url) links.push({ label: "Repo", href: p.repo_url })
-  return {
-    title: p.title,
-    kind: p.kind,
-    description: p.description || "",
-    stack: p.stack ?? [],
-    cover_url: p.cover_url,
-    links: links.length ? links : undefined,
-  }
+export const metadata: Metadata = {
+  title: "Projects · Abdurhaman Nur",
+  description: "Things I've built across work, side quests, hackathons and experiments.",
 }
 
 export default async function AllProjectsPage() {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("projects")
-    .select("*")
-    .order("year", { ascending: false })
-    .order("position", { ascending: true })
-    .order("created_at", { ascending: false })
-
-  const dbProjects = (data ?? []) as DbProject[]
-
-  const groups: ProjectYear[] =
-    dbProjects.length > 0
-      ? Object.entries(
-          dbProjects.reduce<Record<string, Project[]>>((acc, p) => {
-            const key = String(p.year)
-            ;(acc[key] ||= []).push(dbToCard(p))
-            return acc
-          }, {}),
-        )
-          .map(([year, projects]) => ({ year, projects }))
-          .sort((a, b) => Number(b.year) - Number(a.year))
-      : staticByYear
+  const projects = await getProjects()
+  const groups = groupByYear(projects, (p) => p.year)
+  let n = 0
 
   return (
-    <div className="min-h-screen bg-[#08090b] text-[#f4f1eb]">
-      <div className="relative z-10">
-        <SiteNav />
+    <FolioShell back={{ href: "/", label: "Home" }}>
+      <PageTitle
+        title="Projects"
+        intro="Things I've built across work, side quests, hackathons and the occasional whimsical detour."
+      />
 
-        <main className="mx-auto w-full max-w-4xl px-5 pb-20 sm:px-6 sm:pb-24">
-        {/* Heading */}
-        <section className="mt-6 mb-16">
-          <AnimatedHeading
-            segments={[
-              { text: "pro", tone: "solid" },
-              { text: "j", tone: "muted" },
-              { text: "ec", tone: "solid" },
-              { text: "ts", tone: "muted" },
-              { text: ".", tone: "accent" },
-            ]}
-          />
+      <div className="mt-12 flex flex-col gap-12">
+        {groups.map(({ year, items }) => (
+          <section key={year} className="flex flex-col gap-2">
+            <h2 className="folio-in font-serif text-lg italic text-muted-foreground/70" style={stagger(n++)}>
+              {year}
+            </h2>
 
-          <FadeUp delay={0.35}>
-            <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-foreground/70">
-              Things I&apos;ve built across work, side quests, and the
-              occasional whimsical detour{" "}
-              <FloatingSparkle />
-            </p>
-          </FadeUp>
-        </section>
+            <ul className="flex flex-col">
+              {items.map((p) => {
+                const TitleTag = p.href ? "a" : "span"
+                return (
+                  <li
+                    key={p.title}
+                    className="folio-in flex gap-5 border-b border-border/60 py-5"
+                    style={stagger(n++)}
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <TitleTag
+                          {...(p.href ? { href: p.href, target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="group inline-flex items-center gap-1 font-medium text-highlighted decoration-primary underline-offset-4 hover:underline"
+                        >
+                          {p.title}
+                          {p.href && (
+                            <ArrowUpRight className="size-3.5 text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          )}
+                        </TitleTag>
+                        <span className="shrink-0 text-sm text-muted-foreground/60">{p.kind}</span>
+                      </div>
 
-        {/* Year sections */}
-        <div className="flex flex-col gap-20">
-          {groups.map((group) => (
-            <section
-              key={group.year}
-              className="grid grid-cols-1 gap-8 sm:grid-cols-[6rem_1fr] sm:gap-10"
-            >
-              <FadeUp className="sm:sticky sm:top-8 sm:self-start">
-                <h2 className="font-mono text-sm tracking-[0.2em] text-muted-foreground">
-                  {group.year}
-                </h2>
-                <span
-                  aria-hidden
-                  className="mt-3 hidden h-px w-10 bg-primary/60 sm:block"
-                />
-              </FadeUp>
+                      {p.description && (
+                        <p className="mt-1.5 text-pretty text-sm/6 text-muted-foreground first-letter:uppercase">
+                          {p.description}
+                        </p>
+                      )}
 
-              <div className="flex flex-col gap-10">
-                {group.projects.map((project, i) => (
-                  <ProjectCard
-                    key={`${group.year}-${project.title}`}
-                    project={project}
-                    index={i}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
+                      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs">
+                        {p.stack.length > 0 && (
+                          <span className="text-muted-foreground/60">{p.stack.join(" · ")}</span>
+                        )}
 
-        </main>
-        <SiteFooter />
+                        {/* Direct links badges */}
+                        {p.links && p.links.length > 0 && (
+                          <div className="flex flex-wrap items-center gap-2">
+                            {p.links.map((l) => (
+                              <a
+                                key={l.href + l.label}
+                                href={l.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 rounded bg-secondary/80 px-2 py-0.5 font-medium text-foreground transition-colors hover:bg-primary/20 hover:text-primary"
+                              >
+                                <span>{l.label.replace(/\s*↗$/, "")}</span>
+                                <ArrowUpRight className="size-3" />
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {p.cover_url && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={p.cover_url}
+                        alt=""
+                        className="hidden size-20 shrink-0 rounded-sm border border-border/60 object-cover sm:block"
+                      />
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          </section>
+        ))}
       </div>
-    </div>
+    </FolioShell>
   )
 }
