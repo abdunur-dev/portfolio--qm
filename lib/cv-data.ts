@@ -11,42 +11,53 @@ export type CvEntry = {
 }
 
 export const experience: CvEntry[] = [
-
   {
     range: "2025 — now",
-    title: "IRL Meetups & Events",
-    org: "Organiser & Speaker",
-    desc: "Helping organize IRL meetups and tech events in Addis Ababa — gathering local devs, designers, and founders for talks, hackathons, and hands-on workshops on shipping modern products, AI-assisted building, and Web3.",
+    title: "Full-Stack & Frontend Engineer",
+    org: "Zero Hunger AI (Contract / Germany)",
+    desc: "Engineering modern, high-performance web applications and AI-driven interfaces for an international mission-driven organization based in Germany. Architecting responsive frontend systems with Next.js, TypeScript, and Tailwind CSS; integrating full-stack API workflows and production AI models with a focus on fluid UX and resilient system design.",
+  },
+  {
+    range: "2025 — now",
+    title: "Developer Relations & Community Lead",
+    org: "Vercel Super Host · Raycast Ambassador",
+    desc: "Recognized as a Vercel Super Host and official Raycast Ambassador. Pioneered developer ecosystems across East Africa, convening 350+ engineers, founders, and designers across high-turnout conferences, live technical demos, and hands-on workshops on modern frontend architecture, AI tooling, and decentralized software.",
   },
   {
     range: "2024 — now",
-    title: "Freelance",
-    org: "Full-Stack & Smart Contract Developer",
-    desc: "Shipped dApps on Base and Scroll with TypeScript and Solidity. Built design systems and frontends for early-stage startups across Web3, productivity, and AI.",
+    title: "Full-Stack & Web3 Engineer",
+    org: "Independent / Contract",
+    desc: "Architected and delivered production web apps and decentralized solutions across EVM Layer-2s and Solana. Engineered modular design systems, robust frontend architectures, and secure on-chain transaction flows with ethers/viem and AI-agent integrations.",
   },
   {
     range: "2020 — 2024",
-    title: "Self-taught",
-    org: "Developer",
-    desc: "Started coding during the 2020 lockdown — late-night tutorials, side experiments, and a slow slide into full-stack. Fell in love with creating things on the web.",
+    title: "Software Engineer",
+    org: "Autonomous Engineering & Open Source",
+    desc: "Built scalable web applications, explored reactive frontend architectures, and contributed to open-source software tools with a focus on web performance, accessibility, and modern JavaScript.",
   },
 ]
 
 export const events: CvEntry[] = [
   {
     range: "2025 — now",
-    title: "IRL Meetups & Tech Events, Addis Ababa",
-    org: "Co-organiser & Speaker",
-    desc: "A series of in-person meetups and events for Ethiopian developers, designers, and founders. Curated speaker lineups, hackathons, and workshops to grow the local AI and Web3 builder scene.",
+    title: "Vercel & Raycast Developer Ecosystem, Addis Ababa",
+    org: "Lead Organizer, Super Host & Keynote Speaker",
+    desc: "Partnered with global developer tool leaders (Vercel, Raycast) to host premier developer meetups and hackathons (200+ registrations, 80+ attendees per session). Delivered keynotes and mentored emerging engineers in Next.js, AI integrations, and developer workflows.",
   },
 ]
 
 export const education: CvEntry[] = [
   {
+    range: "In Progress",
+    title: "Aviation Sciences",
+    org: "Aviation College",
+    desc: "Pursuing rigorous aviation studies emphasizing precision systems, aeronautical procedures, risk management, and operational discipline.",
+  },
+  {
     range: "2020 — now",
-    title: "Self-Directed Learning",
-    org: "Internet & open-source",
-    desc: "Web development, smart contracts, design, and product — through open courses, docs, and shipping in public.",
+    title: "Computer Science & Systems Engineering",
+    org: "Self-Directed & Technical Specializations",
+    desc: "Advanced self-directed coursework in Systems Design, Distributed Architectures, Full-Stack Engineering, and Web3/AI Protocol Development.",
   },
 ]
 
@@ -55,51 +66,60 @@ export const certifications: CvEntry[] = [
     range: "2024",
     title: "The Complete Web Developer Bootcamp",
     org: "Udemy",
-    desc: "Full-stack JavaScript, React, Node.js, and modern web fundamentals.",
+    desc: "Comprehensive engineering curriculum covering React, Node.js, REST APIs, asynchronous architecture, and database management.",
   },
   {
     range: "2024",
     title: "Ethereum & Solidity: The Complete Developer's Guide",
     org: "Udemy",
-    desc: "Smart contract development, dApp architecture, and on-chain testing patterns.",
-  },
-  {
-    range: "2023",
-    title: "Responsive Web Design",
-    org: "freeCodeCamp",
-    desc: "Semantic HTML, CSS layout, accessibility, and responsive design principles.",
+    desc: "Advanced EVM architecture, smart contract security patterns, gas optimization, and decentralized application testing.",
   },
   {
     range: "2023",
     title: "JavaScript Algorithms & Data Structures",
     org: "freeCodeCamp",
-    desc: "Modern JavaScript, functional programming, and core data structures.",
+    desc: "Algorithmic complexity, data structure design, ES6+ design patterns, and functional programming.",
+  },
+  {
+    range: "2023",
+    title: "Responsive Web Design & Web Standards",
+    org: "freeCodeCamp",
+    desc: "Modern semantic markup, WCAG accessibility standards, responsive layouts, and cross-browser performance.",
   },
 ]
 
 export const skills = [
-  "frontend engineering",
-  "smart contract development",
-  "design systems",
-  "product thinking",
-  "community building",
-  "public speaking",
-  "mentorship",
-  "technical writing",
+  "Frontend Architecture & Engineering",
+  "Full-Stack Development",
+  "Developer Relations (DevRel)",
+  "AI Agents & Agentic Workflows",
+  "Model Context Protocol (MCP)",
+  "API Design & Integration",
+  "Design Systems & UI/UX",
+  "Community Building & Evangelism",
 ]
 
-export const tools = ["figma", "github", "notion", "linear", "vercel", "v0", "claude", "cursor"]
+export const tools = [
+  "Git & GitHub",
+  "Vercel",
+  "Supabase",
+  "Docker",
+  "Figma",
+  "Cursor",
+  "Postman",
+  "Linear",
+]
 
 export const technology = [
-  "typescript",
-  "react",
-  "next.js",
-  "tailwind",
-  "solidity",
-  "ethers / viem",
-  "base",
-  "scroll",
-  "supabase",
-  "node.js",
-  "ai sdk",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Node.js",
+  "Tailwind CSS",
+  "Model Context Protocol (MCP)",
+  "Solidity & EVM",
+  "Solana",
+  "Ethers.js / Viem",
+  "PostgreSQL",
+  "REST & WebSockets",
 ]

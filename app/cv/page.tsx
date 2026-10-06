@@ -21,16 +21,25 @@ export const metadata: Metadata = {
 }
 
 const cvProjects: CvEntry[] = [
-
   {
-    range: "2024",
-    title: "VibeVerse",
-    desc: "A 3D NFT marketplace exploring spatial commerce — browsing collections inside an interactive, scrollable 3D world.",
+    range: "2026",
+    title: "Eve Preflight",
+    desc: "A developer pre-flight verification tool and workflow audit engine that automates environmental checks, configuration validations, and deployment readiness for modern web and AI applications.",
+  },
+  {
+    range: "2026",
+    title: "TinyAgent",
+    desc: "Lightweight, composable AI agent runtime enabling autonomous multi-step reasoning, natural language command execution, and tool orchestration with minimal latency.",
+  },
+  {
+    range: "2025",
+    title: "MCP Craft",
+    desc: "Interactive development platform and toolkit for the Model Context Protocol (MCP), enabling seamless connection between LLMs and external data sources, dev tools, and custom APIs.",
   },
   {
     range: "2024",
-    title: "GuardHer AI",
-    desc: "An AI safety tool that filters harmful content — focused on protecting women and vulnerable users in online spaces.",
+    title: "PayCrew",
+    desc: "Automated team payroll and disbursement platform engineered with Next.js, TypeScript, and Tailwind CSS, featuring automated recurring payouts and unified financial dashboards.",
   },
 ]
 
@@ -98,12 +107,11 @@ export default function CvPage() {
                 <h1 className="font-serif text-3xl text-highlighted">
                   Abdurhaman Nur<span className="text-primary">.</span>
                 </h1>
-                <p className="font-serif text-lg text-primary">Web3 &amp; Full-Stack Developer · Addis Ababa</p>
+                <p className="font-serif text-lg text-primary">Full-Stack &amp; Frontend Engineer · DevRel · Addis Ababa</p>
               </div>
             </div>
             <p className="max-w-prose text-pretty text-sm/6 text-muted-foreground">
-              Also known as Burhan online. I build dApps, design systems, and modern web experiences — and help grow
-              the local builder community through meetups, hackathons and workshops.
+              Full-Stack &amp; Frontend Engineer specializing in high-performance web systems, agentic AI workflows, and modern UI architectures. Freelance engineer at Zero Hunger AI (Germany), Vercel Super Host, and Raycast Ambassador with proven DevRel experience uniting 350+ developers across technical conferences and hands-on workshops.
             </p>
             <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm">
               {socialLinks.map((l) => (
