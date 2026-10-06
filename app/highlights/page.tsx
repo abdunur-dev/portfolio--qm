@@ -147,7 +147,7 @@ export default async function HighlightsPage() {
 
           <TestimonialsCarousel />
 
-          <div className="hidden space-y-12">
+          <div className="space-y-12">
             {sections.map((s, i) => (
               <FadeUp key={`${s.label}-${i}`} delay={0.1 + i * 0.06}>
                 <section className="relative border-t border-border/60 pt-6 md:pl-32 lg:pl-0">

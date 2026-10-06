@@ -1,100 +1,17 @@
 import Link from "next/link"
-import { Coffee, Github, Linkedin, Mail, Twitter } from "lucide-react"
-import { socialLinks } from "@/lib/social-links"
+import { Coffee } from "lucide-react"
 
 export function SiteFooter() {
-  const year = new Date().getFullYear()
   return (
-    <footer className="mx-auto w-full max-w-5xl px-5 pb-10 sm:px-6">
-      <div className="ana-card border-t border-[#8b86a4]/15 px-5 py-6">
-        {/* Mobile: stacked layout */}
-        <div className="flex flex-col gap-5 sm:hidden">
-          <div className="flex items-center justify-between">
-            <p className="font-mono text-xs text-muted-foreground">
-              © {year} Abdurhaman Nur<span className="text-primary">.</span>
-            </p>
-            <Link
-              href="/cv"
-              className="group inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:border-primary hover:text-primary"
-            >
-              CV
-              <span className="text-[10px] transition-transform group-hover:translate-x-0.5">
-                →
-              </span>
-            </Link>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
-              built with care{" "}
-              <span className="font-serif italic text-primary">✦</span> Addis
-              Ababa
-            </p>
-            <a
-              href="https://buymeacoffee.com/abdurhamanw"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Buy me a coffee"
-              title="Buy me a coffee"
-              className="group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80 transition-colors hover:text-primary"
-            >
-              <Coffee
-                className="h-4 w-4 transition-transform group-hover:-rotate-6 group-hover:scale-110"
-                aria-hidden
-              />
-              coffee
-            </a>
-          </div>
-        </div>
-
-        {/* Desktop: single row */}
-        <div className="hidden items-center justify-between sm:flex">
-          <div className="flex items-center gap-5">
-            <p className="font-mono text-xs text-muted-foreground">
-              © {year} Abdurhaman Nur<span className="text-primary">.</span>
-            </p>
-            <Link
-              href="/cv"
-              className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-primary"
-            >
-              CV
-              <span className="text-[10px] transition-transform group-hover:translate-x-0.5">
-                →
-              </span>
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://buymeacoffee.com/abdurhamanw"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Buy me a coffee"
-              title="Buy me a coffee"
-              className="group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80 transition-colors hover:text-primary"
-            >
-              <Coffee
-                className="h-4 w-4 transition-transform group-hover:-rotate-6 group-hover:scale-110"
-                aria-hidden
-              />
-              buy me a coffee
-            </a>
-            <span aria-hidden className="h-3 w-px bg-border/60" />
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
-              built with care{" "}
-              <span className="font-serif italic text-primary">✦</span> Addis
-              Ababa
-            </p>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-border/60 pt-5">
-          {socialLinks.map((social) => {
-            const Icon = social.label === "GitHub" ? Github : social.label === "Twitter" ? Twitter : social.label === "LinkedIn" ? Linkedin : Mail
-            return (
-              <a key={social.label} href={social.href} target={social.href.startsWith("mailto:") ? undefined : "_blank"} rel={social.href.startsWith("mailto:") ? undefined : "noreferrer"} aria-label={social.label} title={social.label} className="inline-flex size-9 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:border-primary hover:text-primary">
-                <Icon className="size-4" aria-hidden />
-              </a>
-            )
-          })}
-        </div>
+    <footer className="mx-auto w-full max-w-[640px] px-5 pb-10 sm:px-0">
+      <div className="flex items-center justify-between border-t border-border/60 py-6 text-sm">
+        <Link href="/cv" className="text-muted-foreground transition-colors hover:text-foreground">
+          CV <span aria-hidden>↗</span>
+        </Link>
+        <a href="https://buymeacoffee.com/abdurhamanw" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
+          <Coffee className="size-4" aria-hidden />
+          Buy me a coffee
+        </a>
       </div>
     </footer>
   )

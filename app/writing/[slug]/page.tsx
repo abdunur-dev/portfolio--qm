@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { SiteNav } from "@/components/site-nav"
 import { SiteFooter } from "@/components/site-footer"
-import { AuroraBackground } from "@/components/aurora-background"
 import { FadeUp } from "@/components/fade-up"
 import { MarkdownBody } from "@/components/markdown-body"
 import { BlogImageCarousel } from "@/components/blog-image-carousel"
@@ -103,10 +102,9 @@ export default async function WritingPost({
 
   return (
     <div className="ana-page relative min-h-screen">
-      <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-4xl px-5 pb-24 pt-6 sm:px-6 sm:pb-32 sm:pt-10">
+        <main id="main" className="mx-auto w-full max-w-[640px] px-5 pb-24 pt-24 sm:px-0 sm:pb-32 sm:pt-28">
           <FadeUp>
             <Link
               href="/writing"
@@ -120,7 +118,7 @@ export default async function WritingPost({
             <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
               {[post.date, post.reading].filter(Boolean).join(" · ")}
             </p>
-            <h1 className="mt-3 font-serif text-3xl leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
+            <h1 className="mt-5 font-serif text-4xl leading-[1.08] tracking-tight text-foreground sm:text-5xl">
               {post.title}
             </h1>
             {post.excerpt && (
@@ -184,7 +182,7 @@ export default async function WritingPost({
             <div className="mt-16 border-t border-border/60 pt-6">
               <Link
                 href="/writing"
-                className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
+className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <span aria-hidden>←</span> all writing
               </Link>

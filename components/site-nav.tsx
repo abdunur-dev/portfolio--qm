@@ -16,7 +16,7 @@ const links = [
   { href: "/cv", label: "CV", icon: FileText },
 ] as const
 
-export function SiteNav() {
+export function SiteNav({ plain = false }: { plain?: boolean }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -29,7 +29,7 @@ export function SiteNav() {
           <Link href="/" aria-label="Go to homepage" className="text-sm font-medium tracking-tight text-foreground">
             Abdurhaman<span className="text-primary">_</span>
           </Link>
-          <div className="flex items-center gap-2 rounded-full border border-border/70 bg-background/80 p-1 shadow-sm backdrop-blur-xl">
+          <div className={plain ? "flex items-center gap-2 p-1" : "flex items-center gap-2 rounded-full border border-border/70 bg-background/80 p-1 shadow-sm backdrop-blur-xl"}>
             <nav aria-label="Primary" className="hidden sm:block">
               <ul className="flex items-center divide-x divide-border/70 text-sm text-muted-foreground">
                 {links.filter((link) => link.href !== "/cv").map((link) => (

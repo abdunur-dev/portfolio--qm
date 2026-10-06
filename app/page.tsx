@@ -19,7 +19,7 @@ const writing = [
 export default function HomePage() {
   return (
     <div className="hugorcd-page min-h-screen bg-[#080808] text-white">
-      <SiteNav />
+      <SiteNav plain />
       <main id="main" className="mx-auto w-full max-w-[560px] px-5 pb-20 pt-16 sm:px-0 sm:pt-20">
         <section className="space-y-5">
           <div className="flex items-center gap-4">

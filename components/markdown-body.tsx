@@ -14,7 +14,7 @@ export function MarkdownBody({ content }: { content: string }) {
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="mt-12 mb-3 font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-3xl">
+          <h2 className="mt-16 mb-4 font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-3xl">
             {children}
           </h2>
         ),
@@ -24,7 +24,7 @@ export function MarkdownBody({ content }: { content: string }) {
           </h3>
         ),
         p: ({ children }) => (
-          <p className="my-5 text-[0.95rem] leading-[1.85] text-foreground/85 sm:text-base sm:leading-[1.9]">
+          <p className="my-6 text-[1rem] leading-[1.9] text-foreground/85 sm:text-[1.05rem] sm:leading-[1.95]">
             {children}
           </p>
         ),
