@@ -93,6 +93,7 @@ export async function createProject(formData: FormData) {
 
   revalidatePath("/admin")
   revalidatePath("/all")
+  revalidatePath("/")
   return { ok: true }
 }
 
@@ -118,6 +119,7 @@ export async function updateProject(id: string, formData: FormData) {
 
   revalidatePath("/admin")
   revalidatePath("/all")
+  revalidatePath("/")
   return { ok: true }
 }
 
@@ -130,6 +132,7 @@ export async function deleteProject(id: string) {
 
   revalidatePath("/admin")
   revalidatePath("/all")
+  revalidatePath("/")
   return { ok: true }
 }
 

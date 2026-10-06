@@ -96,6 +96,7 @@ export async function createPost(formData: FormData) {
   revalidatePath("/admin")
   revalidatePath("/writing")
   revalidatePath(`/writing/${payload.slug}`)
+  revalidatePath("/")
   return { ok: true }
 }
 
@@ -124,6 +125,7 @@ export async function updatePost(id: string, formData: FormData) {
   revalidatePath("/admin")
   revalidatePath("/writing")
   revalidatePath(`/writing/${payload.slug}`)
+  revalidatePath("/")
   return { ok: true }
 }
 
@@ -136,6 +138,7 @@ export async function deletePost(id: string) {
 
   revalidatePath("/admin")
   revalidatePath("/writing")
+  revalidatePath("/")
   return { ok: true }
 }
 
