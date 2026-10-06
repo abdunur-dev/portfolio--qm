@@ -1,6 +1,6 @@
-import Image from "next/image"
 import { FolioShell, InlineLink, MoreLink, Row, Section, SectionTitle } from "@/components/folio/ui"
 import { SocialIcons } from "@/components/folio/social-icons"
+import { AvatarLightbox } from "@/components/avatar-lightbox"
 import { experience } from "@/lib/cv-data"
 import { getPosts, getProjects } from "@/lib/content"
 
@@ -15,13 +15,11 @@ export default async function HomePage() {
         {/* Intro */}
         <header className="folio-in flex flex-col gap-4">
           <div className="flex items-center gap-4">
-            <Image
+            <AvatarLightbox
               src="/images/burhan-portrait.jpg"
               alt="Abdurhaman Nur"
-              width={56}
-              height={56}
-              priority
-              className="size-14 shrink-0 rounded-sm object-cover"
+              size={56}
+              className="size-14 rounded-sm object-cover"
             />
             <div className="flex flex-col gap-0.5">
               <h1 className="text-lg font-medium text-highlighted">Abdurhaman Nur</h1>
