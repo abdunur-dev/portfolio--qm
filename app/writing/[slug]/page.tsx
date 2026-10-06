@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { FolioShell } from "@/components/folio/ui"
 import { MarkdownBody } from "@/components/markdown-body"
-import { BlogImageCarousel } from "@/components/blog-image-carousel"
 import { getPost, getPosts } from "@/lib/content"
 
 export const dynamic = "force-dynamic"
@@ -48,16 +47,21 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
           )}
         </header>
 
-        {/* Picture / Carousel */}
-        {post.image_urls && post.image_urls.length > 1 ? (
-          <div className="folio-in mt-8" style={{ animationDelay: "80ms" }}>
-            <BlogImageCarousel images={post.image_urls} title={post.title} />
-          </div>
-        ) : post.cover_url ? (
+        {/* Picture */}
+        {post.cover_url ? (
           <figure className="folio-in mt-10" style={{ animationDelay: "80ms" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={post.cover_url}
+              alt={`${post.title} cover image`}
+              className="aspect-[16/9] w-full rounded-md border border-border/60 object-cover"
+            />
+          </figure>
+        ) : post.image_urls && post.image_urls.length > 0 ? (
+          <figure className="folio-in mt-10" style={{ animationDelay: "80ms" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.image_urls[0]}
               alt={`${post.title} cover image`}
               className="aspect-[16/9] w-full rounded-md border border-border/60 object-cover"
             />
