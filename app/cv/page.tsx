@@ -42,7 +42,7 @@ const cvProjects: CvEntry[] = [
 
 export default function CvPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
+    <div id="cv-root" className="cv-print min-h-screen bg-background text-foreground selection:bg-primary/20 print:bg-white print:text-black">
       {/* Top back navigation */}
       <div className="mx-auto max-w-4xl px-6 pt-8 print:hidden">
         <Link
