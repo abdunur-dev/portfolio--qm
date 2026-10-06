@@ -155,6 +155,10 @@
 .dark .ana-page { color: #f2efff; }
 .dark .ana-card { border-color: rgb(255 255 255 / 0.12); background: rgb(20 18 30 / 0.74); }
 
+.hugorcd-page { font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif; }
+.hugorcd-page h1, .hugorcd-page h2 { font-family: var(--font-instrument-serif), Georgia, serif; }
+.hugorcd-page a { text-underline-offset: 3px; }
+
 
 @media print {
   @page {

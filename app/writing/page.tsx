@@ -58,7 +58,7 @@ export default async function WritingPage() {
       <AuroraBackground />
       <div className="relative z-10">
         <SiteNav />
-        <main className="mx-auto w-full max-w-4xl px-5 pb-24 sm:px-6 sm:pb-32">
+        <main className="mx-auto w-full max-w-[560px] px-5 pb-24 pt-16 sm:px-0 sm:pt-20 sm:pb-32">
           <section className="pt-4 pb-12 sm:pb-14">
             <AnimatedHeading
               text="writing."

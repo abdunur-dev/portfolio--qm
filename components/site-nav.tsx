@@ -34,13 +34,15 @@ export function SiteNav() {
       >
         Skip to content
       </a>
-      <header className="sticky top-0 z-40 w-full border-b border-[#8b86a4]/15 bg-[#fbfbff]/85 px-3 backdrop-blur-xl sm:px-5">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 py-3 sm:py-4">
-        <NavWordmark />
+      <header className="fixed right-5 top-5 z-40 sm:right-8 sm:top-7">
+      <div className="flex items-center gap-4">
+        <div className="hidden">
+          <NavWordmark />
+        </div>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-3 md:flex">
-          <nav aria-label="Primary">
+        {/* Reference layout keeps navigation intentionally quiet. */}
+        <div className="flex items-center gap-3">
+          <nav aria-label="Primary" className="hidden">
             <ul className="flex items-center divide-x divide-border/70 text-sm text-muted-foreground">
               {links
                 .filter((l) => !("mobileOnly" in l && l.mobileOnly))
@@ -61,7 +63,7 @@ export function SiteNav() {
         </div>
 
         {/* Mobile nav */}
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="hidden">
           <ThemeToggle />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
