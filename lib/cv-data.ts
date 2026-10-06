@@ -13,19 +13,19 @@ export type CvEntry = {
 export const experience: CvEntry[] = [
 
   {
-    range: "2024 — now",
+    range: "2025 — now",
     title: "IRL Meetups & Events",
     org: "Organiser & Speaker",
     desc: "Helping organize IRL meetups and tech events in Addis Ababa — gathering local devs, designers, and founders for talks, hackathons, and hands-on workshops on shipping modern products, AI-assisted building, and Web3.",
   },
   {
-    range: "2022 — 2024",
+    range: "2024 — now",
     title: "Freelance",
     org: "Full-Stack & Smart Contract Developer",
     desc: "Shipped dApps on Base and Scroll with TypeScript and Solidity. Built design systems and frontends for early-stage startups across Web3, productivity, and AI.",
   },
   {
-    range: "2020 — 2022",
+    range: "2020 — 2024",
     title: "Self-taught",
     org: "Developer",
     desc: "Started coding during the 2020 lockdown — late-night tutorials, side experiments, and a slow slide into full-stack. Fell in love with creating things on the web.",
@@ -34,7 +34,7 @@ export const experience: CvEntry[] = [
 
 export const events: CvEntry[] = [
   {
-    range: "2024 — now",
+    range: "2025 — now",
     title: "IRL Meetups & Tech Events, Addis Ababa",
     org: "Co-organiser & Speaker",
     desc: "A series of in-person meetups and events for Ethiopian developers, designers, and founders. Curated speaker lineups, hackathons, and workshops to grow the local AI and Web3 builder scene.",
