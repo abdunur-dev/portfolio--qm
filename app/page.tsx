@@ -19,7 +19,7 @@ export default async function HomePage() {
               src="/images/burhan-portrait.jpg"
               alt="Abdurhaman Nur"
               size={56}
-              className="size-14 rounded-sm object-cover"
+              className="size-14 rounded-sm object-cover object-top"
             />
             <div className="flex flex-col gap-0.5">
               <h1 className="text-lg font-medium text-highlighted">Abdurhaman Nur</h1>
