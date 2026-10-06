@@ -64,7 +64,7 @@ export function BlogImageCarousel({ images, title }: { images: string[]; title: 
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Images sliding track - Natural 4/3 ratio for Raycast photos */}
+          {/* Images sliding track - Clean 16/9 ratio matching burhan.ink */}
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${active * 100}%)` }}
@@ -73,7 +73,7 @@ export function BlogImageCarousel({ images, title }: { images: string[]; title: 
               <div
                 key={src + i}
                 onClick={() => setLightboxOpen(true)}
-                className="relative aspect-[4/3] min-w-full shrink-0 cursor-zoom-in sm:aspect-[16/10]"
+                className="relative aspect-[16/9] max-h-[380px] min-w-full shrink-0 cursor-zoom-in"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
