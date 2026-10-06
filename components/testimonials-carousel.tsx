@@ -57,11 +57,15 @@ export function TestimonialsCarousel() {
                 &ldquo;{t.content}&rdquo;
               </blockquote>
               <div className="flex items-center gap-3 pl-4">
-                {t.avatar ? (
+                {t.avatar || t.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={t.avatar} alt="" className="size-7 rounded-sm object-cover" />
+                  <img
+                    src={t.avatar || t.image}
+                    alt={t.author}
+                    className="size-8 rounded-full border border-border/80 object-cover shadow-sm"
+                  />
                 ) : (
-                  <span className="flex size-7 items-center justify-center rounded-sm bg-muted font-serif text-sm text-muted-foreground">
+                  <span className="flex size-8 items-center justify-center rounded-full border border-border/60 bg-muted font-serif text-sm text-muted-foreground">
                     {(t.author || "?").charAt(0).toUpperCase()}
                   </span>
                 )}
