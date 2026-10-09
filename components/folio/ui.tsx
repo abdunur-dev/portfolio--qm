@@ -1,7 +1,6 @@
 import Link from "next/link"
 import type { CSSProperties, ReactNode } from "react"
 import { ThemeDot } from "@/components/folio/theme-dot"
-import { VisitorCounter } from "@/components/visitor-counter"
 
 /* -------------------------------------------------------------------------- */
 /*  Layout primitives for the hugorcd.com-inspired design                     */
@@ -57,11 +56,7 @@ function FolioFooter() {
   const year = new Date().getFullYear()
   return (
     <footer className="mt-20 flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground/50 print:hidden">
-      <div className="flex flex-wrap items-center gap-3">
-        <span>© {year} Abdurhaman Nur</span>
-        <span aria-hidden className="text-muted-foreground/30">·</span>
-        <VisitorCounter compact />
-      </div>
+      <span>© {year} Abdurhaman Nur</span>
       <nav aria-label="Footer" className="flex gap-4">
         {footerLinks.map((l) => (
           <Link key={l.href} href={l.href} className="transition-colors hover:text-highlighted">
