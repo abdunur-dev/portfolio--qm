@@ -133,7 +133,7 @@ export function VisitorCounter({ className = "", compact = false }: VisitorCount
       } catch (err) {
         console.warn("Visitor count load error:", err)
         if (!isCancelled) {
-          setData({ count: 1085, today: 38 })
+          setData({ count: 1086, today: 39 })
           setTimeout(() => setAnimating(true), 60)
         }
       }
@@ -165,17 +165,29 @@ export function VisitorCounter({ className = "", compact = false }: VisitorCount
       title={detailLabel}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => setIsHovered((prev) => !prev)}
     >
-      {!compact && isHovered ? (
-        <span className="inline-flex items-center transition-opacity duration-200 text-highlighted">
-          {detailLabel}
-        </span>
-      ) : (
-        <span className="inline-flex items-center gap-1.5 transition-opacity duration-200">
-          <Odometer value={data.count} animating={animating} />
-          <span>visits</span>
-        </span>
-      )}
+      {/* Mobile view: Displays both total visits and today cleanly side-by-side with crisp contrast */}
+      <span className="inline-flex sm:hidden items-center gap-1.5">
+        <Odometer value={data.count} animating={animating} />
+        <span>visits</span>
+        <span className="text-muted-foreground/30 font-sans" aria-hidden="true">·</span>
+        <span className="text-highlighted font-medium">{data.today.toLocaleString("en-US")} today</span>
+      </span>
+
+      {/* Desktop view (>= sm): Sleek hover flip effect matching mr.seefun.dev */}
+      <span className="hidden sm:inline-flex items-center">
+        {!compact && isHovered ? (
+          <span className="inline-flex items-center text-highlighted transition-opacity duration-200">
+            {detailLabel}
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1.5 transition-opacity duration-200">
+            <Odometer value={data.count} animating={animating} />
+            <span>visits</span>
+          </span>
+        )}
+      </span>
     </div>
   )
 }

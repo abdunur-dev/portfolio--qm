@@ -37,7 +37,7 @@ export default async function HomePage() {
         {/* Contact */}
         <Section>
           <SectionTitle>Contact</SectionTitle>
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <SocialIcons />
             <VisitorCounter />
           </div>
