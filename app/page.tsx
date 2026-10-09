@@ -1,6 +1,7 @@
 import { FolioShell, InlineLink, MoreLink, Row, Section, SectionTitle } from "@/components/folio/ui"
 import { SocialIcons } from "@/components/folio/social-icons"
 import { AvatarLightbox } from "@/components/avatar-lightbox"
+import { VisitorCounter } from "@/components/visitor-counter"
 import { experience } from "@/lib/cv-data"
 import { getPosts, getProjects } from "@/lib/content"
 
@@ -36,7 +37,10 @@ export default async function HomePage() {
         {/* Contact */}
         <Section>
           <SectionTitle>Contact</SectionTitle>
-          <SocialIcons />
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <SocialIcons />
+            <VisitorCounter />
+          </div>
         </Section>
 
         {/* Experience */}
