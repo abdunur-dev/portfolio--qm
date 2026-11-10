@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { CSSProperties, ReactNode } from "react"
 import { ThemeDot } from "@/components/folio/theme-dot"
+import { AmbientDitherBg } from "@/components/folio/ambient-dither-bg"
 
 /* -------------------------------------------------------------------------- */
 /*  Layout primitives for the hugorcd.com-inspired design                     */
@@ -29,11 +30,12 @@ export function FolioShell({
   className?: string
 }) {
   return (
-    <>
+    <div className="relative min-h-dvh w-full overflow-x-clip isolate bg-background">
+      <AmbientDitherBg />
       <ThemeDot />
       <main
         id="main"
-        className={`mx-auto flex min-h-dvh w-full flex-col px-6 py-12 sm:py-20 ${
+        className={`relative z-10 mx-auto flex min-h-dvh w-full flex-col px-5 pt-44 pb-10 sm:px-6 sm:pt-52 sm:pb-20 ${
           wide ? "max-w-2xl" : "max-w-xl"
         } ${className}`}
       >
@@ -48,7 +50,7 @@ export function FolioShell({
         <div className="flex-1">{children}</div>
         <FolioFooter />
       </main>
-    </>
+    </div>
   )
 }
 
@@ -68,23 +70,41 @@ function FolioFooter() {
   )
 }
 
-/** Serif italic section heading with a green period: "Projects." */
+/** Section heading with quiet baseline border and confident serif tone.
+ *  Pass `index` for a numbered heading ("01") and `meta` for a quiet mono note on the right. */
 export function SectionTitle({
   children,
-  as: Tag = "h3",
+  as: Tag = "h2",
   action,
+  index,
+  meta,
+  id,
 }: {
   children: ReactNode
   as?: "h1" | "h2" | "h3"
   action?: ReactNode
+  index?: number
+  meta?: ReactNode
+  id?: string
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-4">
-      <Tag className="font-serif text-lg italic text-highlighted">
+    <div className="flex items-baseline justify-between gap-4 border-b border-border/80 pb-2">
+      <Tag id={id} className="flex items-baseline gap-2.5 font-serif text-xl tracking-tight text-highlighted">
+        {index !== undefined && (
+          <span className="font-mono text-[11px] tabular-nums tracking-normal text-primary" aria-hidden>
+            {String(index).padStart(2, "0")}
+          </span>
+        )}
         {children}
-        <span className="text-primary">.</span>
       </Tag>
-      {action}
+      <div className="flex items-baseline gap-3">
+        {meta && (
+          <span className="hidden font-mono text-[11px] uppercase tracking-wider text-muted-foreground/60 sm:inline">
+            {meta}
+          </span>
+        )}
+        {action}
+      </div>
     </div>
   )
 }
@@ -92,18 +112,17 @@ export function SectionTitle({
 /** Big page title used at the top of sub-pages. */
 export function PageTitle({ title, intro }: { title: string; intro?: ReactNode }) {
   return (
-    <header className="folio-in flex flex-col gap-3">
-      <h1 className="font-serif text-3xl italic text-highlighted sm:text-4xl">
+    <header className="folio-in flex flex-col gap-3 border-b border-border/80 pb-6 mb-8">
+      <h1 className="font-serif text-3xl sm:text-4xl tracking-tight text-highlighted">
         {title}
-        <span className="text-primary">.</span>
       </h1>
-      {intro && <p className="max-w-prose text-pretty text-sm/6 text-muted-foreground">{intro}</p>}
+      {intro && <p className="max-w-prose text-pretty text-base text-muted-foreground">{intro}</p>}
     </header>
   )
 }
 
 export function Section({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`flex flex-col gap-6 ${className}`}>{children}</section>
+  return <section className={`flex flex-col gap-4 ${className}`}>{children}</section>
 }
 
 /** Stagger helper — returns the inline style for the nth animated row. */
@@ -173,14 +192,14 @@ export function Row({
   )
 }
 
-/** Small muted "View all →" style link. */
+/** Subtle view link without trailing arrow gimmick. */
 export function MoreLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <Link
       href={href}
-      className="w-fit text-sm text-muted-foreground/60 transition-colors hover:text-highlighted"
+      className="w-fit text-xs font-mono text-muted-foreground/80 transition-colors hover:text-primary hover:underline underline-offset-4"
     >
-      {children} <span aria-hidden>→</span>
+      {children}
     </Link>
   )
 }

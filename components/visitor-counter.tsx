@@ -19,7 +19,7 @@ function OdometerDigit({
 
   if (!isDigit) {
     return (
-      <span className="inline-block px-[1px] leading-none text-muted-foreground/50">
+      <span className="inline-flex h-[1.25em] items-center px-[1px] leading-none text-muted-foreground/50">
         {char}
       </span>
     )
@@ -35,7 +35,6 @@ function OdometerDigit({
         height: "1.25em",
         width: "0.62em",
         overflow: "hidden",
-        verticalAlign: "-0.15em",
         display: "inline-block",
       }}
     >
@@ -69,7 +68,7 @@ function Odometer({ value, animating }: { value: number; animating: boolean }) {
   const chars = formatted.split("")
 
   return (
-    <span className="inline-flex items-baseline leading-none">
+    <span className="inline-flex h-[1.25em] items-center align-middle leading-none">
       {chars.map((char, idx) => (
         <OdometerDigit
           key={`${idx}-${char}`}
@@ -172,7 +171,7 @@ export function VisitorCounter({ className = "", compact = false }: VisitorCount
         <Odometer value={data.count} animating={animating} />
         <span>visits</span>
         <span className="text-muted-foreground/30 font-sans" aria-hidden="true">·</span>
-        <span className="text-highlighted font-medium">{data.today.toLocaleString("en-US")} today</span>
+        <span className="text-foreground/80">{data.today.toLocaleString("en-US")} today</span>
       </span>
 
       {/* Desktop view (>= sm): Sleek hover flip effect matching mr.seefun.dev */}

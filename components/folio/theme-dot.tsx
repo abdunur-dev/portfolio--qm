@@ -12,7 +12,16 @@ export function ThemeDot() {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    setMounted(true)
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      const queryTheme = params.get("theme")
+      if (queryTheme === "light" || queryTheme === "dark") {
+        setTheme(queryTheme)
+      }
+    }
+  }, [setTheme])
 
   const isDark = !mounted || resolvedTheme === "dark"
 
