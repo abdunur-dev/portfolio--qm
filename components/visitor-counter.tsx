@@ -84,9 +84,11 @@ function Odometer({ value, animating }: { value: number; animating: boolean }) {
 interface VisitorCounterProps {
   className?: string
   compact?: boolean
+  /** Render only the animated number (for stat tiles) */
+  numberOnly?: boolean
 }
 
-export function VisitorCounter({ className = "", compact = false }: VisitorCounterProps) {
+export function VisitorCounter({ className = "", compact = false, numberOnly = false }: VisitorCounterProps) {
   const [data, setData] = useState<{ count: number; today: number } | null>(null)
   const [mounted, setMounted] = useState(false)
   const [animating, setAnimating] = useState(false)
@@ -152,6 +154,17 @@ export function VisitorCounter({ className = "", compact = false }: VisitorCount
         aria-hidden="true"
       >
         <span className="inline-block h-3.5 w-16 animate-pulse rounded bg-muted-foreground/15 align-middle" />
+      </span>
+    )
+  }
+
+  if (numberOnly) {
+    return (
+      <span
+        className={`inline-flex items-center tabular-nums ${className}`}
+        title={`${data.today.toLocaleString("en-US")} today, since ${COUNTING_SINCE}`}
+      >
+        <Odometer value={data.count} animating={animating} />
       </span>
     )
   }

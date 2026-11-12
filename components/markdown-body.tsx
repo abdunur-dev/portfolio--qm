@@ -9,17 +9,17 @@ export function MarkdownBody({ content }: { content: string }) {
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ children }) => (
-          <h1 className="mt-12 mb-4 font-serif text-3xl italic leading-tight text-highlighted">
+          <h1 className="mt-12 mb-4 font-display text-3xl font-bold leading-tight text-highlighted">
             {children}
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="mt-10 mb-3 font-serif text-2xl italic leading-tight text-highlighted">
+          <h2 className="mt-10 mb-3 font-display text-2xl font-bold leading-tight text-highlighted">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="mt-8 mb-2 font-serif text-xl italic leading-snug text-highlighted">
+          <h3 className="mt-8 mb-2 font-display text-xl font-bold leading-snug text-highlighted">
             {children}
           </h3>
         ),
@@ -48,10 +48,10 @@ export function MarkdownBody({ content }: { content: string }) {
           <strong className="font-semibold text-foreground">{children}</strong>
         ),
         em: ({ children }) => (
-          <em className="font-serif italic">{children}</em>
+          <em className="italic">{children}</em>
         ),
         blockquote: ({ children }) => (
-          <blockquote className="my-6 border-l-2 border-foreground/20 pl-5 text-[0.95rem] italic leading-[1.8] text-foreground/70">
+          <blockquote className="my-6 border-l-2 border-primary pl-5 text-[0.95rem] italic leading-[1.8] text-foreground/70">
             {children}
           </blockquote>
         ),
@@ -63,7 +63,7 @@ export function MarkdownBody({ content }: { content: string }) {
         ),
         li: ({ children }) => (
           <li className="flex gap-2.5 text-[0.95rem] leading-[1.75] text-foreground/85 sm:text-base">
-            <span aria-hidden className="mt-[0.6rem] inline-block h-1 w-1 shrink-0 rounded-full bg-foreground/40" />
+            <span aria-hidden className="mt-[0.6rem] inline-block h-1 w-1 shrink-0 bg-primary" />
             <span>{children}</span>
           </li>
         ),
@@ -77,13 +77,13 @@ export function MarkdownBody({ content }: { content: string }) {
             )
           }
           return (
-            <code className="rounded-md bg-foreground/[0.06] px-1.5 py-0.5 font-mono text-[0.85em] text-foreground/90">
+            <code className="bg-foreground/[0.07] px-1.5 py-0.5 font-mono text-[0.85em] text-foreground/90">
               {children}
             </code>
           )
         },
         pre: ({ children }) => (
-          <pre className="my-6 overflow-x-auto rounded-xl border border-border/60 bg-foreground/[0.03] p-5 font-mono text-[0.85rem] leading-relaxed">
+          <pre className="my-6 overflow-x-auto border border-border/60 bg-foreground/[0.03] p-5 font-mono text-[0.85rem] leading-relaxed">
             {children}
           </pre>
         ),
@@ -95,11 +95,11 @@ export function MarkdownBody({ content }: { content: string }) {
           <img
             src={src || "/placeholder.svg"}
             alt={alt ?? ""}
-            className="my-6 w-full rounded-xl border border-border/60 object-cover"
+            className="my-6 w-full border border-border/60 object-cover"
           />
         ),
         table: ({ children }) => (
-          <div className="my-6 overflow-x-auto rounded-xl border border-border/60">
+          <div className="my-6 overflow-x-auto border border-border/60">
             <table className="w-full text-sm">{children}</table>
           </div>
         ),

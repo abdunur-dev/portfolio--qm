@@ -36,15 +36,19 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
       <article>
         {/* Title block */}
         <header className="folio-in flex flex-col gap-3">
-          <p className="text-sm text-muted-foreground/70">
-            {[post.date, post.reading].filter(Boolean).join(" · ")}
+          <p className="flex flex-wrap gap-1.5">
+            {[post.date, post.reading].filter(Boolean).map((m) => (
+              <span key={m} className="border border-border bg-card px-1.5 py-[3px] text-[10px] leading-none text-foreground">
+                {m}
+              </span>
+            ))}
           </p>
-          <h1 className="text-balance font-serif text-3xl leading-tight text-highlighted sm:text-4xl">
+          <h1 className="text-balance font-display text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-highlighted sm:text-5xl">
             {post.title}
-            <span className="text-primary">.</span>
+            <span className="text-primary">_</span>
           </h1>
           {post.excerpt && (
-            <p className="max-w-prose text-pretty text-base/7 text-muted-foreground">{post.excerpt}</p>
+            <p className="max-w-prose text-pretty font-prose text-base/7 text-muted-foreground">{post.excerpt}</p>
           )}
         </header>
 
@@ -59,7 +63,7 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
             <img
               src={post.cover_url}
               alt={`${post.title} cover image`}
-              className="aspect-[16/9] w-full rounded-md border border-border/60 object-cover"
+              className="aspect-[16/9] w-full border border-border object-cover"
             />
           </figure>
         ) : post.image_urls && post.image_urls.length > 0 ? (
@@ -68,20 +72,20 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
             <img
               src={post.image_urls[0]}
               alt={`${post.title} cover image`}
-              className="aspect-[16/9] w-full rounded-md border border-border/60 object-cover"
+              className="aspect-[16/9] w-full border border-border object-cover"
             />
           </figure>
         ) : null}
 
         {/* Article */}
-        <div className="folio-in mt-10" style={{ animationDelay: "160ms" }}>
+        <div className="folio-in mt-10 font-prose" style={{ animationDelay: "160ms" }}>
           {post.body ? (
             <MarkdownBody content={post.body} />
           ) : post.blocks.length > 0 ? (
             <div>
               {post.blocks.map((block, i) =>
                 block.type === "h2" ? (
-                  <h2 key={i} className="mt-10 mb-3 font-serif text-2xl italic leading-tight text-highlighted">
+                  <h2 key={i} className="mt-10 mb-3 font-display text-2xl font-bold leading-tight text-highlighted">
                     {block.text}
                   </h2>
                 ) : (
@@ -102,11 +106,11 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
 
       {/* Prev / next */}
       {(newer || older) && (
-        <nav aria-label="More writing" className="mt-16 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-2">
+        <nav aria-label="More writing" className="mt-16 grid border border-border sm:grid-cols-2">
           {older ? (
-            <Link href={older.href ?? `/writing/${older.slug}`} className="group flex flex-col gap-1">
-              <span className="text-xs text-muted-foreground/60">← Older</span>
-              <span className="font-medium text-highlighted decoration-primary underline-offset-4 group-hover:underline">
+            <Link href={older.href ?? `/writing/${older.slug}`} className="group flex flex-col gap-1 bg-card p-4 transition-colors hover:bg-background">
+              <span className="text-[10px] uppercase tracking-wide text-muted-foreground">← Older</span>
+              <span className="text-sm font-medium text-highlighted transition-colors group-hover:text-primary">
                 {older.title}
               </span>
             </Link>
@@ -116,10 +120,10 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
           {newer && (
             <Link
               href={newer.href ?? `/writing/${newer.slug}`}
-              className="group flex flex-col gap-1 sm:items-end sm:text-right"
+              className="group flex flex-col gap-1 border-t border-border bg-card p-4 transition-colors hover:bg-background sm:items-end sm:border-t-0 sm:border-l sm:text-right"
             >
-              <span className="text-xs text-muted-foreground/60">Newer →</span>
-              <span className="font-medium text-highlighted decoration-primary underline-offset-4 group-hover:underline">
+              <span className="text-[10px] uppercase tracking-wide text-muted-foreground">Newer →</span>
+              <span className="text-sm font-medium text-highlighted transition-colors group-hover:text-primary">
                 {newer.title}
               </span>
             </Link>

@@ -24,10 +24,10 @@ export default function HighlightsPage() {
 
         <Section>
           <SectionTitle>Selected work</SectionTitle>
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col border-t border-border">
             {achievements.map((a, i) => (
-              <li key={a} className="folio-in flex gap-3 text-pretty text-sm/6 text-foreground" style={stagger(i)}>
-                <span aria-hidden className="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary" />
+              <li key={a} className="folio-in flex gap-3 border-b border-border py-4 text-pretty text-xs/6 text-foreground" style={stagger(i)}>
+                <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-primary" />
                 {a}
               </li>
             ))}

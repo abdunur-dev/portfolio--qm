@@ -17,7 +17,7 @@ export function SocialIcons() {
     (a, b) => order.indexOf(a.label as (typeof order)[number]) - order.indexOf(b.label as (typeof order)[number]),
   )
   return (
-    <nav aria-label="Contact and socials" className="flex flex-wrap items-center gap-3">
+    <nav aria-label="Contact and socials" className="flex flex-wrap items-center gap-1.5">
       {links.map((l, i) => {
         const Icon = iconFor[l.label as keyof typeof iconFor]
         const external = !l.href.startsWith("mailto:")
@@ -28,10 +28,10 @@ export function SocialIcons() {
             aria-label={l.label}
             title={l.handle}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="folio-in inline-flex text-muted-foreground transition-colors hover:text-highlighted"
+            className="folio-in inline-flex size-8 items-center justify-center border border-border bg-card text-foreground transition-colors hover:border-primary hover:text-primary"
             style={stagger(i)}
           >
-            <Icon className="size-5" strokeWidth={1.75} />
+            <Icon className="size-3.5" strokeWidth={1.75} />
           </a>
         )
       })}
@@ -41,10 +41,10 @@ export function SocialIcons() {
         rel="noopener noreferrer"
         aria-label="Buy me a coffee"
         title="Buy me a coffee"
-        className="folio-in inline-flex text-muted-foreground transition-colors hover:text-highlighted"
+        className="folio-in inline-flex size-8 items-center justify-center border border-border bg-card text-foreground transition-colors hover:border-primary hover:text-primary"
         style={stagger(links.length)}
       >
-        <Coffee className="size-5" strokeWidth={1.75} />
+        <Coffee className="size-3.5" strokeWidth={1.75} />
       </a>
     </nav>
   )

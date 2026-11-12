@@ -1,4 +1,5 @@
 import { skills, technology, tools } from "@/lib/cv-data"
+import { Reveal } from "@/components/folio/motion"
 
 export const stackGroups = [
   { label: "Build with", items: technology },
@@ -8,23 +9,26 @@ export const stackGroups = [
 
 export function Stack() {
   return (
-    <dl className="flex flex-col gap-5">
-      {stackGroups.map((g) => (
-        <div key={g.label} className="grid grid-cols-1 gap-2 sm:grid-cols-[7rem_1fr] sm:gap-4">
-          <dt className="pt-1 font-mono text-[11px] uppercase tracking-wider text-muted-foreground/70">{g.label}</dt>
+    <dl className="flex flex-col border-t border-border">
+      {stackGroups.map((g, gi) => (
+        <Reveal key={g.label} index={gi} className="flex flex-col gap-3 border-b border-border py-4">
+          <dt className="flex items-center gap-2 text-[11px] text-muted-foreground">
+            <span aria-hidden className="size-1.5 bg-highlighted" />
+            {g.label}
+          </dt>
           <dd>
             <ul className="flex flex-wrap gap-1.5">
               {g.items.map((t) => (
                 <li
                   key={t}
-                  className="rounded-sm border border-border/80 bg-card/60 px-2 py-1 font-mono text-[11px] text-foreground/85 transition-colors hover:border-primary/50 hover:text-highlighted"
+                  className="border border-border bg-card px-2 py-1 text-[11px] leading-none text-foreground transition-colors hover:border-primary hover:text-highlighted"
                 >
                   {t}
                 </li>
               ))}
             </ul>
           </dd>
-        </div>
+        </Reveal>
       ))}
     </dl>
   )

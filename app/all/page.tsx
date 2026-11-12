@@ -25,7 +25,7 @@ export default async function AllProjectsPage() {
       <div className="mt-12 flex flex-col gap-12">
         {groups.map(({ year, items }) => (
           <section key={year} className="flex flex-col gap-2">
-            <h2 className="folio-in font-serif text-lg italic text-muted-foreground/70" style={stagger(n++)}>
+            <h2 className="folio-in flex items-center gap-2 font-display text-lg font-bold text-highlighted" style={stagger(n++)}>
               {year}
             </h2>
 
@@ -35,32 +35,32 @@ export default async function AllProjectsPage() {
                 return (
                   <li
                     key={p.title}
-                    className="folio-in flex gap-5 border-b border-border/60 py-5"
+                    className="folio-in flex gap-5 border-b border-border py-5"
                     style={stagger(n++)}
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline justify-between gap-4">
                         <TitleTag
                           {...(p.href ? { href: p.href, target: "_blank", rel: "noopener noreferrer" } : {})}
-                          className="group inline-flex items-center gap-1 font-medium text-highlighted decoration-primary underline-offset-4 hover:underline"
+                          className="group inline-flex items-center gap-1 font-medium text-highlighted transition-colors hover:text-primary"
                         >
                           {p.title}
                           {p.href && (
                             <ArrowUpRight className="size-3.5 text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                           )}
                         </TitleTag>
-                        <span className="shrink-0 text-sm text-muted-foreground/60">{p.kind}</span>
+                        <span className="shrink-0 border border-border bg-card px-1.5 py-[3px] text-[10px] leading-none text-foreground">{p.kind}</span>
                       </div>
 
                       {p.description && (
-                        <p className="mt-1.5 text-pretty text-sm/6 text-muted-foreground first-letter:uppercase">
+                        <p className="mt-1.5 text-pretty text-xs/5 text-muted-foreground first-letter:uppercase">
                           {p.description}
                         </p>
                       )}
 
                       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs">
                         {p.stack.length > 0 && (
-                          <span className="text-muted-foreground/60">{p.stack.join(" · ")}</span>
+                          <span className="text-muted-foreground">{p.stack.join(" / ")}</span>
                         )}
 
                         {/* Direct links badges */}
@@ -72,7 +72,7 @@ export default async function AllProjectsPage() {
                                 href={l.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 rounded bg-secondary/80 px-2 py-0.5 font-medium text-foreground transition-colors hover:bg-primary/20 hover:text-primary"
+                                className="inline-flex items-center gap-1 border border-border bg-card px-2 py-1 text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
                               >
                                 <span>{l.label.replace(/\s*↗$/, "")}</span>
                                 <ArrowUpRight className="size-3" />
@@ -88,7 +88,7 @@ export default async function AllProjectsPage() {
                       <img
                         src={p.cover_url}
                         alt=""
-                        className="hidden size-20 shrink-0 rounded-sm border border-border/60 object-cover sm:block"
+                        className="hidden size-20 shrink-0 border border-border object-cover grayscale sm:block"
                       />
                     )}
                   </li>

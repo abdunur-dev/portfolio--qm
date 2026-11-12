@@ -29,7 +29,7 @@ export default async function WritingPage() {
       <div className="mt-12 flex flex-col gap-12">
         {groups.map(({ year, items }) => (
           <section key={year} className="flex flex-col gap-2">
-            <h2 className="folio-in font-serif text-lg italic text-muted-foreground/70" style={stagger(n++)}>
+            <h2 className="folio-in flex items-center gap-2 font-display text-lg font-bold text-highlighted" style={stagger(n++)}>
               {year}
             </h2>
             <ul className="flex flex-col">
@@ -37,22 +37,22 @@ export default async function WritingPage() {
                 <li key={post.slug} className="folio-in" style={stagger(n++)}>
                   <Link
                     href={post.href ?? `/writing/${post.slug}`}
-                    className="group flex items-start justify-between gap-5 border-b border-border/60 py-5"
+                    className="group flex items-start justify-between gap-5 border-b border-border py-5"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline justify-between gap-4">
-                        <h3 className="font-medium text-highlighted decoration-primary underline-offset-4 group-hover:underline">
+                        <h3 className="font-medium text-highlighted transition-colors group-hover:text-primary">
                           {post.title}
                         </h3>
-                        <span className="shrink-0 text-sm text-muted-foreground/60">{post.date}</span>
+                        <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">{post.date}</span>
                       </div>
                       {post.excerpt && (
-                        <p className="mt-1.5 line-clamp-2 text-pretty text-sm/6 text-muted-foreground">
+                        <p className="mt-1.5 line-clamp-2 text-pretty text-xs/5 text-muted-foreground">
                           {post.excerpt}
                         </p>
                       )}
                       {post.reading && (
-                        <p className="mt-2 text-xs text-muted-foreground/60">
+                        <p className="mt-2 text-[11px] text-muted-foreground">
                           {post.reading}
                           <span className="ml-2 inline-block text-primary transition-transform group-hover:translate-x-1">
                             →
@@ -65,7 +65,7 @@ export default async function WritingPage() {
                       <img
                         src={post.cover_url}
                         alt=""
-                        className="hidden size-20 shrink-0 rounded-sm object-cover sm:block"
+                        className="hidden size-20 shrink-0 border border-border object-cover grayscale sm:block"
                       />
                     )}
                   </Link>

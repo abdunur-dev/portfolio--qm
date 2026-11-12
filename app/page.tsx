@@ -1,5 +1,7 @@
 import Link from "next/link"
-import { FolioShell, InlineLink, MoreLink, Section, SectionTitle, stagger } from "@/components/folio/ui"
+import type { ReactNode } from "react"
+import { CrossMark, FolioShell, InlineLink, MoreLink, SectionTitle, Tag } from "@/components/folio/ui"
+import { Reveal, Typewriter } from "@/components/folio/motion"
 import { SocialIcons } from "@/components/folio/social-icons"
 import { AvatarLightbox } from "@/components/avatar-lightbox"
 import { VisitorCounter } from "@/components/visitor-counter"
@@ -13,117 +15,191 @@ import { getPosts, getProjects } from "@/lib/content"
 
 export const dynamic = "force-dynamic"
 
+function Panel({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <section className={`relative border-b border-border px-5 py-10 sm:px-8 sm:py-12 ${className}`}>{children}</section>
+}
+
+function Stat({ value, label }: { value: ReactNode; label: string }) {
+  return (
+    <div className="flex flex-col gap-1 px-4 py-3">
+      <span className="text-sm tabular-nums text-highlighted">{value}</span>
+      <span className="text-[10px] text-muted-foreground">{label}</span>
+    </div>
+  )
+}
+
 export default async function HomePage() {
   const [posts, projects] = await Promise.all([getPosts(), getProjects()])
+  const current = experience.find((e) => /now/i.test(e.range)) ?? experience[0]
 
   return (
-    <FolioShell wide>
-      <div className="flex flex-col gap-14 sm:gap-16">
-        {/* Masthead Header */}
-        <header className="flex flex-col gap-6 pt-2">
-          {/* Location & Telemetry Context */}
-          <div className="flex items-center justify-between gap-4 border-b border-border/70 pb-3 font-mono text-xs text-muted-foreground/80">
-            <div className="flex min-w-0 items-center gap-2 whitespace-nowrap">
-              <span className="size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
-              <span className="truncate">Addis Ababa, Ethiopia</span>
-            </div>
-            <div className="flex shrink-0 items-center gap-3 whitespace-nowrap">
-              <span className="hidden sm:inline">UTC+3</span>
-              <VisitorCounter />
-            </div>
-          </div>
+    <FolioShell bleed>
+      {/* ------------------------------------------------------------ Hero */}
+      <div className="relative border-b border-border px-4 pt-8 pb-6 sm:px-6 sm:pt-10">
+        <h1
+          aria-label="Abdurhaman Nur"
+          className="flex flex-wrap justify-between gap-x-6 font-display font-extrabold uppercase leading-[0.82] tracking-[-0.02em] text-highlighted text-[clamp(3.4rem,11.5vw,9.5rem)]"
+        >
+          <span aria-hidden>
+            <Typewriter text="Abdur" speed={110} delay={150} caret={false} />
+            <span className="tw-blink text-primary">_</span>
+          </span>
+          <span aria-hidden>
+            <Typewriter text="haman" speed={110} delay={800} caret={false} />
+          </span>
+        </h1>
+        <CrossMark className="absolute -bottom-3 left-0 hidden md:flex" />
+      </div>
 
-          {/* Persona & Bio */}
-          <div className="flex items-center gap-4 sm:gap-5">
+      {/* ----------------------------------------------- Intro / featured */}
+      <div className="grid border-b border-border md:grid-cols-4">
+        {/* Bio + count */}
+        <Reveal index={0} className="flex flex-col justify-between border-b border-border md:border-r md:border-b-0">
+          <div className="flex flex-col gap-5 px-5 py-6 sm:px-6">
+            <p className="flex gap-3 text-pretty text-xs leading-relaxed text-foreground">
+              <span aria-hidden className="mt-[6px] size-1.5 shrink-0 bg-highlighted" />
+              <span>
+                Systems &amp; Web3 engineer. I build protocol primitives, dApps and quiet systems from Addis
+                Ababa — and host gatherings for local builders. Read my{" "}
+                <InlineLink href="/cv">CV</InlineLink>.
+              </span>
+            </p>
+            <SocialIcons />
+          </div>
+          <div className="border-t border-border px-5 py-4 sm:px-6">
+            <p className="text-[11px] text-foreground">Projects</p>
+            <p className="font-display text-4xl font-extrabold leading-none tabular-nums text-highlighted">
+              {String(projects.length).padStart(2, "0")}
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Portrait in crop marks */}
+        <Reveal index={1} className="flex items-start justify-center border-b border-border p-6 md:justify-end md:border-b-0 md:p-0">
+          <div className="lab-crop flex size-40 items-center justify-center border border-border bg-card md:size-[9.5rem] md:border-t-0 md:border-r-0">
+            <span className="lab-crop-mark left-1.5 top-1.5 border-t border-l" />
+            <span className="lab-crop-mark right-1.5 top-1.5 border-t border-r" />
+            <span className="lab-crop-mark bottom-1.5 left-1.5 border-b border-l" />
+            <span className="lab-crop-mark bottom-1.5 right-1.5 border-b border-r" />
             <AvatarLightbox
               src="/images/burhan-portrait.jpg"
               alt="Abdurhaman Nur"
-              size={72}
-              className="size-16 sm:size-18 rounded-md object-cover object-top border border-border/80 shadow-xs shrink-0"
+              size={104}
+              className="size-26 object-cover object-top grayscale transition-[filter] duration-500 hover:grayscale-0"
             />
-            <div className="flex min-w-0 flex-col gap-1">
-              <h1 className="font-serif text-3xl leading-none sm:text-4xl tracking-tight text-highlighted font-normal">
-                Abdurhaman Nur
-              </h1>
-              <p className="text-sm font-medium text-primary">
-                Systems &amp; Web3 Engineer
-              </p>
+          </div>
+        </Reveal>
+
+        {/* Featured: current role */}
+        <Reveal index={2} className="md:col-span-2">
+        <article className="flex h-full flex-col border-border bg-card md:border-l">
+          <div className="flex">
+            <Tag tone="accent" className="border-t-0 border-l-0">Now</Tag>
+            <Tag className="border-t-0 border-l-0">{current.range}</Tag>
+          </div>
+          <div className="grid flex-1 items-center gap-4 px-5 py-6 sm:grid-cols-[1fr_1.1fr] sm:px-6">
+            <div className="flex items-center gap-3">
+              <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full border-[5px] border-highlighted border-dashed" />
+              <div className="flex flex-col">
+                <span className="font-display text-xl font-bold leading-tight text-highlighted">
+                  <Typewriter text={current.title} speed={40} delay={600} />
+                </span>
+                {current.org && <span className="text-[11px] text-muted-foreground">{current.org}</span>}
+              </div>
             </div>
+            {current.desc && <p className="line-clamp-4 text-[11px] leading-relaxed text-foreground">{current.desc}</p>}
           </div>
-
-          <p className="max-w-prose text-pretty text-base leading-relaxed text-foreground/90 font-sans">
-            Building protocol primitives, decentralized applications, and quiet systems from Addis Ababa.
-            I organize gatherings for local builders, tinker with distributed runtimes, and write about the intersection of craft, systems, and life. Read my <InlineLink href="/cv">curriculum vitae</InlineLink>.
-          </p>
-
-          <div className="pt-1">
-            <SocialIcons />
+          <div className="grid grid-cols-[1fr_auto] border-t border-border">
+            <div className="grid grid-cols-2 sm:grid-cols-4">
+              <Stat value={String(projects.length)} label="Projects shipped" />
+              <Stat value={String(gatherings.length)} label="Events hosted" />
+              <Stat value={`${experience.length}`} label="Roles" />
+              <Stat value={<VisitorCounter numberOnly />} label="Site visits" />
+            </div>
+            <Link
+              href="/cv"
+              aria-label="Open full CV"
+              className="flex w-14 items-center justify-center border-l border-border text-highlighted transition-colors hover:bg-primary hover:text-primary-foreground"
+            >
+              →
+            </Link>
           </div>
-        </header>
+        </article>
+        </Reveal>
+      </div>
 
-        <Section>
-          <SectionTitle index={1} meta={`${projects.length} shipped`} action={<MoreLink href="/all">All projects</MoreLink>}>
-            Projects
-          </SectionTitle>
-          <ProjectsGrid projects={projects.slice(0, 5)} />
-        </Section>
-
-        <Section>
-          <SectionTitle index={2} meta={`${gatherings.length} events`} action={<MoreLink href="/highlights">Highlights</MoreLink>}>
-            Gatherings
-          </SectionTitle>
-          <p className="max-w-prose text-pretty text-sm leading-relaxed text-muted-foreground">
-            I host builder events in Addis Ababa with the tools I use every day, so local developers get a seat at global
-            tables.
-          </p>
-          <Gatherings />
-        </Section>
-
-        <Section>
-          <SectionTitle index={3} meta={`${experience.length} roles`} action={<MoreLink href="/cv">Full CV</MoreLink>}>
+      {/* ------------------------------------------- 01 Experience + Stack */}
+      <div className="grid border-b border-border md:grid-cols-2">
+        <section className="flex flex-col gap-6 border-b border-border px-5 py-10 sm:px-8 sm:py-12 md:border-r md:border-b-0">
+          <SectionTitle index={1} meta={`${experience.length} roles`} action={<MoreLink href="/cv">Full CV</MoreLink>}>
             Experience
           </SectionTitle>
           <Timeline items={experience} />
-        </Section>
-
-        <Section>
-          <SectionTitle index={4} meta={`${stackGroups.reduce((n, g) => n + g.items.length, 0)} entries`}>Stack</SectionTitle>
+        </section>
+        <section className="flex flex-col gap-6 px-5 py-10 sm:px-8 sm:py-12">
+          <SectionTitle index={2} meta={`${stackGroups.reduce((n, g) => n + g.items.length, 0)} entries`}>
+            Stack
+          </SectionTitle>
           <Stack />
-        </Section>
+        </section>
+      </div>
 
-        <Section>
-          <SectionTitle index={5} action={<MoreLink href="/writing">All articles</MoreLink>}>
+      {/* ------------------------------------------------------ 03 Projects */}
+      <ProjectsGrid projects={projects} limit={6} index={3} />
+
+      {/* ------------------------------------------------------- 04 Writing */}
+      <Panel>
+        <div className="flex flex-col gap-2">
+          <SectionTitle index={4} action={<MoreLink href="/writing">All articles</MoreLink>}>
             Writing
           </SectionTitle>
           {posts.length === 0 ? (
-            <p className="py-4 text-sm text-muted-foreground">Nothing published yet — return soon.</p>
+            <p className="py-4 text-xs text-muted-foreground">Nothing published yet — return soon.</p>
           ) : (
-            <div className="flex flex-col">
+            <ul className="flex flex-col">
               {posts.slice(0, 3).map((post, i) => (
-                <Link
-                  key={post.slug}
-                  href={post.href ?? `/writing/${post.slug}`}
-                  style={stagger(i)}
-                  className="folio-in group -mx-3 flex flex-col gap-1.5 rounded-md px-3 py-3.5 transition-colors hover:bg-muted/50 focus-visible:bg-muted/50 focus-visible:outline-none"
-                >
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="text-pretty font-medium text-highlighted transition-colors group-hover:text-primary">
-                      {post.title}
-                    </h3>
-                    <span className="shrink-0 font-mono text-xs tabular-nums text-muted-foreground/70">{post.date}</span>
-                  </div>
-                  {post.excerpt && (
-                    <p className="line-clamp-2 text-pretty text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
-                  )}
-                  {post.reading && (
-                    <span className="font-mono text-[11px] text-muted-foreground/60">{post.reading}</span>
-                  )}
-                </Link>
+                <li key={post.slug} className="border-b border-border last:border-b-0">
+                  <Reveal index={i}>
+                    <Link
+                      href={post.href ?? `/writing/${post.slug}`}
+                      className="group grid gap-1 py-4 transition-transform duration-300 hover:translate-x-1 sm:grid-cols-[7rem_1fr_auto] sm:items-baseline sm:gap-6"
+                    >
+                      <span className="text-[11px] tabular-nums text-muted-foreground">{post.date}</span>
+                      <span className="flex min-w-0 flex-col gap-1">
+                        <span className="text-sm font-medium text-highlighted transition-colors group-hover:text-primary">
+                          {post.title}
+                        </span>
+                        {post.excerpt && (
+                          <span className="line-clamp-1 text-[11px] leading-relaxed text-muted-foreground">{post.excerpt}</span>
+                        )}
+                      </span>
+                      <span aria-hidden className="hidden text-highlighted transition-transform group-hover:translate-x-1 sm:block">
+                        →
+                      </span>
+                    </Link>
+                  </Reveal>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
-        </Section>
-      </div>
+        </div>
+      </Panel>
+
+      {/* ---------------------------------------------------- 05 Highlights */}
+      <Panel className="border-b-0">
+        <div className="flex flex-col gap-6">
+          <SectionTitle index={5} meta={`${gatherings.length} events`} action={<MoreLink href="/highlights">All highlights</MoreLink>}>
+            Highlights
+          </SectionTitle>
+          <Reveal>
+            <p className="max-w-prose text-pretty text-xs leading-relaxed text-foreground">
+              Gatherings I host for builders in Addis Ababa with the tools I use every day, so local developers get a
+              seat at global tables.
+            </p>
+          </Reveal>
+          <Gatherings />
+        </div>
+      </Panel>
     </FolioShell>
   )
 }

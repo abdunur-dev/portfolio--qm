@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
+import { Geist, JetBrains_Mono, Tektur } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
@@ -8,13 +8,9 @@ const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
 });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
-});
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
+// Squared, chunky display face for headlines (PORT_FOLIO style)
+const tektur = Tektur({ subsets: ["latin"], variable: "--font-tektur" });
 
 export const metadata: Metadata = {
   title: 'Abdurhaman Nur — Systems & Web3 Engineer',
@@ -36,10 +32,10 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`bg-background ${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+      className={`bg-background ${geist.variable} ${jetbrainsMono.variable} ${tektur.variable}`}
     >
       <body className="font-sans antialiased text-foreground selection:bg-primary/20 selection:text-highlighted">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           {children}
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
