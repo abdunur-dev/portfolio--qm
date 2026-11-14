@@ -1,35 +1,18 @@
 import Link from "next/link"
 import type { CSSProperties, ReactNode } from "react"
-import { LabHeader } from "@/components/folio/lab-header"
+import { ArrowUpRight } from "lucide-react"
+import { LabHeader, LogoMark } from "@/components/folio/lab-header"
 import { Reveal, Typewriter } from "@/components/folio/motion"
+import { VisitorCounter } from "@/components/visitor-counter"
+import { socialLinks } from "@/lib/social-links"
 
 /* -------------------------------------------------------------------------- */
-/*  "Lab grid" layout primitives                                              */
-/*  Hairline-ruled panels on concrete grey, squared display type,             */
-/*  monospace UI copy, signal-orange accents.                                 */
+/*  Cyber-brutalist layout primitives                                         */
+/*  Monochrome. Hairline panels, condensed display type, mono everything else. */
 /* -------------------------------------------------------------------------- */
-
-const footerLinks = [
-  { href: "/", label: "Home" },
-  { href: "/all", label: "Projects" },
-  { href: "/writing", label: "Writing" },
-  { href: "/cv", label: "CV" },
-]
-
-/** Faint vertical column rules that run behind the transparent panels. */
-function GridGuides() {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 z-0 hidden md:grid md:grid-cols-4">
-      <span className="border-r border-grid-line" />
-      <span className="border-r border-grid-line" />
-      <span className="border-r border-grid-line" />
-      <span />
-    </div>
-  )
-}
 
 /**
- * Page shell: a ruled frame with header, content and CTA footer.
+ * Page shell: header, content and footer inside a ruled frame.
  * - `bleed`: children span the full frame width (home page panels).
  * - otherwise children sit in a centred reading column (`wide` = a bit wider).
  */
@@ -48,39 +31,45 @@ export function FolioShell({
 }) {
   return (
     <div className="relative min-h-dvh w-full overflow-x-clip bg-background">
-      <div className="relative mx-auto flex min-h-dvh w-full max-w-6xl flex-col border-x border-border">
-        <GridGuides />
-        <div className="relative z-10 flex min-h-dvh flex-col">
-          <LabHeader back={back} />
-          <main id="main" className={`flex-1 ${className}`}>
-            {bleed ? (
-              children
-            ) : (
-              <div className={`mx-auto w-full px-5 py-12 sm:px-8 sm:py-16 ${wide ? "max-w-3xl" : "max-w-2xl"}`}>
-                {children}
-              </div>
-            )}
-          </main>
-          <CtaFooter />
-        </div>
+      <div className="relative mx-auto flex min-h-dvh w-full max-w-7xl flex-col border-x border-border">
+        <LabHeader back={back} />
+        <main id="main" className={`flex-1 ${className}`}>
+          {bleed ? (
+            children
+          ) : (
+            <div className={`mx-auto w-full px-5 py-12 sm:px-8 sm:py-16 ${wide ? "max-w-3xl" : "max-w-2xl"}`}>
+              {children}
+            </div>
+          )}
+        </main>
+        <SiteFooter />
       </div>
     </div>
   )
 }
 
-/** Small square with an "x" — decorative registration mark on panel edges. */
+/** A small "+" registration mark. */
+export function Plus({ className = "" }: { className?: string }) {
+  return (
+    <span aria-hidden className={`text-sm leading-none text-muted-foreground ${className}`}>
+      +
+    </span>
+  )
+}
+
+/** Kept for compatibility: small boxed "×" mark. */
 export function CrossMark({ className = "" }: { className?: string }) {
   return (
     <span
       aria-hidden
-      className={`flex size-6 items-center justify-center border border-border bg-background text-[10px] leading-none text-muted-foreground/70 ${className}`}
+      className={`flex size-6 items-center justify-center border border-border bg-background text-[10px] leading-none text-muted-foreground ${className}`}
     >
       ×
     </span>
   )
 }
 
-/** Bordered micro-label, e.g. "Incubation". `tone="accent"` for the orange "New" chip. */
+/** Bordered micro-label. `tone="ink"` for a solid black chip. */
 export function Tag({
   children,
   tone = "default",
@@ -92,17 +81,19 @@ export function Tag({
 }) {
   const tones = {
     default: "border-border bg-card text-foreground",
-    accent: "border-primary bg-primary text-primary-foreground",
+    accent: "border-highlighted bg-highlighted text-background",
     ink: "border-highlighted bg-highlighted text-background",
   }
   return (
-    <span className={`inline-flex items-center border px-1.5 py-[3px] text-[10px] leading-none ${tones[tone]} ${className}`}>
+    <span
+      className={`inline-flex items-center border px-1.5 py-[3px] text-[10px] uppercase leading-none tracking-wide ${tones[tone]} ${className}`}
+    >
       {children}
     </span>
   )
 }
 
-/** Chamfered orange button (solid) or outlined variant. */
+/** Solid black button with an ↗ arrow, or a bare text button with a bracket icon. */
 export function LabButton({
   href,
   children,
@@ -111,71 +102,161 @@ export function LabButton({
 }: {
   href: string
   children: ReactNode
-  variant?: "solid" | "outline"
+  variant?: "solid" | "outline" | "ghost"
   className?: string
 }) {
-  const external = !href.startsWith("/")
-  const cls =
-    variant === "solid"
-      ? "lab-chamfer bg-primary text-primary-foreground hover:bg-highlighted hover:text-background"
-      : "border border-primary text-foreground hover:bg-primary hover:text-primary-foreground"
-  const all = `inline-flex items-center justify-center px-6 py-3 text-[11px] font-medium uppercase tracking-wider transition-colors ${cls} ${className}`
+  const external = /^(https?:|mailto:)/.test(href)
+  const styles = {
+    solid: "bg-primary text-primary-foreground hover:opacity-85",
+    outline: "border border-highlighted text-highlighted hover:bg-primary hover:text-primary-foreground",
+    ghost: "text-highlighted hover:underline underline-offset-4",
+  }
+  const icon =
+    variant === "ghost" ? (
+      <svg viewBox="0 0 16 16" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4" />
+      </svg>
+    ) : (
+      <ArrowUpRight aria-hidden className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+    )
+  const all = `group inline-flex items-center justify-between gap-6 px-5 py-3.5 text-[11px] font-medium uppercase tracking-wide transition-all ${styles[variant]} ${className}`
+  const inner = (
+    <>
+      <span>{children}</span>
+      {icon}
+    </>
+  )
   return external ? (
     <a href={href} target={href.startsWith("mailto:") ? undefined : "_blank"} rel="noopener noreferrer" className={all}>
-      {children}
+      {inner}
     </a>
   ) : (
     <Link href={href} className={all}>
-      {children}
+      {inner}
     </Link>
   )
 }
 
-function CtaFooter() {
+const footerCols = [
+  {
+    title: "Navigation",
+    links: [
+      { href: "/", label: "Home" },
+      { href: "/all", label: "Projects" },
+      { href: "/writing", label: "Writing" },
+      { href: "/highlights", label: "Highlights" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { href: "/cv", label: "Curriculum vitae" },
+      { href: "https://github.com/abdunur-dev", label: "Open source" },
+      { href: "https://buymeacoffee.com/abdurhamanw", label: "Buy me a coffee" },
+    ],
+  },
+]
+
+function SiteFooter() {
   const year = new Date().getFullYear()
   return (
-    <footer className="print:hidden">
-      {/* Call to action band */}
-      <div className="relative grid border-t border-border md:grid-cols-[1fr_1fr]">
-        <CrossMark className="absolute -top-px left-0" />
-        <div className="flex flex-col justify-center gap-1.5 px-6 py-10 sm:px-10">
-          <p className="flex items-center gap-2 text-xs uppercase tracking-wide text-highlighted">
-            <span aria-hidden className="text-[9px]">▶</span> <Typewriter text="Ready to discuss" caret={false} speed={45} />
-          </p>
-          <p>
-            <span className="bg-highlighted px-1.5 py-0.5 text-xs uppercase tracking-wide text-background">
-              <Typewriter text="your project?" delay={800} speed={60} />
+    <footer className="border-t border-border print:hidden">
+      <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr_1.4fr]">
+        {/* Brand */}
+        <div className="flex flex-col justify-between gap-8 bg-background px-6 py-8 sm:px-8">
+          <span className="flex items-center gap-2.5">
+            <LogoMark className="size-8" />
+            <span className="text-lg font-bold uppercase tracking-tight text-highlighted">
+              Burhan<span className="tw-blink">_</span>
             </span>
+          </span>
+          <p className="text-[10px] uppercase leading-relaxed tracking-wide text-muted-foreground">
+            © {year} Abdurhaman Nur
+            <br />
+            All rights reserved.
           </p>
         </div>
-        <div className="flex flex-col items-stretch justify-center gap-3 border-t border-border px-6 py-8 sm:px-10 md:items-end md:border-t-0 md:border-l">
-          <LabButton href="mailto:abdurhamannur894@gmail.com" className="md:w-64">
-            Start a conversation
-          </LabButton>
-          <LabButton href="/cv" variant="outline" className="md:w-64">
-            Read my CV
-          </LabButton>
+
+        {footerCols.map((col) => (
+          <div key={col.title} className="flex flex-col gap-4 bg-background px-6 py-8 sm:px-8">
+            <p className="text-[11px] uppercase tracking-wide text-highlighted">{col.title}</p>
+            <ul className="flex flex-col gap-2 text-[11px] text-foreground">
+              {col.links.map((l) => (
+                <li key={l.href}>
+                  {l.href.startsWith("/") ? (
+                    <Link href={l.href} className="hover:text-highlighted hover:underline underline-offset-4">
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <a href={l.href} target="_blank" rel="noopener noreferrer" className="hover:text-highlighted hover:underline underline-offset-4">
+                      {l.label}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        <div className="flex flex-col gap-4 bg-background px-6 py-8 sm:px-8">
+          <p className="text-[11px] uppercase tracking-wide text-highlighted">Socials</p>
+          <ul className="flex flex-col gap-2 text-[11px] text-foreground">
+            {socialLinks.map((l) => (
+              <li key={l.label}>
+                <a
+                  href={l.href}
+                  {...(l.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                  className="hover:text-highlighted hover:underline underline-offset-4"
+                >
+                  {l.label === "Twitter" ? "X (Twitter)" : l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Global node */}
+        <div className="flex flex-col gap-4 bg-background px-6 py-8 sm:col-span-2 sm:px-8 lg:col-span-1">
+          <p className="text-[11px] uppercase tracking-wide text-highlighted">Global node</p>
+          <div className="flex items-center justify-between text-[11px] uppercase text-foreground">
+            <span>LON</span>
+            <span aria-hidden className="text-muted-foreground">+</span>
+            <span className="flex items-center gap-1.5 text-highlighted">
+              <span aria-hidden className="size-1.5 animate-pulse bg-highlighted" /> ADD
+            </span>
+            <span aria-hidden className="text-muted-foreground">+</span>
+            <span>DXB</span>
+            <span aria-hidden className="text-muted-foreground">+</span>
+            <span>BER</span>
+          </div>
+          <div aria-hidden className="lab-dots relative h-20 border border-border">
+            <span className="absolute left-[56%] top-[58%] size-2 bg-highlighted" />
+            <span className="absolute left-[56%] top-[58%] size-2 animate-ping bg-highlighted/60" />
+          </div>
         </div>
       </div>
 
-      {/* Meta row */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border px-6 py-4 text-[11px] text-muted-foreground sm:px-10">
-        <span>© {year} Abdurhaman Nur · Built in Addis Ababa</span>
-        <nav aria-label="Footer" className="flex gap-5">
-          {footerLinks.map((l) => (
-            <Link key={l.href} href={l.href} className="transition-colors hover:text-primary">
-              {l.label}
-            </Link>
-          ))}
-        </nav>
+      {/* Status bar */}
+      <div className="grid border-t border-border text-[11px] uppercase tracking-wide sm:grid-cols-[1fr_1.4fr_1fr]">
+        <div className="flex items-center gap-2 px-6 py-3 text-foreground sm:px-8">
+          <span aria-hidden className="size-1.5 rounded-full bg-highlighted" /> Connection secure
+        </div>
+        <div className="flex items-center justify-center bg-primary px-6 py-3 text-primary-foreground">
+          <Typewriter text="> Access granted" speed={60} />
+        </div>
+        <div className="flex items-center justify-between gap-4 px-6 py-3 text-foreground sm:justify-end sm:px-8">
+          <span className="flex items-center gap-1.5">
+            Visits: <VisitorCounter numberOnly />
+          </span>
+          <span>Node: ADD_01</span>
+        </div>
       </div>
     </footer>
   )
 }
 
 /**
- * Section heading row. Pass `index` for a numbered heading ("01") and
- * `meta` for a quiet note on the right.
+ * Section label: "/02  CORE PRINCIPLES". Typed out when scrolled into view.
  */
 export function SectionTitle({
   children,
@@ -193,37 +274,35 @@ export function SectionTitle({
   id?: string
 }) {
   return (
-    <div className="flex items-end justify-between gap-4 border-b border-border pb-3">
-      <Tag id={id} className="flex items-baseline gap-3 font-display text-xl font-semibold uppercase tracking-wide text-highlighted sm:text-2xl">
+    <div className="flex items-center justify-between gap-4">
+      <Tag id={id} className="flex items-baseline gap-5 text-[13px] font-medium uppercase tracking-wide text-highlighted">
         {index !== undefined && (
-          <span className="font-mono text-[11px] font-normal tabular-nums tracking-normal text-primary" aria-hidden>
-            {String(index).padStart(2, "0")}
+          <span className="text-[12px] font-normal tabular-nums text-muted-foreground" aria-hidden>
+            /{String(index).padStart(2, "0")}
           </span>
         )}
-        {typeof children === "string" ? <Typewriter text={children} speed={65} /> : children}
+        {typeof children === "string" ? <Typewriter text={children} speed={55} /> : children}
       </Tag>
-      <div className="flex items-baseline gap-4">
-        {meta && <span className="hidden text-[11px] text-muted-foreground sm:inline">{meta}</span>}
+      <div className="flex items-center gap-4">
+        {meta && <span className="hidden text-[11px] uppercase text-muted-foreground sm:inline">{meta}</span>}
         {action}
       </div>
     </div>
   )
 }
 
-/** Big page title used at the top of sub-pages: chunky display type with a cursor underscore. */
+/** Big page title for sub-pages: condensed display type, typed out. */
 export function PageTitle({ title, intro }: { title: string; intro?: ReactNode }) {
   return (
-    <header className="folio-in mb-10 flex flex-col gap-5 border-b border-border pb-8">
-      <h1 className="font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight text-highlighted sm:text-7xl">
-        <Typewriter text={title} speed={80} caret={false} />
-        <span className="tw-blink text-primary">_</span>
+    <header className="mb-12 flex flex-col gap-6 border-b border-border pb-10">
+      <span className="text-[12px] tabular-nums text-muted-foreground">/01</span>
+      <h1 className="font-display text-6xl uppercase leading-[0.9] tracking-tight text-highlighted sm:text-8xl">
+        <Typewriter text={title} speed={70} caret={false} />
+        <span className="tw-blink">_</span>
       </h1>
       {intro && (
         <Reveal index={3}>
-        <p className="flex max-w-prose gap-3 text-pretty text-sm leading-relaxed text-foreground">
-          <span aria-hidden className="mt-[7px] size-1.5 shrink-0 bg-highlighted" />
-          <span>{intro}</span>
-        </p>
+          <p className="max-w-prose text-pretty text-[13px] leading-relaxed text-foreground">{intro}</p>
         </Reveal>
       )}
     </header>
@@ -231,7 +310,7 @@ export function PageTitle({ title, intro }: { title: string; intro?: ReactNode }
 }
 
 export function Section({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`flex flex-col gap-5 ${className}`}>{children}</section>
+  return <section className={`flex flex-col gap-6 ${className}`}>{children}</section>
 }
 
 /** Stagger helper — returns the inline style for the nth animated row. */
@@ -239,10 +318,7 @@ export function stagger(i: number, step = 40): CSSProperties {
   return { animationDelay: `${i * step}ms` }
 }
 
-/**
- * A single list row: title on the left, muted meta on the right.
- * Renders a Next <Link> for internal hrefs, <a> for external, or a <div>.
- */
+/** A list row: title left, meta right. */
 export function Row({
   href,
   title,
@@ -260,30 +336,21 @@ export function Row({
   const inner = (
     <>
       <span className="flex min-w-0 items-baseline gap-2">
-        <span className={`truncate font-medium text-highlighted ${href ? "group-hover:text-primary" : ""}`}>{title}</span>
-        {isExternal && <span className="text-xs text-primary">↗</span>}
+        <span className={`truncate font-medium text-highlighted ${href ? "group-hover:underline underline-offset-4" : ""}`}>{title}</span>
+        {isExternal && <span className="text-xs text-highlighted">↗</span>}
         {sub && <span className="hidden truncate text-sm text-muted-foreground sm:inline">{sub}</span>}
       </span>
       {meta && <span className="shrink-0 text-right text-xs text-muted-foreground">{meta}</span>}
     </>
   )
-
   const cls = "folio-in group flex items-baseline justify-between gap-4 border-b border-border py-3"
-
-  if (!href) {
-    return (
-      <div className={cls} style={stagger(index)}>
-        {inner}
-      </div>
-    )
-  }
-  if (href.startsWith("/")) {
+  if (!href) return <div className={cls} style={stagger(index)}>{inner}</div>
+  if (href.startsWith("/"))
     return (
       <Link href={href} className={cls} style={stagger(index)}>
         {inner}
       </Link>
     )
-  }
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={cls} style={stagger(index)}>
       {inner}
@@ -291,23 +358,23 @@ export function Row({
   )
 }
 
-/** Small "view all" link with an arrow. */
+/** Small "view all ↗" link. */
 export function MoreLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <Link
       href={href}
-      className="group inline-flex w-fit items-center gap-1.5 border border-border bg-card px-2 py-1 text-[11px] text-foreground transition-colors hover:border-primary hover:text-primary"
+      className="group inline-flex w-fit items-center gap-2 text-[11px] uppercase tracking-wide text-highlighted underline-offset-4 hover:underline"
     >
       {children}
-      <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+      <ArrowUpRight aria-hidden className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
     </Link>
   )
 }
 
-/** Inline link inside prose: orange underline. */
+/** Inline link inside prose: solid underline. */
 export function InlineLink({ href, children }: { href: string; children: ReactNode }) {
   const external = !href.startsWith("/")
-  const cls = "border-b border-primary font-medium text-highlighted transition-colors hover:text-primary"
+  const cls = "font-medium text-highlighted underline decoration-1 underline-offset-4 hover:decoration-2"
   return external ? (
     <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
       {children}

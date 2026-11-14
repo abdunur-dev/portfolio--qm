@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react"
 import { motion, useInView, useReducedMotion } from "motion/react"
 
 /**
- * Typewriter: reveals text one character at a time with a single orange
+ * Typewriter: reveals text one character at a time with a single ink
  * caret that moves along with the typing. Starts when scrolled into view.
  * The untyped remainder is rendered invisibly so the layout never shifts.
  */
