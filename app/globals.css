@@ -197,6 +197,28 @@
   }
 }
 
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Hero greeting: each word blurs in on its own beat ("Hey 👋" → "I'm" → name). */
+@keyframes hero-step-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(8px);
+  }
+}
+.hero-step {
+  display: inline-block;
+  animation: hero-step-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) var(--hero-delay, 0s) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-step {
+    animation: none;
+  }
+}
+
 /* Fade-in for list rows with safe default opacity */
 .folio-in {
   opacity: 1;

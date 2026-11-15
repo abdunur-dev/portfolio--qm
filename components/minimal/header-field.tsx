@@ -7,7 +7,16 @@ import { useEffect, useRef } from "react"
  * Reads the foreground colour from CSS so it follows the theme, and fades
  * out downward through a mask.
  */
-export function HeaderField({ height = 100 }: { height?: number }) {
+export function HeaderField({
+  height = 100,
+  side = "top",
+  className = "",
+}: {
+  height?: number
+  /** "bottom" fades upward instead, for use behind the footer */
+  side?: "top" | "bottom"
+  className?: string
+}) {
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -82,15 +91,14 @@ export function HeaderField({ height = 100 }: { height?: number }) {
     }
   }, [height])
 
+  const mask = `linear-gradient(to ${side === "top" ? "bottom" : "top"}, black, transparent)`
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-0 overflow-hidden" style={{ height }}>
-      <div
-        className="size-full"
-        style={{
-          maskImage: "linear-gradient(to bottom, black, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
-        }}
-      >
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute z-0 overflow-hidden ${side === "top" ? "inset-x-0 top-0" : ""} ${className}`}
+      style={{ height }}
+    >
+      <div className="size-full" style={{ maskImage: mask, WebkitMaskImage: mask }}>
         <canvas ref={ref} />
       </div>
     </div>

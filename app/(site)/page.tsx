@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import Link from "next/link"
 import { Clock, Github, Linkedin, Mail, Twitter } from "lucide-react"
 import { experience } from "@/lib/cv-data"
@@ -6,7 +7,8 @@ import { gatherings } from "@/lib/gatherings-data"
 import { getPosts, getProjects } from "@/lib/content"
 import { Divider, FolioShell, MoreLink, SectionTitle } from "@/components/folio/ui"
 import { Fade, STEP } from "@/components/minimal/fade"
-import { AsciiFigure } from "@/components/minimal/ascii-figure"
+import { DitherFigure } from "@/components/minimal/dither-figure"
+import { ScrambleText } from "@/components/minimal/scramble-text"
 import { Badge, Entry, ListRow, ProjectEntry, externalProps, roleIcon } from "@/components/minimal/entry"
 
 export const dynamic = "force-dynamic"
@@ -24,29 +26,43 @@ export default async function HomePage() {
         <section aria-labelledby="hero-name" className="grid items-center gap-5 sm:grid-cols-[1fr_1.15fr] sm:gap-6">
           <Fade delay={STEP * d++} className="order-2 flex flex-col gap-3.5 sm:order-1 sm:gap-5">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Seek · Build · Share</p>
-            <h1
-              id="hero-name"
-              className="text-[1.75rem] font-bold uppercase leading-[0.95] tracking-tight sm:text-[2.6rem]"
-            >
-              Abdurhaman
-              <br />
-              Nur
+            {/* Greeting decodes in steps: "Hey," → "I'm" → the name. */}
+            <h1 id="hero-name" className="flex flex-col gap-1.5 sm:gap-2.5">
+              <span className="font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground sm:text-base">
+                <span className="hero-step" style={{ "--hero-delay": "0.15s" } as CSSProperties}>
+                  <ScrambleText text="Hey," delay={0.15} duration={450} />
+                </span>{" "}
+                <span className="hero-step" style={{ "--hero-delay": "0.7s" } as CSSProperties}>
+                  <ScrambleText text="I'm" delay={0.7} duration={400} />
+                </span>
+              </span>
+              <span className="font-display text-[2.4rem] font-extrabold leading-[0.92] tracking-[-0.03em] sm:text-[3.3rem]">
+                <span className="hero-step" style={{ "--hero-delay": "1.1s" } as CSSProperties}>
+                  <ScrambleText text="Abdurhaman" delay={1.1} duration={800} />
+                </span>
+                <br />
+                <span className="hero-step" style={{ "--hero-delay": "1.4s" } as CSSProperties}>
+                  <ScrambleText text="Nur" delay={1.4} duration={500} />
+                </span>
+              </span>
             </h1>
             <div className="flex flex-col gap-2">
-              <p className="text-xs font-semibold uppercase tracking-wide">The concept of Burhan</p>
+              <p className="text-xs font-semibold uppercase tracking-wide">
+                Building as <span className="font-display normal-case tracking-tight">Burhan</span>
+              </p>
               <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-                <span className="font-medium text-foreground">Burhan</span>{" "}(noun): proof; clear evidence. Also a
-                full-stack &amp; Web3 engineer from Addis Ababa who would rather ship the proof than talk about it —
-                web apps, AI interfaces, on-chain products, and rooms full of builders.
+                <span className="font-medium text-foreground">Burhan</span>{" "}
+                <span lang="ar">(بُرهان)</span>, noun: proof; clear evidence. It&apos;s the name I build under, and the
+                standard behind it: let the work be the evidence. I&apos;m a full-stack &amp; Web3 engineer from Addis
+                Ababa shipping web apps, AI interfaces and on-chain products, and filling rooms with builders.
               </p>
             </div>
           </Fade>
-          <Fade delay={0} className="order-1 mx-auto w-full max-w-[11.5rem] sm:order-2 sm:max-w-none">
-            <AsciiFigure
-              src="/ascii/mark.jpg"
-              crop={[0.24, 0.25, 0.52, 0.52]}
-              cols={58}
-              label="Burhan's logo mark drawn in ASCII characters"
+          <Fade delay={0} className="order-1 mx-auto w-full max-w-[13rem] sm:order-2 sm:mr-0 sm:max-w-[17rem]">
+            <DitherFigure
+              src="/hero/burhan-hey.png"
+              cols={170}
+              label="Burhan waving hello at the Raycast meetup in Addis Ababa, drawn in dithered dots"
               className="cursor-crosshair"
             />
           </Fade>
@@ -57,10 +73,13 @@ export default async function HomePage() {
         {/* About */}
         <section id="about">
           <Fade delay={STEP * d++}>
-            <h2 className="text-lg font-semibold sm:text-xl">About</h2>
+            <h2 className="text-lg font-semibold sm:text-xl">
+              <ScrambleText text="About" trigger="view" />
+            </h2>
             <div className="mt-3 space-y-3 text-pretty text-sm leading-relaxed text-muted-foreground sm:mt-4 sm:space-y-4 sm:text-base [&_a]:text-foreground [&_a]:underline [&_a]:decoration-border [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:decoration-foreground">
               <p>
-                I&apos;m Burhan. I build web apps, AI interfaces and on-chain products — right now as a contract
+                I&apos;m Abdurhaman Nur, though most people know me as Burhan. I build web apps, AI interfaces and
+                on-chain products — right now as a contract
                 engineer for <span className="text-foreground">Zero Hunger AI</span> in Germany.
               </p>
               <p>

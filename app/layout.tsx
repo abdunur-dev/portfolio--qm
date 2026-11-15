@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeSwitch } from '@/components/minimal/theme-switch'
@@ -10,6 +10,12 @@ const geist = Geist({
   variable: "--font-geist",
 });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
+// Display face for the hero name.
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   title: 'Abdurhaman Nur — Systems & Web3 Engineer',
@@ -31,7 +37,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`bg-background ${geist.variable} ${geistMono.variable}`}
+      className={`bg-background ${geist.variable} ${geistMono.variable} ${display.variable}`}
     >
       <body className="font-sans antialiased text-foreground selection:bg-foreground/10">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>

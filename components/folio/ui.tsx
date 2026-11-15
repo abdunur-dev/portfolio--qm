@@ -2,6 +2,8 @@ import Link from "next/link"
 import type { CSSProperties, ReactNode } from "react"
 import { ArrowUpRight, Github, Linkedin, Mail, Twitter } from "lucide-react"
 import { AsciiFigure } from "@/components/minimal/ascii-figure"
+import { HeaderField } from "@/components/minimal/header-field"
+import { ScrambleText } from "@/components/minimal/scramble-text"
 import { socialLinks } from "@/lib/social-links"
 
 /* -------------------------------------------------------------------------- */
@@ -45,8 +47,14 @@ const footerIcon = { GitHub: Github, Twitter, LinkedIn: Linkedin, Email: Mail } 
  */
 export function SiteFooter() {
   return (
-    <footer className="mt-14 border-t pt-6 pb-20 sm:mt-20 sm:pt-8 text-xs text-muted-foreground lg:pb-0 print:hidden">
-      <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:justify-between sm:text-left">
+    <footer className="relative mt-14 border-t pt-6 pb-20 sm:mt-20 sm:pt-8 text-xs text-muted-foreground lg:pb-0 print:hidden">
+      {/* Same flickering pixel field as behind the nav, mirrored: full-bleed, fading upward. */}
+      <HeaderField
+        side="bottom"
+        height={140}
+        className="-bottom-8 left-1/2 w-screen -translate-x-1/2 sm:-bottom-14"
+      />
+      <div className="relative flex flex-col items-center gap-5 text-center sm:flex-row sm:justify-between sm:text-left">
         <Link href="/" className="group flex items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -77,7 +85,7 @@ export function SiteFooter() {
           })}
         </ul>
       </div>
-      <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70 sm:text-left">
+      <p className="relative mt-6 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70 sm:text-left">
         Seek · Build · Share — Addis Ababa
       </p>
     </footer>
@@ -193,7 +201,7 @@ export function SectionTitle({
   return (
     <div className="flex items-baseline justify-between gap-4">
       <Tag id={id} className="text-lg font-semibold sm:text-xl">
-        {children}
+        {typeof children === "string" ? <ScrambleText text={children} trigger="view" /> : children}
       </Tag>
       <div className="flex items-baseline gap-4">
         {meta && <span className="hidden text-xs text-muted-foreground sm:inline">{meta}</span>}
@@ -225,7 +233,7 @@ export function PageTitle({
           <p className="folio-in font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{kicker}</p>
         )}
         <h1 className="folio-in text-balance text-2xl font-semibold tracking-tight sm:text-4xl" style={stagger(1)}>
-          {title}
+          <ScrambleText text={title} delay={0.05} />
         </h1>
         {intro && (
           <p className="folio-in max-w-prose text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base" style={stagger(2)}>

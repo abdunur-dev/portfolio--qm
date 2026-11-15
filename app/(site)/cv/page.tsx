@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { AsciiFigure } from "@/components/minimal/ascii-figure"
+import { ScrambleText } from "@/components/minimal/scramble-text"
 import { PrintCvButton } from "@/components/print-cv-button"
 import {
   certifications,
@@ -61,7 +62,7 @@ export default function CvPage() {
           <header className="grid gap-6 border-b border-border/80 pb-8 sm:grid-cols-[1fr_13rem]">
             <div className="flex flex-col gap-2.5">
               <h1 className="text-3xl font-semibold tracking-tight text-highlighted sm:text-4xl">
-                Abdurhaman Nur
+                <ScrambleText text="Abdurhaman Nur" delay={0.1} />
               </h1>
               <p className="font-mono text-xs text-muted-foreground">
                 Also known as Burhan online.
