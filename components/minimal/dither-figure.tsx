@@ -14,8 +14,8 @@ const BAYER = [
  * motion language as AsciiFigure: dots settle top-down, the bottom edge
  * dissolves, a few dots shimmer at rest and they scatter around the pointer.
  *
- * Tone is positive in both themes (dark ink on light, light ink on dark), so
- * the face stays recognisable either way.
+ * The photo reads positive in both themes: dark dots for shadows on a light
+ * page, white dots for highlights on a dark page (face brightest).
  */
 export function DitherFigure({
   src,
@@ -57,7 +57,7 @@ export function DitherFigure({
       ink = getComputedStyle(document.documentElement).getPropertyValue("--foreground").trim() || ink
     }
 
-    // Which dots are inked depends on the theme: always draw the photo positive.
+    // Which dots are inked depends on the theme so the photo always reads positive.
     const threshold = () => {
       const dark = document.documentElement.classList.contains("dark")
       for (let i = 0; i < on.length; i++) {
@@ -67,8 +67,11 @@ export function DitherFigure({
         }
         const c = i % cols
         const r = (i / cols) | 0
-        // A faint floor keeps the dark hoodie's outline visible on a dark page.
-        let v = dark ? Math.max(lum[i], 0.1) : 1 - lum[i]
+        // Light page: dark parts of the photo get the dots.
+        // Dark page: light parts get the (white) dots, contrast-stretched so the
+        // face and hand are bright and detailed, with a floor that keeps the
+        // black hoodie as a faint dotted outline instead of vanishing.
+        let v = dark ? Math.max(0.16, Math.pow(Math.min(1, Math.max(0, (lum[i] - 0.1) / 0.6)), 0.9)) : 1 - lum[i]
         // Bottom edge dissolves into the page.
         const y = r / rows
         v *= 1 - Math.max(0, (y - 0.78) / 0.22) * 0.85

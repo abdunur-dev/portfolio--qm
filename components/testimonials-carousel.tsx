@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { SectionMark } from "@/components/minimal/ledger"
 
 interface Testimonial {
   id: string
@@ -43,7 +44,7 @@ export function TestimonialsCarousel() {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="text-xl font-semibold">Kind words</h2>
+      <SectionMark numeral="III" label="Kind words" />
 
       {loading ? (
         <p className="text-sm text-muted-foreground/60">Loading…</p>

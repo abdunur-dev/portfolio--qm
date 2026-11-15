@@ -85,14 +85,16 @@ export function ScrambleText({
   }, [text, delay, duration, trigger])
 
   return (
+    // One real copy of the text: it holds the width, is what screen readers,
+    // search engines and copy/paste see, and is only hidden while scrambling.
+    // The scramble layer sits on top, unselectable and hidden from assistive tech.
     <span ref={ref} className={`relative inline-block ${className}`}>
-      <span className="sr-only">{text}</span>
-      <span aria-hidden className="invisible">
-        {text}
-      </span>
-      <span aria-hidden className="absolute inset-0 whitespace-nowrap">
-        {shown}
-      </span>
+      <span className={shown === text ? "" : "opacity-0"}>{text}</span>
+      {shown !== text && (
+        <span aria-hidden className="pointer-events-none absolute inset-0 select-none whitespace-nowrap">
+          {shown}
+        </span>
+      )}
     </span>
   )
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Mrs_Saint_Delafield } from 'next/font/google'
+import localFont from 'next/font/local'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeSwitch } from '@/components/minimal/theme-switch'
@@ -11,10 +12,21 @@ const geist = Geist({
 });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 // Display face for the hero name.
-const display = Bricolage_Grotesque({
+// Redaction (OFL, via @fontsource/redaction): display serif for names and titles.
+const display = localFont({
+  src: [
+    { path: '../node_modules/@fontsource/redaction/files/redaction-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: '../node_modules/@fontsource/redaction/files/redaction-latin-400-italic.woff2', weight: '400', style: 'italic' },
+    { path: '../node_modules/@fontsource/redaction/files/redaction-latin-700-normal.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-display',
+  fallback: ['Times New Roman', 'serif'],
+});
+// Handwritten signature in the letterhead.
+const signature = Mrs_Saint_Delafield({
   subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-display",
+  weight: "400",
+  variable: "--font-signature",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`bg-background ${geist.variable} ${geistMono.variable} ${display.variable}`}
+      className={`bg-background ${geist.variable} ${geistMono.variable} ${display.variable} ${signature.variable}`}
     >
       <body className="font-sans antialiased text-foreground selection:bg-foreground/10">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>

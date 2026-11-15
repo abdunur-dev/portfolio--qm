@@ -1,7 +1,6 @@
 import Link from "next/link"
 import type { CSSProperties, ReactNode } from "react"
 import { ArrowUpRight, Github, Linkedin, Mail, Twitter } from "lucide-react"
-import { AsciiFigure } from "@/components/minimal/ascii-figure"
 import { HeaderField } from "@/components/minimal/header-field"
 import { ScrambleText } from "@/components/minimal/scramble-text"
 import { socialLinks } from "@/lib/social-links"
@@ -199,14 +198,17 @@ export function SectionTitle({
   id?: string
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-4">
-      <Tag id={id} className="text-lg font-semibold sm:text-xl">
+    <div className="flex items-baseline gap-3">
+      <Tag id={id} className="font-mono text-[11px] font-normal uppercase tracking-[0.14em] text-foreground">
         {typeof children === "string" ? <ScrambleText text={children} trigger="view" /> : children}
       </Tag>
-      <div className="flex items-baseline gap-4">
-        {meta && <span className="hidden text-xs text-muted-foreground sm:inline">{meta}</span>}
-        {action}
-      </div>
+      <span aria-hidden className="h-px flex-1 translate-y-[-3px] bg-border" />
+      {(meta || action) && (
+        <div className="flex items-baseline gap-4 font-mono text-[10px] uppercase tracking-[0.1em]">
+          {meta && <span className="hidden text-muted-foreground sm:inline">{meta}</span>}
+          {action}
+        </div>
+      )}
     </div>
   )
 }
@@ -226,25 +228,20 @@ export function PageTitle({
   kicker?: string
   glyph?: string
 }) {
+  // `glyph` is accepted for compatibility; the document-style header has no figure.
+  void glyph
   return (
-    <header className={`mb-10 grid items-center gap-4 sm:mb-14 sm:gap-6 ${glyph ? "sm:grid-cols-[1fr_13rem] sm:gap-8" : ""}`}>
-      <div className="order-2 flex flex-col gap-3 sm:order-1 sm:gap-4">
-        {kicker && (
-          <p className="folio-in font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{kicker}</p>
-        )}
-        <h1 className="folio-in text-balance text-2xl font-semibold tracking-tight sm:text-4xl" style={stagger(1)}>
-          <ScrambleText text={title} delay={0.05} />
-        </h1>
-        {intro && (
-          <p className="folio-in max-w-prose text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base" style={stagger(2)}>
-            {intro}
-          </p>
-        )}
-      </div>
-      {glyph && (
-        <div className="folio-in order-1 w-24 sm:order-2 sm:w-full" style={stagger(1)}>
-          <AsciiFigure text={glyph} aspect={0.75} cols={40} label="" className="cursor-crosshair" />
-        </div>
+    <header className="mb-12 flex flex-col gap-3 sm:mb-16">
+      {kicker && (
+        <p className="folio-in font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground/70">{kicker}</p>
+      )}
+      <h1 className="folio-in font-display text-[2rem] leading-10 text-foreground sm:text-4xl" style={stagger(1)}>
+        <ScrambleText text={title} delay={0.05} />
+      </h1>
+      {intro && (
+        <p className="folio-in max-w-prose text-pretty text-[15px] leading-7 text-muted-foreground" style={stagger(2)}>
+          {intro}
+        </p>
       )}
     </header>
   )

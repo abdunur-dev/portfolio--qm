@@ -2,7 +2,6 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { FolioShell } from "@/components/folio/ui"
-import { AsciiFigure } from "@/components/minimal/ascii-figure"
 import { MarkdownBody } from "@/components/markdown-body"
 import { BlogImageCarousel } from "@/components/blog-image-carousel"
 import { getPost, getPosts } from "@/lib/content"
@@ -37,20 +36,10 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
   return (
     <FolioShell>
       <article>
-        <Link
-          href="/writing"
-          className="folio-in group mb-8 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">←</span> All writing
-        </Link>
-
-        {/* Title block */}
+        {/* Title block ("← Writing" lives in the letterhead) */}
         <header className="flex flex-col gap-4">
-          <h1 className="folio-in text-balance text-2xl font-semibold leading-tight tracking-tight sm:text-4xl" style={{ animationDelay: "40ms" }}>
-            {post.title}
-          </h1>
           {meta.length > 0 && (
-            <p className="folio-in flex items-center gap-1.5 text-sm text-muted-foreground" style={{ animationDelay: "80ms" }}>
+            <p className="folio-in flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/70">
               {meta.map((m, i) => (
                 <span key={m} className="flex items-center gap-1.5 tabular-nums">
                   {i > 0 && <span aria-hidden>·</span>}
@@ -59,8 +48,11 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
               ))}
             </p>
           )}
+          <h1 className="folio-in text-balance font-display text-[2rem] leading-10 text-foreground sm:text-4xl" style={{ animationDelay: "40ms" }}>
+            {post.title}
+          </h1>
           {post.excerpt && (
-            <p className="folio-in max-w-prose text-pretty text-base leading-relaxed text-muted-foreground" style={{ animationDelay: "120ms" }}>
+            <p className="folio-in max-w-prose text-pretty text-[15px] leading-7 text-muted-foreground" style={{ animationDelay: "120ms" }}>
               {post.excerpt}
             </p>
           )}
@@ -90,7 +82,7 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
             <div>
               {post.blocks.map((block, i) =>
                 block.type === "h2" ? (
-                  <h2 key={i} className="mt-10 mb-3 text-2xl font-semibold leading-tight tracking-tight">
+                  <h2 key={i} className="mt-10 mb-3 font-display text-2xl leading-tight">
                     {block.text}
                   </h2>
                 ) : (
@@ -109,24 +101,21 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
         </div>
       </article>
 
-      {/* ASCII sign-off */}
-      <div aria-hidden className="mt-16 flex flex-col items-center gap-3">
-        <div className="w-24 sm:w-28">
-          <AsciiFigure src="/ascii/mark.jpg" crop={[0.24, 0.25, 0.52, 0.52]} cols={30} label="" />
-        </div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Seek · Read on</p>
+      {/* Signed off by hand */}
+      <div className="mt-16 flex items-center gap-4">
+        <span aria-hidden className="h-px flex-1 bg-border" />
+        <p className="font-[family-name:var(--font-signature)] text-3xl leading-none text-foreground">Burhan</p>
       </div>
 
       {/* Prev / next */}
       {(newer || older) && (
-        <nav aria-label="More writing" className="mt-8 grid gap-3 sm:grid-cols-2">
+        <nav aria-label="More writing" className="mt-10 grid gap-6 sm:grid-cols-2">
           {older ? (
-            <Link
-              href={older.href ?? `/writing/${older.slug}`}
-              className="group flex flex-col gap-1 rounded-xl border p-4 transition-colors hover:bg-muted/60"
-            >
-              <span className="text-xs text-muted-foreground">← Older</span>
-              <span className="text-sm font-medium transition-transform duration-300 group-hover:-translate-x-0.5">{older.title}</span>
+            <Link href={older.href ?? `/writing/${older.slug}`} className="group flex flex-col gap-1.5">
+              <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground/60">← Older</span>
+              <span className="text-[15px] font-medium text-foreground underline-offset-4 group-hover:underline">
+                {older.title}
+              </span>
             </Link>
           ) : (
             <span className="hidden sm:block" />
@@ -134,10 +123,12 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
           {newer && (
             <Link
               href={newer.href ?? `/writing/${newer.slug}`}
-              className="group flex flex-col gap-1 rounded-xl border p-4 transition-colors hover:bg-muted/60 sm:items-end sm:text-right"
+              className="group flex flex-col gap-1.5 sm:items-end sm:text-right"
             >
-              <span className="text-xs text-muted-foreground">Newer →</span>
-              <span className="text-sm font-medium transition-transform duration-300 group-hover:translate-x-0.5">{newer.title}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground/60">Newer →</span>
+              <span className="text-[15px] font-medium text-foreground underline-offset-4 group-hover:underline">
+                {newer.title}
+              </span>
             </Link>
           )}
         </nav>

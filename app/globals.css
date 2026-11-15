@@ -197,8 +197,28 @@
   }
 }
 
+/* Letterhead signature: writes itself in left to right, once. */
+.signature {
+  font-family: var(--font-signature), cursive;
+  padding: 0.05em 0.15em 0.15em 0.05em; /* room for the swashes */
+  animation: signature-write 1.4s cubic-bezier(0.55, 0.1, 0.3, 1) 0.1s backwards;
+}
+@keyframes signature-write {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signature {
+    animation: none;
+  }
+}
+
 .font-display {
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display), "Times New Roman", serif;
 }
 
 /* Hero greeting: each word blurs in on its own beat ("Hey 👋" → "I'm" → name). */

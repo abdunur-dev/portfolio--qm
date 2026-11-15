@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import { AsciiFigure } from "@/components/minimal/ascii-figure"
 import { ScrambleText } from "@/components/minimal/scramble-text"
+import { SectionMark } from "@/components/minimal/ledger"
 import { PrintCvButton } from "@/components/print-cv-button"
 import {
   certifications,
@@ -45,15 +45,12 @@ export default function CvPage() {
   return (
     <div id="cv-root" className="cv-print relative text-foreground selection:bg-primary/20 print:bg-white print:text-black">
       <main className="folio-in relative z-10 mx-auto max-w-4xl px-5 py-10 sm:px-6 sm:py-12 print:max-w-none print:px-0 print:py-0">
-        <div className="rounded-2xl border bg-card p-5 shadow-sm sm:p-12 print:shadow-none print:border-none print:bg-transparent print:p-0">
+        <div className="print:p-0">
           
           {/* Header Action: Print / Save PDF */}
           <div className="flex items-start justify-between gap-4 pb-4 print:hidden">
             <div className="flex flex-col gap-2">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Seek · Résumé</p>
-              <div className="w-28 sm:w-36">
-                <AsciiFigure text="CV" aspect={0.6} cols={34} label="" className="cursor-crosshair" />
-              </div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground/70">Résumé</p>
             </div>
             <PrintCvButton />
           </div>
@@ -61,7 +58,7 @@ export default function CvPage() {
           {/* CV Header: Name, Note, Bio, and Links */}
           <header className="grid gap-6 border-b border-border/80 pb-8 sm:grid-cols-[1fr_13rem]">
             <div className="flex flex-col gap-2.5">
-              <h1 className="text-3xl font-semibold tracking-tight text-highlighted sm:text-4xl">
+              <h1 className="font-display text-[2rem] leading-10 text-foreground sm:text-4xl">
                 <ScrambleText text="Abdurhaman Nur" delay={0.1} />
               </h1>
               <p className="font-mono text-xs text-muted-foreground">
@@ -127,9 +124,7 @@ export default function CvPage() {
               
               {/* EXPERIENCE */}
               <section className="flex flex-col gap-4">
-                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
-                  EXPERIENCE
-                </h2>
+                <SectionMark numeral="I" label="Experience" />
                 <div className="flex flex-col gap-5">
                   {experience.map((e) => (
                     <div key={e.title + e.range} className="print-avoid-break grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
@@ -154,9 +149,7 @@ export default function CvPage() {
 
               {/* PROJECTS */}
               <section className="flex flex-col gap-4">
-                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
-                  PROJECTS
-                </h2>
+                <SectionMark numeral="II" label="Projects" />
                 <div className="flex flex-col gap-5">
                   {cvProjects.map((p) => (
                     <div key={p.title} className="print-avoid-break grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
@@ -184,18 +177,16 @@ export default function CvPage() {
               
               {/* WORKFLOW */}
               <section className="flex flex-col gap-4">
-                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
-                  WORKFLOW
-                </h2>
+                <SectionMark numeral="III" label="Workflow" />
                 
                 {/* Skills tags */}
                 <div className="flex flex-col gap-2">
                   <p className="font-mono text-xs text-muted-foreground">Skills</p>
-                  <ul className="flex flex-wrap gap-1.5">
+                  <ul className="flex flex-wrap gap-x-2 gap-y-1">
                     {skills.map((s) => (
                       <li
                         key={s}
-                        className="rounded-full border border-border/70 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] text-foreground print:border print:border-black/20"
+                        className="font-mono text-[11px] text-foreground after:ml-2 after:text-muted-foreground/50 after:content-['·'] last:after:content-none"
                       >
                         {s}
                       </li>
@@ -206,11 +197,11 @@ export default function CvPage() {
                 {/* Tools tags */}
                 <div className="flex flex-col gap-2 pt-2">
                   <p className="font-mono text-xs text-muted-foreground">Tools</p>
-                  <ul className="flex flex-wrap gap-1.5">
+                  <ul className="flex flex-wrap gap-x-2 gap-y-1">
                     {tools.map((t) => (
                       <li
                         key={t}
-                        className="rounded-full border border-border/70 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] text-foreground print:border print:border-black/20"
+                        className="font-mono text-[11px] text-foreground after:ml-2 after:text-muted-foreground/50 after:content-['·'] last:after:content-none"
                       >
                         {t}
                       </li>
@@ -221,11 +212,11 @@ export default function CvPage() {
                 {/* Technology tags */}
                 <div className="flex flex-col gap-2 pt-2">
                   <p className="font-mono text-xs text-muted-foreground">Technology</p>
-                  <ul className="flex flex-wrap gap-1.5">
+                  <ul className="flex flex-wrap gap-x-2 gap-y-1">
                     {technology.map((tech) => (
                       <li
                         key={tech}
-                        className="rounded-full border border-border/70 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] text-foreground print:border print:border-black/20"
+                        className="font-mono text-[11px] text-foreground after:ml-2 after:text-muted-foreground/50 after:content-['·'] last:after:content-none"
                       >
                         {tech}
                       </li>
@@ -236,9 +227,7 @@ export default function CvPage() {
 
               {/* COMMUNITIES */}
               <section className="flex flex-col gap-3">
-                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
-                  COMMUNITIES
-                </h2>
+                <SectionMark numeral="IV" label="Communities" />
                 <div className="flex flex-col gap-3">
                   {events.map((ev) => (
                     <div key={ev.title} className="print-avoid-break">
@@ -256,9 +245,7 @@ export default function CvPage() {
 
               {/* EDUCATION */}
               <section className="flex flex-col gap-3">
-                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
-                  EDUCATION
-                </h2>
+                <SectionMark numeral="V" label="Education" />
                 <div className="flex flex-col gap-3">
                   {education.map((ed) => (
                     <div key={ed.title} className="print-avoid-break">
@@ -276,9 +263,7 @@ export default function CvPage() {
 
               {/* CERTIFICATIONS */}
               <section className="flex flex-col gap-3">
-                <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground font-semibold">
-                  CERTIFICATIONS
-                </h2>
+                <SectionMark numeral="VI" label="Certifications" />
                 <div className="flex flex-col gap-3">
                   {certifications.map((c) => (
                     <div key={c.title} className="print-avoid-break">
