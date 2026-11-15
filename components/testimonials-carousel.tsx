@@ -43,9 +43,7 @@ export function TestimonialsCarousel() {
 
   return (
     <section className="flex flex-col gap-6">
-      <h3 className="font-serif text-lg italic text-highlighted">
-        Kind words<span className="text-primary">.</span>
-      </h3>
+      <h2 className="text-xl font-semibold">Kind words</h2>
 
       {loading ? (
         <p className="text-sm text-muted-foreground/60">Loading…</p>
@@ -53,7 +51,7 @@ export function TestimonialsCarousel() {
         <ul className="flex flex-col gap-8">
           {testimonials.map((t, i) => (
             <li key={t.id} className="folio-in flex flex-col gap-3" style={{ animationDelay: `${i * 40}ms` }}>
-              <blockquote className="border-l-2 border-primary/70 pl-4 text-pretty text-sm/6 text-foreground">
+              <blockquote className="border-l-2 border-border pl-4 text-pretty text-sm/6 text-muted-foreground">
                 &ldquo;{t.content}&rdquo;
               </blockquote>
               <div className="flex items-center gap-3 pl-4">
@@ -65,7 +63,7 @@ export function TestimonialsCarousel() {
                     className="size-8 rounded-full border border-border/80 object-cover shadow-sm"
                   />
                 ) : (
-                  <span className="flex size-8 items-center justify-center rounded-full border border-border/60 bg-muted font-serif text-sm text-muted-foreground">
+                  <span className="flex size-8 items-center justify-center rounded-full border border-border/60 bg-muted text-sm text-muted-foreground">
                     {(t.author || "?").charAt(0).toUpperCase()}
                   </span>
                 )}
@@ -75,7 +73,7 @@ export function TestimonialsCarousel() {
                       href={t.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-medium text-highlighted decoration-primary underline-offset-4 hover:underline"
+                      className="font-medium text-highlighted decoration-border underline-offset-4 hover:underline"
                     >
                       {t.author}
                     </a>

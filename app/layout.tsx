@@ -1,16 +1,15 @@
 import type { Metadata } from 'next'
-import { Anton, Geist, JetBrains_Mono } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
+import { ThemeSwitch } from '@/components/minimal/theme-switch'
 import './globals.css'
 
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
 });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
-// Condensed brutalist display face for headlines
-const anton = Anton({ subsets: ["latin"], weight: "400", variable: "--font-anton" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
   title: 'Abdurhaman Nur — Systems & Web3 Engineer',
@@ -32,11 +31,12 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`bg-background ${geist.variable} ${jetbrainsMono.variable} ${anton.variable}`}
+      className={`bg-background ${geist.variable} ${geistMono.variable}`}
     >
-      <body className="font-sans antialiased text-foreground selection:bg-primary/20 selection:text-highlighted">
+      <body className="font-sans antialiased text-foreground selection:bg-foreground/10">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           {children}
+          <ThemeSwitch />
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

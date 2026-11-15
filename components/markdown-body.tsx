@@ -3,23 +3,33 @@
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 
+/** Some stored posts contain HTML-escaped characters (e.g. &#x27;); turn them back into text. */
+function decodeEntities(text: string) {
+  return text
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, "&")
+}
+
 export function MarkdownBody({ content }: { content: string }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ children }) => (
-          <h1 className="mt-12 mb-4 font-display text-3xl font-bold leading-tight text-highlighted">
+          <h1 className="mt-12 mb-4 text-3xl font-semibold tracking-tight leading-tight text-highlighted">
             {children}
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="mt-10 mb-3 font-display text-2xl font-bold leading-tight text-highlighted">
+          <h2 className="mt-10 mb-3 text-2xl font-semibold tracking-tight leading-tight text-highlighted">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="mt-8 mb-2 font-display text-xl font-bold leading-snug text-highlighted">
+          <h3 className="mt-8 mb-2 text-xl font-semibold tracking-tight leading-snug text-highlighted">
             {children}
           </h3>
         ),
@@ -38,7 +48,7 @@ export function MarkdownBody({ content }: { content: string }) {
               href={externalHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-b border-primary font-medium text-highlighted transition-colors hover:border-highlighted"
+              className="font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground"
             >
               {children}
             </a>
@@ -51,7 +61,7 @@ export function MarkdownBody({ content }: { content: string }) {
           <em className="italic">{children}</em>
         ),
         blockquote: ({ children }) => (
-          <blockquote className="my-6 border-l-2 border-primary pl-5 text-[0.95rem] italic leading-[1.8] text-foreground/70">
+          <blockquote className="my-6 border-l-2 border-border pl-5 text-[0.95rem] italic leading-[1.8] text-foreground/70">
             {children}
           </blockquote>
         ),
@@ -63,7 +73,7 @@ export function MarkdownBody({ content }: { content: string }) {
         ),
         li: ({ children }) => (
           <li className="flex gap-2.5 text-[0.95rem] leading-[1.75] text-foreground/85 sm:text-base">
-            <span aria-hidden className="mt-[0.6rem] inline-block h-1 w-1 shrink-0 bg-primary" />
+            <span aria-hidden className="mt-[0.6rem] inline-block size-1.5 shrink-0 rounded-full bg-foreground/50" />
             <span>{children}</span>
           </li>
         ),
@@ -77,13 +87,13 @@ export function MarkdownBody({ content }: { content: string }) {
             )
           }
           return (
-            <code className="bg-foreground/[0.07] px-1.5 py-0.5 font-mono text-[0.85em] text-foreground/90">
+            <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[0.85em] text-foreground/90">
               {children}
             </code>
           )
         },
         pre: ({ children }) => (
-          <pre className="my-6 overflow-x-auto border border-border/60 bg-foreground/[0.03] p-5 font-mono text-[0.85rem] leading-relaxed">
+          <pre className="my-6 overflow-x-auto rounded-xl border bg-muted/50 p-5 font-mono text-[0.85rem] leading-relaxed">
             {children}
           </pre>
         ),
@@ -95,11 +105,11 @@ export function MarkdownBody({ content }: { content: string }) {
           <img
             src={src || "/placeholder.svg"}
             alt={alt ?? ""}
-            className="my-6 w-full border border-border/60 object-cover"
+            className="my-6 w-full rounded-xl object-cover outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
           />
         ),
         table: ({ children }) => (
-          <div className="my-6 overflow-x-auto border border-border/60">
+          <div className="my-6 overflow-x-auto rounded-xl border">
             <table className="w-full text-sm">{children}</table>
           </div>
         ),
@@ -119,7 +129,7 @@ export function MarkdownBody({ content }: { content: string }) {
         ),
       }}
     >
-      {content}
+      {decodeEntities(content)}
     </ReactMarkdown>
   )
 }

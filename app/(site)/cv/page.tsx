@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Link from "next/link"
+import { AsciiFigure } from "@/components/minimal/ascii-figure"
 import { PrintCvButton } from "@/components/print-cv-button"
 import {
   certifications,
@@ -42,29 +42,25 @@ const cvProjects: CvEntry[] = [
 
 export default function CvPage() {
   return (
-    <div id="cv-root" className="cv-print min-h-screen bg-background text-foreground selection:bg-primary/20 print:bg-white print:text-black">
-      {/* Top back navigation */}
-      <div className="mx-auto max-w-4xl px-6 pt-8 print:hidden">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition hover:text-foreground"
-        >
-          <span>←</span> Back to home
-        </Link>
-      </div>
-
-      <main className="mx-auto max-w-4xl px-6 py-8 sm:py-12 print:max-w-none print:px-0 print:py-0">
-        <div className="rounded-xl border border-border/60 bg-card/30 p-6 sm:p-12 print:border-none print:bg-transparent print:p-0">
+    <div id="cv-root" className="cv-print relative text-foreground selection:bg-primary/20 print:bg-white print:text-black">
+      <main className="folio-in relative z-10 mx-auto max-w-4xl px-5 py-10 sm:px-6 sm:py-12 print:max-w-none print:px-0 print:py-0">
+        <div className="rounded-2xl border bg-card p-5 shadow-sm sm:p-12 print:shadow-none print:border-none print:bg-transparent print:p-0">
           
           {/* Header Action: Print / Save PDF */}
-          <div className="flex items-center justify-end pb-4 print:hidden">
+          <div className="flex items-start justify-between gap-4 pb-4 print:hidden">
+            <div className="flex flex-col gap-2">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Seek · Résumé</p>
+              <div className="w-28 sm:w-36">
+                <AsciiFigure text="CV" aspect={0.6} cols={34} label="" className="cursor-crosshair" />
+              </div>
+            </div>
             <PrintCvButton />
           </div>
 
           {/* CV Header: Name, Note, Bio, and Links */}
           <header className="grid gap-6 border-b border-border/80 pb-8 sm:grid-cols-[1fr_13rem]">
             <div className="flex flex-col gap-2.5">
-              <h1 className="font-serif text-3xl tracking-tight text-highlighted sm:text-4xl">
+              <h1 className="text-3xl font-semibold tracking-tight text-highlighted sm:text-4xl">
                 Abdurhaman Nur
               </h1>
               <p className="font-mono text-xs text-muted-foreground">

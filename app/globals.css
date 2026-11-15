@@ -3,92 +3,88 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ------------------------------------------------------------------ */
-/*  Cyber-brutalist design system                                     */
-/*  Monochrome: paper white, hairline grid, pure black ink.            */
-/* ------------------------------------------------------------------ */
 :root {
-  /* Cyber-brutalist monochrome: paper white, hairline grey, pure black ink */
-  --background: #f2f2f2;
-  --foreground: #161616;
-  --highlighted: #000000;
-  --card: #fafafa;
-  --card-foreground: #000000;
-  --popover: #fafafa;
-  --popover-foreground: #000000;
-  --primary: #0a0a0a;
+  /* Clean neutral palette: white paper, near-black ink, soft grey hairlines */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --highlighted: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #171717;
   --primary-foreground: #fafafa;
-  --secondary: #e7e7e7;
-  --secondary-foreground: #000000;
-  --muted: #e7e7e7;
-  --muted-foreground: #6b6b6b;
-  --accent: #e7e7e7;
-  --accent-foreground: #000000;
-  --destructive: #000000;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #171717;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #f5f5f5;
+  --accent-foreground: #171717;
+  --destructive: #e40014;
   --destructive-foreground: #fafafa;
-  --border: #d4d4d4;
-  --input: #cfcfcf;
-  --ring: #0a0a0a;
-  --chart-1: #0a0a0a;
-  --chart-2: #4a4a4a;
-  --chart-3: #7a7a7a;
-  --chart-4: #a5a5a5;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #a1a1a1;
+  --chart-1: #171717;
+  --chart-2: #525252;
+  --chart-3: #737373;
+  --chart-4: #a1a1a1;
   --chart-5: #d4d4d4;
-  --radius: 0rem;
-  --grid-line: #e3e3e3;
+  --radius: 0.625rem;
+  --grid-line: #f0f0f0;
   --sidebar: #fafafa;
-  --sidebar-foreground: #000000;
-  --sidebar-primary: #0a0a0a;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #171717;
   --sidebar-primary-foreground: #fafafa;
-  --sidebar-accent: #e7e7e7;
-  --sidebar-accent-foreground: #000000;
-  --sidebar-border: #d4d4d4;
-  --sidebar-ring: #0a0a0a;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #171717;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #a1a1a1;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #e4e4e4;
-  --highlighted: #ffffff;
-  --card: #111111;
-  --card-foreground: #ffffff;
-  --popover: #111111;
-  --popover-foreground: #ffffff;
-  --primary: #f5f5f5;
-  --primary-foreground: #0a0a0a;
-  --secondary: #1c1c1c;
-  --secondary-foreground: #ffffff;
-  --muted: #1a1a1a;
-  --muted-foreground: #8c8c8c;
-  --accent: #1c1c1c;
-  --accent-foreground: #ffffff;
-  --destructive: #ffffff;
-  --destructive-foreground: #0a0a0a;
-  --border: #272727;
-  --input: #303030;
-  --ring: #f5f5f5;
-  --chart-1: #f5f5f5;
-  --chart-2: #bdbdbd;
-  --chart-3: #8c8c8c;
-  --chart-4: #555555;
-  --chart-5: #272727;
-  --grid-line: #171717;
-  --sidebar: #111111;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #f5f5f5;
-  --sidebar-primary-foreground: #0a0a0a;
-  --sidebar-accent: #1c1c1c;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #272727;
-  --sidebar-ring: #f5f5f5;
+  --background: #121212;
+  --foreground: #fafafa;
+  --highlighted: #fafafa;
+  --card: #171717;
+  --card-foreground: #fafafa;
+  --popover: #171717;
+  --popover-foreground: #fafafa;
+  --primary: #e5e5e5;
+  --primary-foreground: #171717;
+  --secondary: #262626;
+  --secondary-foreground: #fafafa;
+  --muted: #262626;
+  --muted-foreground: #a1a1a1;
+  --accent: #262626;
+  --accent-foreground: #fafafa;
+  --destructive: #ff6568;
+  --destructive-foreground: #171717;
+  --border: #ffffff1a;
+  --input: #ffffff26;
+  --ring: #737373;
+  --chart-1: #fafafa;
+  --chart-2: #d4d4d4;
+  --chart-3: #a1a1a1;
+  --chart-4: #737373;
+  --chart-5: #404040;
+  --grid-line: #1c1c1c;
+  --sidebar: #171717;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #e5e5e5;
+  --sidebar-primary-foreground: #171717;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #ffffff1a;
+  --sidebar-ring: #737373;
 }
 
 @theme inline {
-  /* UI + body copy are monospace; headings use the squared display face. */
-  --font-sans: var(--font-jetbrains-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-display: var(--font-anton), 'Anton', Impact, 'Arial Narrow', sans-serif;
-  --font-serif: var(--font-anton), 'Anton', Impact, 'Arial Narrow', sans-serif;
+  /* Geist for everything; Geist Mono for code and figures. */
+  --font-sans: var(--font-geist), 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-display: var(--font-geist), 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-geist), 'Geist', ui-sans-serif, system-ui, sans-serif;
   /* Long-form reading (articles, about) */
   --font-prose: var(--font-geist), 'Geist', ui-sans-serif, system-ui, sans-serif;
   --color-grid-line: var(--grid-line);
@@ -184,6 +180,23 @@
   }
 }
 
+/* Blur-fade entrance: each block drifts down out of a soft blur */
+@keyframes blur-fade-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--blur-fade-blur, 6px));
+    transform: translateY(var(--blur-fade-y, -6px));
+  }
+}
+.blur-fade {
+  animation: blur-fade-in var(--blur-fade-duration, 0.4s) ease-out var(--blur-fade-delay, 0s) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .blur-fade {
+    animation: none;
+  }
+}
+
 /* Fade-in for list rows with safe default opacity */
 .folio-in {
   opacity: 1;
@@ -193,16 +206,18 @@
   @keyframes folio-in {
     from {
       opacity: 0;
-      transform: translateY(3px);
+      filter: blur(6px);
+      transform: translateY(-6px);
     }
     to {
       opacity: 1;
+      filter: blur(0);
       transform: translateY(0);
     }
   }
 
   .folio-in {
-    animation: folio-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: folio-in 0.4s ease-out both;
   }
 }
 
@@ -301,19 +316,17 @@
   }
 }
 
-/* Smooth theme transition (mr.seefun.dev style) */
-html,
-body,
-#main {
-  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
+/* Theme switch: the new theme is revealed by a circle (animated from JS). */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.4s;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
 }
 
 @media print {

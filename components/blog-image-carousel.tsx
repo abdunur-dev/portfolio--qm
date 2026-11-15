@@ -41,7 +41,7 @@ export function BlogImageCarousel({ images, title }: { images: string[]; title: 
   return (
     <section className="mt-8 select-none" aria-label={`${title} image gallery`}>
       <div
-        className="group relative aspect-[16/9] w-full overflow-hidden rounded-md border border-border/60 bg-muted/20 touch-pan-y"
+        className="group relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-muted/20 outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10 touch-pan-y"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
