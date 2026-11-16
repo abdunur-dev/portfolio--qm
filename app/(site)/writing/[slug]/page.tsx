@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { FolioShell } from "@/components/folio/ui"
 import { MarkdownBody } from "@/components/markdown-body"
-import { BlogImageCarousel } from "@/components/blog-image-carousel"
+import { PinnedBoard } from "@/components/pinned-board"
 import { getPost, getPosts } from "@/lib/content"
 
 export const dynamic = "force-dynamic"
@@ -58,21 +58,15 @@ export default async function WritingPost({ params }: { params: Promise<Params> 
           )}
         </header>
 
-        {/* Picture / Carousel */}
-        {post.image_urls && post.image_urls.length > 1 ? (
-          <div className="folio-in mt-8" style={{ animationDelay: "160ms" }}>
-            <BlogImageCarousel images={post.image_urls} title={post.title} />
-          </div>
-        ) : post.cover_url || (post.image_urls && post.image_urls.length > 0) ? (
-          <figure className="folio-in mt-10" style={{ animationDelay: "160ms" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={post.cover_url ?? post.image_urls![0]}
-              alt={`${post.title} cover image`}
-              className="aspect-[16/9] w-full rounded-xl object-cover shadow-sm outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
-            />
-          </figure>
-        ) : null}
+        {/* Photos pinned to a spotlit board */}
+        {(() => {
+          const photos = post.image_urls && post.image_urls.length > 0 ? post.image_urls : post.cover_url ? [post.cover_url] : []
+          return photos.length > 0 ? (
+            <div className="folio-in" style={{ animationDelay: "160ms" }}>
+              <PinnedBoard images={photos} title={post.title} />
+            </div>
+          ) : null
+        })()}
 
         {/* Article */}
         <div className="folio-in mt-10" style={{ animationDelay: "200ms" }}>

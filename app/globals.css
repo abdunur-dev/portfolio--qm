@@ -197,6 +197,132 @@
   }
 }
 
+/* Site backdrop: blurred photo under a strong, EVEN tint (no vignette), so
+   every line of text sits on the same calm surface in both themes. */
+.site-backdrop-tint {
+  background: color-mix(in oklch, var(--background) 84%, transparent);
+  transition: background-color 0.3s ease;
+}
+.dark .site-backdrop-tint {
+  background: color-mix(in oklch, var(--background) 74%, transparent);
+}
+/* Over the backdrop, secondary text gets a little more contrast. */
+.site-root {
+  --muted-foreground: #525252;
+}
+.dark .site-root {
+  --muted-foreground: #b4b4b4;
+}
+
+/* Pinned board (post photos): tilted prints pinned straight onto the page. */
+.pinned-card {
+  left: var(--l);
+  top: var(--t);
+  width: var(--w);
+  z-index: var(--z, 10);
+  transform: rotate(var(--rot, 0deg));
+  transition:
+    left 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms),
+    opacity 0.5s ease var(--delay, 0ms);
+}
+/* before it scrolls in: off to the side, spun, invisible */
+.pinned-card[data-state="out"] {
+  opacity: 0;
+  transform: translateX(var(--from)) rotate(calc(var(--rot) * 4));
+}
+.pinned-card[data-state="rest"]:hover,
+.pinned-card[data-state="rest"]:focus-within {
+  z-index: 30;
+  transform: rotate(0deg) scale(1.05) translateY(-2%);
+}
+/* the board: height from padding so it can grow smoothly when a photo opens */
+.pinned-board {
+  height: 0;
+  padding-top: var(--ratio, 60%); /* fitted to the prints in JS */
+  transition: padding-top 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pinned-board[data-open="true"] {
+  padding-top: max(var(--ratio, 60%), 80%);
+}
+/* opened: slides to the middle, straightens, grows to near full width */
+.pinned-card[data-state="open"] {
+  left: 2%;
+  top: 0%;
+  width: 96%;
+  z-index: 40;
+  transform: rotate(0deg);
+}
+/* on wide screens it grows past the text column for a proper look */
+@media (min-width: 1024px) {
+  .pinned-board[data-open="true"] {
+    padding-top: max(var(--ratio, 60%), 93%);
+  }
+  .pinned-card[data-state="open"] {
+    left: -8%;
+    width: 116%;
+  }
+}
+/* the others slide away and fade back */
+.pinned-card[data-state="aside"] {
+  opacity: 0.3;
+  transform: translateX(var(--aside)) rotate(calc(var(--rot) * 1.6)) scale(0.9);
+}
+/* pins drop in once the print has landed */
+.pinned-card .pinned-pin {
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--delay, 0ms) + 550ms);
+}
+.pinned-card[data-state="out"] .pinned-pin {
+  opacity: 0;
+  transform: translateY(-60%) scale(1.6);
+}
+/* idle sway while on screen: hangs from its pin (top right), gently rocks and
+   drifts; pauses on hover and while a print is opened */
+@keyframes pinned-sway {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(var(--sway-a, 1.5deg)) translateY(-1.2%); }
+}
+.pinned-sway {
+  transform-origin: 92% 0%;
+}
+.pinned-card[data-state="rest"] .pinned-sway {
+  animation: pinned-sway var(--sway-dur, 4s) ease-in-out var(--sway-delay, 0s) infinite;
+}
+.pinned-card[data-state="rest"]:hover .pinned-sway,
+.pinned-card[data-state="rest"]:focus-within .pinned-sway {
+  animation-play-state: paused;
+}
+
+/* photo-to-photo slide inside an opened print */
+@keyframes pinned-slide-next {
+  from { transform: translateX(28%); opacity: 0; }
+}
+@keyframes pinned-slide-prev {
+  from { transform: translateX(-28%); opacity: 0; }
+}
+.pinned-slide-next {
+  animation: pinned-slide-next 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pinned-slide-prev {
+  animation: pinned-slide-prev 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pinned-card,
+  .pinned-card .pinned-pin {
+    transition: none;
+  }
+  .pinned-slide-next,
+  .pinned-slide-prev,
+  .pinned-card[data-state="rest"] .pinned-sway {
+    animation: none;
+  }
+}
+
 /* Letterhead signature: writes itself in left to right, once. */
 .signature {
   font-family: var(--font-signature), cursive;

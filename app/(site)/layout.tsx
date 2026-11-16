@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import { HeaderField } from "@/components/minimal/header-field"
 import { Letterhead } from "@/components/minimal/letterhead"
+import { Backdrop } from "@/components/minimal/backdrop"
 
 /**
  * Shared chrome for the public site. Lives in a layout so the letterhead and
@@ -9,7 +10,8 @@ import { Letterhead } from "@/components/minimal/letterhead"
  */
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative min-h-dvh w-full overflow-x-clip">
+    <div className="site-root relative min-h-dvh w-full overflow-x-clip">
+      <Backdrop />
       <HeaderField />
       <Letterhead />
       {children}

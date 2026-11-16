@@ -38,13 +38,14 @@ export function LedgerRow({
 }) {
   const body = (
     <>
-      <span className="flex shrink-0 items-baseline">
+      {/* On phones a long title may wrap (min-w-0); from sm up it stays on one line. */}
+      <span className="flex min-w-0 items-baseline sm:shrink-0">
         {index && (
           <span aria-hidden className="w-6 shrink-0 font-mono text-[10px] tabular-nums text-muted-foreground/45 sm:-ml-9 sm:w-9">
             {index}
           </span>
         )}
-        <span className="font-medium text-foreground decoration-foreground/40 underline-offset-4 group-hover:underline">
+        <span className="min-w-0 text-pretty font-medium leading-snug text-foreground decoration-foreground/40 underline-offset-4 group-hover:underline">
           {title}
         </span>
       </span>
@@ -55,7 +56,7 @@ export function LedgerRow({
       )}
     </>
   )
-  const cls = "group flex items-baseline gap-3 py-2 text-[15px]"
+  const cls = "group flex items-baseline gap-3 py-2.5 text-[15px] sm:py-2"
   return href ? (
     <Link href={href} {...externalProps(href)} className={`${cls} outline-none focus-visible:underline`}>
       {body}
